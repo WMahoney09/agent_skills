@@ -60,6 +60,19 @@ Once information gathering is complete, the agent should:
 
 ### Stage 3: Present the Plan
 
+**Before Writing the Plan Document:**
+
+Plan files must be saved to the project's `.cursor/` directory, never to home directory locations like `~/.cursor/*`. This follows the principle that **all agent-generated artifacts must be project-local and tracked in git, never home-directory-scoped**.
+
+- **Where to save:** `.cursor/plans/` (most common) or another `.cursor/` subdirectory following your project's conventions (e.g., `.cursor/work/feature-name/`)
+- **Where NOT to save:** `~/.cursor/`, `$HOME/.cursor/`, or any home directory path
+- **Before writing:** Confirm the full file path with the person—"I'll save this plan to `.cursor/plans/my-plan.md`. Does that look right?"
+
+This ensures:
+- Plan files are part of the project and tracked in version control
+- Team members find plans in a consistent, project-local location
+- No duplicates across machines or in home directories
+
 Generate a written plan document that includes:
 
 - **Overview**: High-level summary of what will be built
@@ -77,6 +90,7 @@ Generate a written plan document that includes:
 - **Identify critical paths** - Make clear what must be done in sequence vs. what can be parallelized.
 - **Surface assumptions** - Call out any assumptions the agent is making so they can be validated.
 - **Scope clarity** - Be explicit about what's included in this plan and what's not (e.g., "We'll update the API, but not the frontend" or "This assumes Redis is already set up").
+- **Artifacts are project-local** - All generated artifacts (plans, notes, configurations) must be saved to the project, never to home directory conventions like `~/.cursor/*` or `~/.vscode/*`. See the [Artifactor skill](./artifactor.md) for full guidance on this principle.
 
 ## The Interactive Q&A: What to Ask
 
@@ -106,6 +120,18 @@ Example categories of questions an agent might explore:
 - What's explicitly *not* included in this work?
 - Are there related problems we should defer?
 - What should the person do if they discover X during implementation?
+
+## Pre-Delivery Validation Checklist
+
+Before presenting the plan document to the person, verify:
+
+- [ ] Plan file is saved to `.cursor/plans/` or another `.cursor/` subdirectory in this project
+- [ ] Plan file path does **NOT** contain `~/.cursor/`, `$HOME/.cursor/`, or any home directory reference
+- [ ] Plan file is relative to the project, not an absolute path to home
+- [ ] Full file path has been confirmed with the person
+- [ ] Plan file is ready to be tracked in git (it's in the project, not gitignored)
+
+If any of these checks fail, correct the file location before proceeding.
 
 ## Closure Criteria
 
