@@ -18,22 +18,24 @@ This directory contains portable, tool-agnostic skills implementing a structured
 - High-level architecture only, not implementation
 
 ### Phase 3: Planning (Architecture-to-Implementation)
-**Skill:** `/planning` → `planning.md`
+
+This phase creates and validates the implementation plan through two steps:
+
+**Step 1 - Planning:** `/planning` → `planning.md`
 - Interactive Q&A to gather full context
 - Design step-by-step implementation plan
 - Identify phases, steps, tasks, dependencies, and risks
-- Ready before implementation begins
+- Generate initial plan document
 
-### Phase 3.5: Pre-Flight (Plan Validation)
-**Skill:** `/pre-flight` → `pre-flight.md`
-- Final review of the implementation plan
+**Step 2 - Pre-Flight Validation:** `/pre-flight` → `pre-flight.md`
+- Interactive review and refinement of the plan
 - Identify gaps, contradictions, and opportunities
 - Validate plan readiness before implementation
 - Recommend parallelization or simplification
 
 ### Phase 4: Implementation (Execution)
 
-Three distinct approaches depending on your workflow:
+Two distinct approaches depending on your workflow:
 
 **Skill 1:** `/proceed` → `proceed.md`
 - User-controlled execution with granular review points
@@ -50,21 +52,41 @@ Three distinct approaches depending on your workflow:
 ### Phase 5: Review (Evaluation)
 **Status:** Planned for future implementation
 
-### Phase 6: Commit/Finalization (Version Control)
-**Status:** Planned for future implementation
+## Meta
+
+**Skill:** `/artifactor` → `artifactor.md`
+- Guidance for skill authors on artifact placement principles
+- Ensures all agent-generated artifacts are project-local (not in home directories)
+- Provides checklists and validation criteria for skills that generate artifacts
+- **Note:** This is meta-guidance for skill development, not a workflow skill for users
 
 ## Supporting Skills
 
+These skills can be used at any point in the workflow to deepen understanding, validate decisions, or gather context. The typical usage patterns below are recommendations, not strict requirements.
+
 **Skill:** `/reconnaissance` → `reconnaissance.md`
 - Read-only investigation of code and documentation
-- Explore existing systems and patterns
-- Gather context before Understanding or as standalone research
-- Works before, during, or independently of the main workflow
+- Explore existing systems, architecture, and patterns
+- Gather context through file exploration and documentation
+- **Typical usage:** Before or during Understanding phase, or as standalone research
 
-**Skill:** `/phased-development` → `phased-development.md`
-- Overview document describing all phases
-- Reference material showing how phases connect
-- Not typically invoked directly, but useful for context
+**Skill:** `/interrogative` → `interrogative.md`
+- Ask clarifying questions to sharpen and deepen shared understanding
+- Surface hidden assumptions, contradictions, and constraints
+- Test ideas and mental models through strategic questioning
+- **Typical usage:** During Understanding or Reasoning phases to clarify ambiguities
+
+**Skill:** `/reasoning` → `reasoning.md`
+- Reason through problems to extract truths, conditionals, and directional vectors
+- Validate the problem and derive guiding principles
+- Develop directional clarity before proposing solutions
+- **Typical usage:** After Understanding, before Solutioning to establish direction
+
+**Skill:** `/tire-kicking` → `tire-kicking.md`
+- Stress-test proposed designs against concrete scenarios
+- Identify where designs hold, bend, or leak before implementation
+- Validate approaches against edge cases, lifecycle events, and data changes
+- **Typical usage:** After Solutioning, before or alongside Planning to validate designs
 
 ## How Skills Work
 
