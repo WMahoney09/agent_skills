@@ -129,6 +129,7 @@ Each skill includes YAML frontmatter specifying `name` and `description`, which 
 
 ## Sources
 
+- [Agent Skills](https://agentskills.io/home)
 - [Extend Claude with skills - Claude Code Docs](https://code.claude.com/docs/en/skills)
 - [Claude Code Skills Setup in Cursor](https://www.cursor-ide.com/blog/claude-code-skills)
 - [Using Skills in Claude](https://support.claude.com/en/articles/12512180-using-skills-in-claude)
