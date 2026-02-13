@@ -1,12 +1,12 @@
 ---
-name: proceed
-description: Execute the implementation plan phase-by-phase, step-by-step, or task-by-task with user-controlled review and commit boundaries.
+name: pair-on
+description: Pair program through the implementation plan with the agent, controlling review boundaries and commits at phase, step, or task level.
 disable-model-invocation: true
 ---
 
-# Proceed: Implementation Execution with User-Controlled Boundaries
+# Pair-On: Pair Programming Implementation with User-Controlled Boundaries
 
-This skill executes the implementation plan from Phase 3, with you directing when to pause for review and committing between units.
+This skill enables pair programming through the implementation plan from Phase 3, with you directing when to pause for review and committing between units.
 
 ## Goal
 
@@ -21,8 +21,8 @@ Execute the implementation plan at your chosen granularity (Phase, Step, or Task
 - Choose your review granularity at the start (Phase / Step / Task)
 - Review completed work
 - Make git commits as you see fit
-- Request changes if needed, or approve and say "proceed"
-- Say "proceed" to move the agent to the next unit
+- Request changes if needed, or approve and say "continue" or "next"
+- Signal the agent to move to the next unit with natural language like "continue", "next", or "go ahead"
 - Manage the git history and commit messages
 
 ## Agent's Role
@@ -33,7 +33,7 @@ The agent executing this skill should:
 2. **Execute one unit** at the chosen level
 3. **Pause and wait** for your signal
 4. **Accept feedback** and adjust if needed
-5. **Only proceed** when explicitly told "proceed"
+5. **Only continue** when you give explicit approval to move forward
 
 ## Phase 1: Set Granularity
 
@@ -87,32 +87,32 @@ At each pause point, you should:
 2. **Commit if satisfied** - Make a git commit with an appropriate message
 3. **Make a decision:**
 
-### Decision A: Approve and Proceed
-- Say: **"proceed"**
+### Decision A: Approve and Continue
+- Say: **"continue"**, **"next"**, or **"go ahead"**
 - Agent moves to the next unit at your chosen granularity
 
 ### Decision B: Request Changes
 - Specify what changes you want
 - Agent re-does the current unit with your feedback
-- Once adjusted, commit and say "proceed"
+- Once adjusted, commit and signal to continue
 
 ### Decision C: Skip or Defer
 - Tell the agent to skip the current unit and move to the next one, or
 - Tell the agent to pause entirely while you handle something else
-- Resume with "proceed" when ready
+- Resume with your signal when ready
 
 ## Key Behaviors
 
 ### The Agent Must:
 - Complete only one unit per execution cycle
 - Pause immediately after finishing a unit—do not continue to the next unit
-- Wait for explicit "proceed" command before continuing
+- Wait for explicit approval before continuing to the next unit
 - Accept adjustment requests without question
 - Re-execute the current unit if changes are requested
 - Never assume or infer intent—ask if unclear
 
 ### The Agent Should Not:
-- Continue to the next unit without an explicit "proceed" signal
+- Continue to the next unit without explicit approval
 - Combine units (e.g., do two tasks in one execution if set to Task level)
 - Make commits—that's your job
 - Push to remote—that's your decision
@@ -122,7 +122,7 @@ At each pause point, you should:
 
 **Setup:**
 ```
-/proceed
+/pair-on
 → Agent: "Choose your granularity: Phase / Step / Task?"
 You: "Step level"
 ```
@@ -132,7 +132,7 @@ You: "Step level"
 Agent: Executes Step 1
 Agent: "Step 1 complete: [summary]. Ready for review."
 You: Review, test, commit
-You: "proceed"
+You: "continue" (or "next", "go ahead")
 ```
 
 **Second Unit:**
@@ -142,7 +142,7 @@ Agent: "Step 2 complete: [summary]. Ready for review."
 You: "Actually, I need X changed in Step 2"
 Agent: Adjusts Step 2
 You: Review again, commit
-You: "proceed"
+You: "looks good, next"
 ```
 
 **Continue:**
@@ -153,7 +153,7 @@ Agent: Executes Step 3
 
 ## Success Criteria
 
-Proceed is complete when:
+Pair-on is complete when:
 - [ ] The entire plan has been executed
 - [ ] You've reviewed and committed each unit
 - [ ] All work is in git with clear commit history
@@ -174,4 +174,4 @@ At this point, the workflow moves to the Review phase where you'll do a holistic
 - If a unit needs major rework, you can request it; the agent will redo it
 - Pause can happen at any time if you need to handle something outside this workflow
 - The agent works at your pace, not on its own schedule
-- Clear communication about what "proceed" means prevents confusion
+- Use natural language to signal readiness to continue—no need for specific commands

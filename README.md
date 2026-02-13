@@ -37,8 +37,8 @@ This phase creates and validates the implementation plan through two steps:
 
 Two distinct approaches depending on your workflow:
 
-**Skill 1:** `/proceed` → `proceed.md`
-- User-controlled execution with granular review points
+**Skill 1:** `/pair-on` → `pair-on.md`
+- Pair program with the agent through implementation
 - Choose your review boundary: Phase, Step, or Task level
 - Pause after each unit for your review and commit
 - Agent executes, you manage git history and gate progress
