@@ -62,11 +62,16 @@ Once information gathering is complete, the agent should:
 
 **Before Writing the Plan Document:**
 
-Plan files must be saved to the project's `.cursor/` directory, never to home directory locations like `~/.cursor/*`. This follows the principle that **all agent-generated artifacts must be project-local and tracked in git, never home-directory-scoped**.
+Plan files must be saved to the project's tool directory, never to home directory locations. This follows the principle that **all agent-generated artifacts must be project-local and tracked in git, never home-directory-scoped**.
 
-- **Where to save:** `.cursor/plans/` (most common) or another `.cursor/` subdirectory following your project's conventions (e.g., `.cursor/work/feature-name/`)
-- **Where NOT to save:** `~/.cursor/`, `$HOME/.cursor/`, or any home directory path
-- **Before writing:** Confirm the full file path with the person—"I'll save this plan to `.cursor/plans/my-plan.md`. Does that look right?"
+- **Where to save:** Your tool's project directory for plans, such as:
+  - `.claude/plans/` (Claude Code)
+  - `.cursor/plans/` (Cursor)
+  - `.windsurf/plans/` (Windsurf)
+  - `.aider/plans/` (Aider)
+  - Or follow your project's existing convention
+- **Where NOT to save:** `~/.claude/`, `~/.cursor/`, `~/.windsurf/`, or any home directory path
+- **Before writing:** Confirm the full file path with the person—"I'll save this plan to `.claude/plans/my-plan.md`. Does that look right?"
 
 This ensures:
 - Plan files are part of the project and tracked in version control
@@ -90,7 +95,7 @@ Generate a written plan document that includes:
 - **Identify critical paths** - Make clear what must be done in sequence vs. what can be parallelized.
 - **Surface assumptions** - Call out any assumptions the agent is making so they can be validated.
 - **Scope clarity** - Be explicit about what's included in this plan and what's not (e.g., "We'll update the API, but not the frontend" or "This assumes Redis is already set up").
-- **Artifacts are project-local** - All generated artifacts (plans, notes, configurations) must be saved to the project, never to home directory conventions like `~/.cursor/*` or `~/.vscode/*`. See the [Artifactor skill](./artifactor.md) for full guidance on this principle.
+- **Artifacts are project-local** - All generated artifacts (plans, notes, configurations) must be saved to the project, never to home directory conventions like `~/.claude/*`, `~/.cursor/*`, or `~/.vscode/*`. See the [Artifactor skill](./artifactor.md) for full guidance on this principle.
 
 ## The Interactive Q&A: What to Ask
 
@@ -125,8 +130,8 @@ Example categories of questions an agent might explore:
 
 Before presenting the plan document to the person, verify:
 
-- [ ] Plan file is saved to `.cursor/plans/` or another `.cursor/` subdirectory in this project
-- [ ] Plan file path does **NOT** contain `~/.cursor/`, `$HOME/.cursor/`, or any home directory reference
+- [ ] Plan file is saved to your tool's project directory (e.g., `.claude/plans/`, `.cursor/plans/`, or similar)
+- [ ] Plan file path does **NOT** contain `~/.claude/`, `~/.cursor/`, `~/.windsurf/`, or any home directory reference
 - [ ] Plan file is relative to the project, not an absolute path to home
 - [ ] Full file path has been confirmed with the person
 - [ ] Plan file is ready to be tracked in git (it's in the project, not gitignored)

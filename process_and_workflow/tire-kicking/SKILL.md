@@ -80,8 +80,8 @@ Present in a table (scenario | result | notes) or per-scenario blocks. Keep note
 
 For a full example of scenario evaluation and path-forward, see:
 
-- **Scenario evaluation:** `.cursor/work/variants_and_pricing/tire-kicking-scenarios.md` — 14 scenarios, three approaches, holds/bends/leaks table and summary.
-- **Path-forward:** `.cursor/work/variants_and_pricing/path-forward.md` — How the decision was made (leak count, deep-dives, bends), the chosen approach, and how the single leak was closed.
+- **Scenario evaluation:** `.claude/work/some-feature/tire-kicking-scenarios.md` (or `.cursor/work/`, `.windsurf/work/`, etc.) — 14 scenarios, three approaches, holds/bends/leaks table and summary.
+- **Path-forward:** `.claude/work/some-feature/path-forward.md` (or your tool's equivalent) — How the decision was made (leak count, deep-dives, bends), the chosen approach, and how the single leak was closed.
 
 Use these as templates for structure and level of detail; adapt scenario list and depth to the design at hand.
 
