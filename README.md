@@ -1,8 +1,8 @@
-# Phased Development Workflow Skills
+# Agentic Delivery Skills
 
 This directory contains portable, tool-agnostic skills implementing a structured, multi-phase approach to software development. These skills work with Claude Code, Cursor, and any AI coding agent with basic file access.
 
-## Phased Development Phases & Skills
+## Agentic Delivery Phases & Skills
 
 ### Phase 1: Understanding (Discovery)
 **Skill:** `/understanding` → `understanding.md`
