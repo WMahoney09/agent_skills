@@ -115,37 +115,7 @@ At each natural break point (task completion, step completion, or logical groupi
 
 ### Commit Message Format
 
-Commit messages should follow:
-```
-[domain/concern] Brief description of what changed
-
-- Key change 1
-- Key change 2
-- Key change 3 (if not obvious)
-
-Files affected: list of concern/categories if helpful
-```
-
-Examples:
-```
-[User Auth] Add login API endpoint and authentication middleware
-
-- Implement POST /api/auth/login endpoint
-- Add JWT token generation and validation
-- Add authentication middleware for protected routes
-
-[Orders] Create order creation form and API handler
-
-- Add OrderForm React component
-- Implement POST /api/orders endpoint with validation
-- Add order schema to database
-
-[Migrations] Add user and order tables with indexes
-
-- Create users table with email unique constraint
-- Create orders table with foreign key to users
-- Add indexes on frequently queried columns
-```
+All commits made during `produce` must follow the **committer** skill convention — type prefix, brief title, detailed body. Refer to the `committer` skill for the full format, type classification rules, and examples.
 
 ## Phase 4: Completion
 

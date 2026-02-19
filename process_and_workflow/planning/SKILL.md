@@ -62,21 +62,7 @@ Once information gathering is complete, the agent should:
 
 **Before Writing the Plan Document:**
 
-Plan files must be saved to the project's tool directory, never to home directory locations. This follows the principle that **all agent-generated artifacts must be project-local and tracked in git, never home-directory-scoped**.
-
-- **Where to save:** Your tool's project directory for plans, such as:
-  - `.claude/plans/` (Claude Code)
-  - `.cursor/plans/` (Cursor)
-  - `.windsurf/plans/` (Windsurf)
-  - `.aider/plans/` (Aider)
-  - Or follow your project's existing convention
-- **Where NOT to save:** `~/.claude/`, `~/.cursor/`, `~/.windsurf/`, or any home directory path
-- **Before writing:** Confirm the full file path with the person—"I'll save this plan to `.claude/plans/my-plan.md`. Does that look right?"
-
-This ensures:
-- Plan files are part of the project and tracked in version control
-- Team members find plans in a consistent, project-local location
-- No duplicates across machines or in home directories
+Follow the `artifactor` skill to determine where to save the plan file, confirm the path with the user, and validate the location before writing.
 
 Generate a written plan document that includes:
 
@@ -125,18 +111,6 @@ Example categories of questions an agent might explore:
 - What's explicitly *not* included in this work?
 - Are there related problems we should defer?
 - What should the person do if they discover X during implementation?
-
-## Pre-Delivery Validation Checklist
-
-Before presenting the plan document to the person, verify:
-
-- [ ] Plan file is saved to your tool's project directory (e.g., `.claude/plans/`, `.cursor/plans/`, or similar)
-- [ ] Plan file path does **NOT** contain `~/.claude/`, `~/.cursor/`, `~/.windsurf/`, or any home directory reference
-- [ ] Plan file is relative to the project, not an absolute path to home
-- [ ] Full file path has been confirmed with the person
-- [ ] Plan file is ready to be tracked in git (it's in the project, not gitignored)
-
-If any of these checks fail, correct the file location before proceeding.
 
 ## Closure Criteria
 
