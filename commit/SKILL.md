@@ -1,10 +1,10 @@
 ---
-name: committer
+name: commit
 description: Stage and commit changes with a consistent, typed commit convention. Can be invoked directly by the user or used by other skills (e.g., produce) to manage git history.
 agent-invocation: user-invoked-and-referenced
 ---
 
-# Committer: Typed Commits with Clear Intent
+# Commit: Typed Commits with Clear Intent
 
 This skill governs how changes are staged and committed. It can be invoked directly to commit current working changes, or referenced by other skills (such as `produce`) to ensure a consistent commit convention throughout execution.
 
@@ -71,7 +71,7 @@ Every commit message must begin with one of four type prefixes, determined by cl
 
 ## When Invoked Directly
 
-When a user invokes `/committer`, the agent should:
+When a user invokes `/commit`, the agent should:
 
 1. **Inspect the working directory** — run `git status` and `git diff` to understand what has changed
 2. **Determine the correct type** — assess whether changes are `[plan]`, `[docs]`, or `[code]`

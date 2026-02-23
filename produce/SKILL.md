@@ -115,7 +115,7 @@ At each natural break point (task completion, step completion, or logical groupi
 
 ### Commit Message Format
 
-All commits made during `produce` must follow the **committer** skill convention — type prefix, brief title, detailed body. Refer to the `committer` skill for the full format, type classification rules, and examples.
+All commits made during `produce` must follow the **commit** skill convention — type prefix, brief title, detailed body. Refer to the `commit` skill for the full format, type classification rules, and examples.
 
 ## Phase 4: Completion
 
