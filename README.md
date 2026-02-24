@@ -6,8 +6,8 @@ This directory contains portable, tool-agnostic skills implementing a structured
 ╔════════════════════════════════════════════════════════════════════════════════╗
 ║                         AGENTIC DELIVERY WORKFLOW                              ║
 ╠═══════════════════════════╦══════════════════════╦═════════════════════════════╣
-║   BUILD A SHARED          ║    PLAN THE WORK     ║     IMPLEMENT THE PLAN      ║
-║   UNDERSTANDING           ║                      ║                             ║
+║   1. BUILD A SHARED       ║   2. PLAN THE WORK   ║   3. IMPLEMENT THE PLAN     ║
+║      UNDERSTANDING        ║                      ║                             ║
 ╠═══════════════════════════╬══════════════════════╬═════════════════════════════╣
 ║                           ║                      ║                             ║
 ║  ┌─────────────────────┐  ║  ┌───────────────┐   ║  ┌───────────────────────┐  ║
