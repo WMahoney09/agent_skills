@@ -13,12 +13,12 @@ This directory contains portable, tool-agnostic skills implementing a structured
 ║  ┌─────────────────────┐  ║  ┌───────────────┐   ║  ┌───────────────────────┐  ║
 ║  │    Understanding    │  ║  │   Planning    │   ║  │    Implementation     │  ║
 ║  │   /understanding    │  ║  │   /planning   │   ║  │  /produce  /pair-on   │  ║
-║  └──────────┬──────────┘  ║  └──────┬────────┘   ║  └───────────────────────┘  ║
-║             │             ║         │            ║                             ║
-║  ┌──────────▼──────────┐  ║  ┌──────▼────────┐   ║                             ║
-║  │     Solutioning     │  ║  │  Pre-Flight   │   ║                             ║
-║  │    /solutioning     │  ║  │  /pre-flight  │   ║                             ║
-║  │    /tire-kicking    │  ║  └───────────────┘   ║                             ║
+║  └──────────┬──────────┘  ║  └──────┬────────┘   ║  └───────────┬───────────┘  ║
+║             │             ║         │            ║              │              ║
+║  ┌──────────▼──────────┐  ║  ┌──────▼────────┐   ║  ┌╌╌╌╌╌╌╌╌╌╌╌▼╌╌╌╌╌╌╌╌╌╌╌┐  ║
+║  │     Solutioning     │  ║  │  Pre-Flight   │   ║  ╎   Review & Revise     ╎  ║
+║  │    /solutioning     │  ║  │  /pre-flight  │   ║  ╎      coming soon      ╎  ║
+║  │    /tire-kicking    │  ║  └───────────────┘   ║  └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘  ║
 ║  └─────────────────────┘  ║                      ║                             ║
 ║                           ║                      ║                             ║
 ╚═══════════════════════════╩══════════════════════╩═════════════════════════════╝
@@ -28,22 +28,24 @@ This directory contains portable, tool-agnostic skills implementing a structured
 
 ## Agentic Delivery Phases & Skills
 
-### Phase 1: Understanding (Discovery)
-**Skill:** `/understanding` → `understanding/SKILL.md`
+### Phase 1: Build A Shared Understanding
+
+**Goal:** Arrive at a shared understanding of the problem *and* a high-level solution direction before any planning or implementation begins.
+
+**Step 1 - Understanding:** `/understanding` → `understanding/SKILL.md`
 - Build shared understanding of the problem
 - Clarify constraints, context, and success criteria
 - No solutions proposed in this phase
 
-### Phase 2: Solutioning (Exploration)
-**Skill:** `/solutioning` → `solutioning/SKILL.md`
+**Step 2 - Solutioning:** `/solutioning` → `solutioning/SKILL.md`
 - Explore 2-3 distinct architectural approaches
 - Reason through tradeoffs of each
 - Align on the direction that best fits your constraints
 - High-level architecture only, not implementation
 
-### Phase 3: Planning (Architecture-to-Implementation)
+### Phase 2: Plan The Work
 
-This phase creates and validates the implementation plan through two steps:
+**Goal:** Produce a documented list of discrete code changes needed to achieve the solution.
 
 **Step 1 - Planning:** `/planning` → `planning/SKILL.md`
 - Interactive Q&A to gather full context
@@ -57,24 +59,27 @@ This phase creates and validates the implementation plan through two steps:
 - Validate plan readiness before implementation
 - Recommend parallelization or simplification
 
-### Phase 4: Implementation (Execution)
+### Phase 3: Implement The Plan
+
+**Goal:** Execute the discrete changes documented in the plan, then verify the result.
+
+**Step 1 - Implementation:**
 
 Two distinct approaches depending on your workflow:
 
-**Skill 1:** `/pair-on` → `pair-on/SKILL.md`
+**Option A:** `/pair-on` → `pair-on/SKILL.md`
 - Pair program with the agent through implementation
 - Choose your review boundary: Phase, Step, or Task level
 - Pause after each unit for your review and commit
 - Agent executes, you manage git history and gate progress
 
-**Skill 2:** `/produce` → `produce/SKILL.md`
+**Option B:** `/produce` → `produce/SKILL.md`
 - Autonomous execution with intelligent atomic commits
 - Agent chooses work order and parallelization strategy
 - Agent manages git history with semantically coherent commits
 - Minimal intervention needed—commits are the deliverable
 
-### Phase 5: Review (Evaluation)
-**Status:** Planned for future implementation
+**Step 2 - Review & Revise:** *(Coming soon)*
 
 ## Meta
 
