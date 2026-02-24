@@ -3,17 +3,17 @@
 This directory contains portable, tool-agnostic skills implementing a structured, multi-phase approach to software development. These skills work with Claude Code, Cursor, and any AI coding agent with basic file access.
 
 ```
-╔══════════════════════════════════════════════════════════════════════════════════╗
+╔════════════════════════════════════════════════════════════════════════════════╗
 ║                         AGENTIC DELIVERY WORKFLOW                              ║
 ╠═══════════════════════════╦══════════════════════╦═════════════════════════════╣
 ║   BUILD A SHARED          ║    PLAN THE WORK     ║     IMPLEMENT THE PLAN      ║
 ║   UNDERSTANDING           ║                      ║                             ║
 ╠═══════════════════════════╬══════════════════════╬═════════════════════════════╣
 ║                           ║                      ║                             ║
-║  ┌─────────────────────┐  ║  ┌───────────────┐   ║  ┌───────────────────────┐ ║
-║  │    Understanding    │  ║  │   Planning    │   ║  │    Implementation     │ ║
-║  │   /understanding    │  ║  │   /planning   │   ║  │  /produce  /pair-on   │ ║
-║  └──────────┬──────────┘  ║  └──────┬────────┘   ║  └───────────────────────┘ ║
+║  ┌─────────────────────┐  ║  ┌───────────────┐   ║  ┌───────────────────────┐  ║
+║  │    Understanding    │  ║  │   Planning    │   ║  │    Implementation     │  ║
+║  │   /understanding    │  ║  │   /planning   │   ║  │  /produce  /pair-on   │  ║
+║  └──────────┬──────────┘  ║  └──────┬────────┘   ║  └───────────────────────┘  ║
 ║             │             ║         │            ║                             ║
 ║  ┌──────────▼──────────┐  ║  ┌──────▼────────┐   ║                             ║
 ║  │     Solutioning     │  ║  │  Pre-Flight   │   ║                             ║
