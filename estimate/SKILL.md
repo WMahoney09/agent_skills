@@ -11,46 +11,46 @@ This skill produces a structured LOE score for a proposed change — a single nu
 
 Evaluate a proposed change across two dimensions and produce:
 - A **LOE score** (1–5) as the primary deliverable
-- **Sub-scores** for Complexity and Impact (each L / M / H)
+- **Sub-scores** for Complexity and Impact (each Low / Medium / High)
 - A **brief rationale** that explains the synthesis, especially when dimensions diverge
 
 ## Output Format
 
 ```
 LOE: 3
-Complexity: L | Impact: H
+Complexity: Low | Impact: High
 One-liner (or a few lines) explaining how the score was reached. Be especially clear when the two dimensions pull in different directions.
 ```
 
 ## Scoring Dimensions
 
-### Complexity (L / M / H)
+### Complexity (Low / Medium / High)
 How hard is this to implement?
 
-- **L** — Straightforward change. Clear scope, minimal logic, low coupling.
-- **M** — Moderate effort. Some non-trivial logic, mild coupling, or moderate ambiguity.
-- **H** — Involved change. Deep logic, high coupling, significant ambiguity, or requires coordination across systems.
+- **Low** — Straightforward change. Clear scope, minimal logic, low coupling.
+- **Medium** — Moderate effort. Some non-trivial logic, mild coupling, or moderate ambiguity.
+- **High** — Involved change. Deep logic, high coupling, significant ambiguity, or requires coordination across systems.
 
 Factors that raise complexity: technical difficulty, unclear requirements, tightly coupled systems, new patterns, concurrency concerns, data migrations.
 
-### Impact (L / M / H)
+### Impact (Low / Medium / High)
 How wide is the blast radius?
 
-- **L** — Narrow scope. Few files, one system, minimal review surface.
-- **M** — Moderate spread. Several files or one significant system, reasonable review burden.
-- **H** — Wide spread. Many files, multiple systems or services, high regression risk, significant review burden.
+- **Low** — Narrow scope. Few files, one system, minimal review surface.
+- **Medium** — Moderate spread. Several files or one significant system, reasonable review burden.
+- **High** — Wide spread. Many files, multiple systems or services, high regression risk, significant review burden.
 
 Factors that raise impact: number of files touched, cross-service changes, shared interfaces, frequently-used code paths, downstream consumers.
 
 ## Synthesis: Complexity × Impact → LOE
 
-| Complexity \ Impact | L | M | H |
+| Complexity \ Impact | Low | Medium | High |
 |---|---|---|---|
-| **L** | 1 | 2 | 3 |
-| **M** | 2 | 3 | 4 |
-| **H** | 3 | 4 | 5 |
+| **Low** | 1 | 2 | 3 |
+| **Medium** | 2 | 3 | 4 |
+| **High** | 3 | 4 | 5 |
 
-Off-diagonal cases (L×H or H×L) both land at **3**. The rationale carries the nuance — make it clear which dimension is elevated and why.
+Off-diagonal cases (Low×High or High×Low) both land at **3**. The rationale carries the nuance — make it clear which dimension is elevated and why.
 
 ## Behavior
 
@@ -67,28 +67,28 @@ Don't over-investigate. The goal is a fast, useful signal — not a full audit. 
 **Aligned dimensions (simple case):**
 ```
 LOE: 1
-Complexity: L | Impact: L
+Complexity: Low | Impact: Low
 Single-file change to a utility function with no downstream consumers.
 ```
 
 **Aligned dimensions (complex case):**
 ```
 LOE: 5
-Complexity: H | Impact: H
+Complexity: High | Impact: High
 Replaces the core auth middleware — intricate logic, touches every authenticated route, and requires coordinating with the mobile team whose tokens will be affected.
 ```
 
 **Off-diagonal (impact-dominant):**
 ```
 LOE: 3
-Complexity: L | Impact: H
+Complexity: Low | Impact: High
 The change itself is a one-liner in the base config, but it propagates to every service that inherits from it. Mechanically simple; the risk is in the spread.
 ```
 
 **Off-diagonal (complexity-dominant):**
 ```
 LOE: 3
-Complexity: H | Impact: L
+Complexity: High | Impact: Low
 Isolated to a single algorithm in a rarely-touched module, but the logic is subtle and easy to break — requires careful reasoning through edge cases.
 ```
 
