@@ -64,7 +64,7 @@ For each solution you propose, cover:
 - Does it hit any of the constraints from the Understanding phase?
 - Are there technical or organizational blockers?
 
-**LOE:** Produce a Level of Effort score using the `estimate` skill — Complexity (L/M/H), Impact (L/M/H), and a synthesized 1–5 score. This gives a concrete, comparable cost signal alongside the qualitative tradeoffs.
+**LOE:** Produce a Level of Effort score using the `estimate` skill. This gives a concrete, comparable cost signal alongside the qualitative tradeoffs.
 
 **Best for:**
 - When would you choose this approach?
