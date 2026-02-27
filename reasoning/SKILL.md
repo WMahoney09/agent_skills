@@ -24,7 +24,7 @@ As the agent running this skill:
 - Surface statements that are invariantly true about the problem
 - Explore conditionals: "If we do X, then Y becomes true"
 - Help the person see how truths and conditionals point toward a direction
-- Ground reasoning in the codebase when helpful (invoke Reconnaissance)
+- Ground reasoning in the codebase when helpful (invoke Recon)
 - Confirm alignment as reasoning develops (invoke Understanding if needed)
 - Build shared conviction about the vector before moving to solutions
 
@@ -112,7 +112,7 @@ Examples:
 ## Grounding in Reality
 
 Reasoning should stay grounded. When helpful:
-- **Invoke Reconnaissance** to investigate how the codebase actually works
+- **Invoke Recon** to investigate how the codebase actually works
 - **Invoke Understanding** to confirm alignment if the problem shifts during reasoning
 - Reference concrete code, patterns, or constraints discovered earlier
 
@@ -155,4 +155,4 @@ If the vector doesn't feel right, revisit the reasoning. If it does, you're read
 - The vector should feel like a natural conclusion from the truths and conditionals
 - If you can't derive a clear vector, the problem may need more understanding first
 - Good reasoning makes Solutioning dramatically easier—the routes become obvious
-- It's okay to loop back to Understanding or Reconnaissance if reasoning reveals gaps
+- It's okay to loop back to Understanding or Recon if reasoning reveals gaps

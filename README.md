@@ -23,7 +23,7 @@ This directory contains portable, tool-agnostic skills implementing a structured
 ║                           ║                      ║                             ║
 ╚═══════════════════════════╩══════════════════════╩═════════════════════════════╝
 
-  Use anytime:  /reconnaissance  /interrogative  /reasoning  /estimate  /commit
+  Use anytime:  /recon  /clarify  /reasoning  /estimate  /commit
 ```
 
 ## Agentic Delivery Phases & Skills
@@ -110,13 +110,13 @@ These skills can be used at any point in the workflow to deepen understanding, v
 - Inspects `git status` and `git diff`, groups unrelated concerns into separate commits
 - **Typical usage:** After completing any unit of work — phase, step, or ad-hoc change
 
-**Skill:** `/reconnaissance` → `reconnaissance/SKILL.md`
+**Skill:** `/recon` → `recon/SKILL.md`
 - Read-only investigation of code and documentation
 - Explore existing systems, architecture, and patterns
 - Gather context through file exploration and documentation
 - **Typical usage:** Before or during Understanding phase, or as standalone research
 
-**Skill:** `/interrogative` → `interrogative/SKILL.md`
+**Skill:** `/clarify` → `clarify/SKILL.md`
 - Ask clarifying questions to sharpen and deepen shared understanding
 - Surface hidden assumptions, contradictions, and constraints
 - Test ideas and mental models through strategic questioning

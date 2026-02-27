@@ -1,10 +1,10 @@
 ---
-name: reconnaissance
+name: recon
 description: Read-only investigation of code and documentation to understand existing systems, architecture, and patterns. Can be used before Understanding, as part of it, or standalone.
 allowed-tools: Read, Glob, Grep, WebFetch
 ---
 
-# Reconnaissance: Code and Documentation Investigation
+# Recon: Code and Documentation Investigation
 
 This skill guides read-only exploration of a codebase and its documentation to build understanding of how systems currently work.
 
@@ -77,7 +77,7 @@ Based on findings and your questions:
 
 ## What to Investigate
 
-Good areas for reconnaissance:
+Good areas for recon:
 
 **Architecture & Structure:**
 - How is the codebase organized? (by feature, by layer, by concern?)
@@ -138,12 +138,12 @@ The agent has read-only access to:
 
 ## Closure
 
-Reconnaissance is complete when:
+Recon is complete when:
 - You've gained the understanding you needed
 - You're ready to move on to Understanding (for a new problem) or another phase
 - Or you've decided to pivot to a different investigation
 
-Say "**done**" when you're ready to end reconnaissance, or invoke another skill when ready to proceed.
+Say "**done**" when you're ready to end recon, or invoke another skill when ready to proceed.
 
 ## Use Cases
 
@@ -158,8 +158,8 @@ Say "**done**" when you're ready to end reconnaissance, or invoke another skill 
 
 ## Notes
 
-- Reconnaissance is exploratory—don't force conclusions
-- Good reconnaissance prevents "surprises" during Implementation
+- Recon is exploratory—don't force conclusions
+- Good recon prevents "surprises" during Implementation
 - Follow the codebase and documentation; they'll tell you what matters
 - External docs (framework, library docs) provide important context
 - If something seems odd or contradicts expectations, dig deeper

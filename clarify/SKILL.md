@@ -1,9 +1,9 @@
 ---
-name: interrogative
-description: Ask clarifying questions to sharpen and deepen shared understanding built through reconnaissance and understanding skills.
+name: clarify
+description: Ask clarifying questions to sharpen and deepen shared understanding built through recon and understanding skills.
 ---
 
-# Interrogative: Questioning for Clarity
+# Clarify: Questioning for Clarity
 
 This skill guides you through asking targeted, purposeful questions that refine and deepen shared understanding.
 
@@ -60,15 +60,15 @@ These check understanding and invite deeper thought:
 
 ## When to Ask
 
-**Use interrogative when:**
+**Use clarify when:**
 - Something feels incomplete or contradictory in the shared understanding
 - You've noticed an assumption that hasn't been examined
 - Someone describes a constraint but hasn't explained the *why*
 - A problem statement is clear, but the scope or success criteria are fuzzy
 - Multiple interpretations of the same statement are possible
-- You've gathered information (reconnaissance) and need to synthesize and test understanding
+- You've gathered information (recon) and need to synthesize and test understanding
 
-**Don't use interrogative to:**
+**Don't use clarify to:**
 - Be adversarial or argumentative
 - Show you're smarter or right about something
 - Waste time on questions that won't change the work ahead
@@ -96,7 +96,7 @@ Not every gap needs immediate filling. Some things clarify through action. Judge
 
 ### Distinguish Between Questions for Understanding vs. Questions for Decision
 
-**Understanding questions** sharpen what's true (for Reconnaissance and Understanding phases):
+**Understanding questions** sharpen what's true (for Recon and Understanding phases):
 - "How does the system currently work?"
 - "What constraints are we really bound by?"
 
@@ -108,7 +108,7 @@ Stay focused on understanding during discovery phases.
 
 ## Closure Criteria
 
-End interrogative when:
+End clarify when:
 - [ ] Ambiguities have been clarified
 - [ ] Hidden assumptions have been surfaced and discussed
 - [ ] Contradictions have been resolved
