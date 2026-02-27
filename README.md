@@ -23,7 +23,7 @@ This directory contains portable, tool-agnostic skills implementing a structured
 ║                           ║                      ║                             ║
 ╚═══════════════════════════╩══════════════════════╩═════════════════════════════╝
 
-  Use anytime:  /reconnaissance  /interrogative  /reasoning  /commit
+  Use anytime:  /reconnaissance  /interrogative  /reasoning  /estimate  /commit
 ```
 
 ## Agentic Delivery Phases & Skills
@@ -89,6 +89,12 @@ Two distinct approaches depending on your workflow:
 - Referenced by `produce` and other skills to ensure consistent git history
 - **Note:** This is a shared convention skill — invokable directly but also referenced internally by other skills
 
+**Skill:** `/estimate` → `estimate/SKILL.md`
+- Defines the LOE scoring framework used to evaluate proposed changes
+- Two-dimensional evaluation (Complexity × Impact) synthesized to a 1–5 score
+- Referenced by `solutioning` and usable standalone to calibrate scope
+- **Note:** This is a shared scoring skill — invokable directly but also referenced internally by other skills
+
 **Skill:** `/artifactor` → `artifactor/SKILL.md`
 - Guidance for skill authors on artifact placement principles
 - Ensures all agent-generated artifacts are project-local (not in home directories)
@@ -121,6 +127,11 @@ These skills can be used at any point in the workflow to deepen understanding, v
 - Validate the problem and derive guiding principles
 - Develop directional clarity before proposing solutions
 - **Typical usage:** After Understanding, before Solutioning to establish direction
+
+**Skill:** `/estimate` → `estimate/SKILL.md`
+- Produce a Level of Effort (LOE) score for a proposed change
+- Evaluate Complexity and Impact independently, then synthesize to a 1–5 score
+- **Typical usage:** During Solutioning or Reasoning to calibrate scope and prioritize work
 
 **Skill:** `/tire-kicking` → `tire-kicking/SKILL.md`
 - Stress-test proposed designs against concrete scenarios
