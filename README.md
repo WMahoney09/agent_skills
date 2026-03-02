@@ -79,6 +79,13 @@ Two distinct approaches depending on your workflow:
 - Agent manages git history with semantically coherent commits
 - Minimal intervention needed—commits are the deliverable
 
+**Option C:** `/leroy` → `leroy/SKILL.md`
+- Fully autonomous end-to-end pipeline, invoked once after Understanding
+- Agent runs Solutioning → Tire-Kicking → Reasoning + Recon → Planning → Pre-Flight loop → Produce without pausing for user input
+- Agent makes all solution, planning, and validation decisions autonomously
+- Pre-flight + reasoning loop runs minimum 2, maximum 4 cycles; alerts user if unresolved critical/major issues remain at cycle 4
+- Use when you want to hand off the entire delivery workflow after aligning on the problem
+
 **Step 2 - Review & Revise:** *(Coming soon)*
 
 ## Meta
@@ -94,6 +101,12 @@ Two distinct approaches depending on your workflow:
 - Two-dimensional evaluation (Complexity × Impact) synthesized to a 1–5 score
 - Referenced by `solutioning` and usable standalone to calibrate scope
 - **Note:** This is a shared scoring skill — invokable directly but also referenced internally by other skills
+
+**Skill:** `/leroy` → `leroy/SKILL.md`
+- Defines the autonomous end-to-end pipeline orchestration pattern
+- Establishes how user-invoked orchestrators can grant sub-skills permission to run by reference
+- The `agent-reference: forbidden` frontmatter convention (leroy cannot be invoked by reference; it is direct-only) is introduced here
+- **Note:** This is a user-invoked orchestrator skill — it cannot be invoked by reference from other skills
 
 **Skill:** `/artifactor` → `artifactor/SKILL.md`
 - Guidance for skill authors on artifact placement principles
