@@ -15,10 +15,10 @@ This directory contains portable, tool-agnostic skills implementing a structured
 ║  │   /understanding    │  ║  │   /planning   │   ║  │  /produce  /pair-on   │  ║
 ║  └──────────┬──────────┘  ║  └──────┬────────┘   ║  └───────────┬───────────┘  ║
 ║             │             ║         │            ║              │              ║
-║  ┌──────────▼──────────┐  ║  ┌──────▼────────┐   ║  ┌╌╌╌╌╌╌╌╌╌╌╌▼╌╌╌╌╌╌╌╌╌╌╌┐  ║
-║  │     Solutioning     │  ║  │  Pre-Flight   │   ║  ╎   Review & Revise     ╎  ║
-║  │    /solutioning     │  ║  │  /pre-flight  │   ║  ╎      coming soon      ╎  ║
-║  │    /tire-kicking    │  ║  └───────────────┘   ║  └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘  ║
+║  ┌──────────▼──────────┐  ║  ┌──────▼────────┐   ║  ┌───────────▼───────────┐  ║
+║  │     Solutioning     │  ║  │  Pre-Flight   │   ║  │   Review & Revise     │  ║
+║  │    /solutioning     │  ║  │  /pre-flight  │   ║  │        /review        │  ║
+║  │    /tire-kicking    │  ║  └───────────────┘   ║  └───────────────────────┘  ║
 ║  └─────────────────────┘  ║                      ║                             ║
 ║                           ║                      ║                             ║
 ╚═══════════════════════════╩══════════════════════╩═════════════════════════════╝
@@ -86,7 +86,12 @@ Two distinct approaches depending on your workflow:
 - Pre-flight + reasoning loop runs minimum 2, maximum 4 cycles; alerts user if unresolved critical/major issues remain at cycle 4
 - Use when you want to hand off the entire delivery workflow after aligning on the problem
 
-**Step 2 - Review & Revise:** *(Coming soon)*
+**Step 2 - Review & Revise:** `/review` → `review/SKILL.md`
+- Technical peer review of local changes or a pull request
+- Covers security, architecture, correctness, tests, and accessibility
+- Produces a severity-graded report (Critical / Major / Minor / Gaps / Opportunities)
+- Delivers an explicit go/no-go merge recommendation
+- Works locally (post-produce, pre-PR) or against any PR number
 
 ## Meta
 
@@ -151,6 +156,12 @@ These skills can be used at any point in the workflow to deepen understanding, v
 - Identify where designs hold, bend, or leak before implementation
 - Validate approaches against edge cases, lifecycle events, and data changes
 - **Typical usage:** After Solutioning, before or alongside Planning to validate designs
+
+**Skill:** `/review` → `review/SKILL.md`
+- Technical peer review of code changes — local diff or a specific pull request
+- Covers security, architecture, correctness, tests, and accessibility (for UI-producing files)
+- Produces a severity-graded report with an explicit go/no-go recommendation
+- **Typical usage:** After `/produce` to verify local changes before opening a PR, or to review a collaborator's PR
 
 ## How Skills Work
 
