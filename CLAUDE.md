@@ -1,5 +1,25 @@
 # Agentic Skills — Project Instructions
 
+## Skills Library Setup
+
+`~/.claude/skills/` is a **symlink** pointing to this project directory (`/Users/will/agentic/skills/`). This means:
+
+- **Always work in this project directory** when creating, editing, deleting, or renaming skills
+- Do NOT read from or write to `~/.claude/skills/` directly — use this directory instead
+- Changes here are automatically reflected in Claude's skill loader via the symlink
+- New skill directories created here are immediately available as `/skill-name` commands without any additional installation step
+
+### Operations reference
+
+| Task | What to do |
+|---|---|
+| Create a skill | `mkdir skills/skill-name` → write `skills/skill-name/SKILL.md` |
+| Edit a skill | Edit `skills/skill-name/SKILL.md` directly in this repo |
+| Delete a skill | Remove the `skills/skill-name/` directory from this repo |
+| Rename a skill | Rename the directory; update `name:` in frontmatter; update README |
+
+Always follow the README Sync Rule below when making any of these changes.
+
 ## README Sync Rule
 
 When any skill is added, updated, removed, or renamed in this repository, the `README.md` must be updated to reflect the change. Specifically:
