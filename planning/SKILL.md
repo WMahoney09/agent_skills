@@ -1,7 +1,6 @@
 ---
 name: planning
 description: Design and document the implementation approach. Use after aligning on a solution direction to create a detailed step-by-step plan before implementation begins.
-disable-model-invocation: true
 ---
 
 # Planning: Architecture-to-Implementation Phase Skill

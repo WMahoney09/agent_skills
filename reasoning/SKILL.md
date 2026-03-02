@@ -1,6 +1,8 @@
 ---
 name: reasoning
-description: Reason through a problem to extract truths, conditionals, and a directional vector before proposing solutions. Use after building shared understanding to develop principled clarity about where to aim.
+description: |
+  Reason through a problem to extract truths, conditionals, and a directional vector before proposing solutions. Use after building shared understanding to develop principled clarity about where to aim.
+  TRIGGER when: the user wants collaborative help thinking through something complex ("help me think about this", "what do you think?", "let's hash this out", "help me reason through this"), or when a problem needs directional clarity before jumping to solutions.
 ---
 
 # Reasoning: Developing Directional Clarity

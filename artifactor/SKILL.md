@@ -1,7 +1,7 @@
 ---
 name: artifactor
 description: Guidance for agents on where and how to save generated artifacts (plans, documents, configurations) to ensure they are project-local and tracked in version control.
-disable-model-invocation: true
+agent-invocation: auto-and-referenced
 ---
 
 # Artifactor: Project-Local Artifact Principles

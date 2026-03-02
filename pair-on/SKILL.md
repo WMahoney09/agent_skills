@@ -1,7 +1,8 @@
 ---
 name: pair-on
 description: Pair program through the implementation plan with the agent, controlling review boundaries and commits at phase, step, or task level.
-disable-model-invocation: true
+agent-invocation: user-invoked-only
+agent-note: "Agents may execute this skill ONLY when explicitly invoked by the user (e.g., /pair-on). Agents must NEVER invoke this skill autonomously or on their own initiative."
 ---
 
 # Pair-On: Pair Programming Implementation with User-Controlled Boundaries
