@@ -79,13 +79,6 @@ Two distinct approaches depending on your workflow:
 - Agent manages git history with semantically coherent commits
 - Minimal intervention needed—commits are the deliverable
 
-**Option C:** `/leroy` → `leroy/SKILL.md`
-- Fully autonomous end-to-end pipeline, invoked once after Understanding
-- Agent runs Solutioning → Tire-Kicking → Reasoning + Recon → Planning → Pre-Flight loop → Produce without pausing for user input
-- Agent makes all solution, planning, and validation decisions autonomously
-- Pre-flight + reasoning loop runs minimum 2, maximum 4 cycles; alerts user if unresolved critical/major issues remain at cycle 4
-- Use when you want to hand off the entire delivery workflow after aligning on the problem
-
 **Step 2 - Review & Revise:**
 
 **`/review`** → `review/SKILL.md`
@@ -127,12 +120,6 @@ Two distinct approaches depending on your workflow:
 - Two-dimensional evaluation (Complexity × Impact) synthesized to a 1–5 score
 - Referenced by `solutioning` and usable standalone to calibrate scope
 - **Note:** This is a shared scoring skill — invokable directly but also referenced internally by other skills
-
-**Skill:** `/leroy` → `leroy/SKILL.md`
-- Defines the autonomous end-to-end pipeline orchestration pattern
-- Establishes how user-invoked orchestrators can grant sub-skills permission to run by reference
-- The `agent-reference: forbidden` frontmatter convention (leroy cannot be invoked by reference; it is direct-only) is introduced here
-- **Note:** This is a user-invoked orchestrator skill — it cannot be invoked by reference from other skills
 
 **Skill:** `/artifactor` → `artifactor/SKILL.md`
 - Guidance for skill authors on artifact placement principles
@@ -201,6 +188,28 @@ These skills can be used at any point in the workflow to deepen understanding, v
 - Reads `Addresses:` trailers from `/revise` commits to build the mapping automatically
 - Confirms the full comment-to-commit mapping before posting anything
 - **Typical usage:** After all `/revise` work is complete — the final step before requesting re-review
+
+## Danger Zone
+
+> ⚠️ **Experimental skills live here. These push the boundaries of autonomous agent behavior. Use them when you're ready to hand the wheel over entirely and see what happens.**
+
+**Skill:** `/leeroyyyyy` → `leeroyyyyy/SKILL.md`
+
+The full send. Invoked once after Understanding is complete — Leeroyyyyy runs the entire delivery pipeline from solutioning through implementation and self-review without stopping for input. It embodies the spirit of: *I know what needs to be done, just do it.*
+
+What Leeroyyyyy does autonomously:
+- Explores 2–3 candidate solutions and stress-tests all of them
+- Picks the best solution using evidence and codebase conventions
+- Builds a detailed implementation plan and validates it in a pre-flight + reasoning loop (min 2, max 4 cycles)
+- Executes the plan with semantically coherent atomic commits
+- Runs a local technical review of its own output
+- Triages the review findings and addresses all Critical and Major revisions
+- Surfaces anything it genuinely could not resolve without your input
+
+The only time Leeroyyyyy stops is when it hits an ambiguity that Recon cannot resolve and that would lead to meaningfully different implementations — or when unresolvable Critical/Major issues remain after the review cycle. Everything else, it decides.
+
+- **Cannot be invoked by reference** — direct user invocation only
+- **Establishes the orchestrator permission pattern** — how user-invoked skills can grant sub-skills permission to run by reference
 
 ## How Skills Work
 

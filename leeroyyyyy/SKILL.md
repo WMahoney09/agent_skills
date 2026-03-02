@@ -1,20 +1,22 @@
 ---
-name: leroy
-description: Autonomous pipeline orchestrator. Invoked directly by the user after Understanding is complete. Runs solutioning → tire-kicking → reasoning + recon (pick solution) → planning → pre-flight + reasoning loop (minimum 2, maximum 4 cycles) → produce without user input. The agent makes all decisions autonomously.
+name: leeroyyyyy
+description: "⚠️ EXPERIMENTAL — Full send autonomous pipeline. Invoked directly by the user after Understanding is complete. Runs the entire delivery workflow without user input: solutioning → tire-kicking → reasoning + recon → planning → pre-flight loop (min 2, max 4 cycles) → produce → review → triage → revise. The agent makes every decision autonomously."
 agent-invocation: user-invoked-only
 agent-reference: forbidden
-agent-note: "This skill can ONLY be invoked directly by the user (e.g., /leroy). It must NEVER be invoked by reference from another skill or agent. Once invoked, the agent runs the full pipeline autonomously — do not pause for user input unless an ambiguity truly cannot be resolved without it."
+agent-note: "This skill can ONLY be invoked directly by the user (e.g., /leeroyyyyy). It must NEVER be invoked by reference from another skill or agent. Once invoked, the agent runs the full pipeline autonomously — do not pause for user input unless an ambiguity truly cannot be resolved without it."
 ---
 
-# Yeet: Autonomous Full-Pipeline Orchestrator
+# Leeroyyyyy: Autonomous Full-Pipeline Orchestrator
+
+⚠️ **EXPERIMENTAL. This skill embodies the full send spirit — it will run the entire delivery workflow from solutioning through implementation and self-review without stopping to ask for input. Only invoke this when the problem is well-understood and you are comfortable handing the wheel over entirely.**
 
 ⚠️ **This skill can only be invoked directly by the user. It cannot be invoked by reference from another skill. Once invoked, the agent runs the entire pipeline autonomously without requesting user input.**
 
-This skill picks up where Understanding left off. The problem is known. The agent now drives everything — solutioning, decision-making, planning, validation, and execution — to completion.
+This skill picks up where Understanding left off. The problem is known. The agent now drives everything — solutioning, decision-making, planning, validation, execution, and post-implementation review — to completion.
 
 ## Precondition
 
-The Understanding phase must be complete before invoking `/leroy`. If the problem is not yet well-defined, invoke `/understanding` first and return here when ready.
+The Understanding phase must be complete before invoking `/leeroyyyyy`. If the problem is not yet well-defined, invoke `/understanding` first and return here when ready.
 
 ## Pipeline
 
@@ -30,6 +32,12 @@ Planning
 Pre-Flight → Reasoning → update plan  (min 2, max 4 cycles)
     ↓
 Produce
+    ↓
+Review  ← local technical review of the produced changes
+    ↓
+Triage  ← group and prioritize review findings into revisions
+    ↓
+Revise  ← address all Critical and Major revisions autonomously
 ```
 
 ---
@@ -122,9 +130,65 @@ Execute the plan autonomously. The agent manages work order, parallelization str
 
 ---
 
+## Phase 7: Review
+
+**Invoke by reference:** `review` skill
+
+Run a local technical review of the changes produced in Phase 6. This is a review against the local branch diff — not against a PR. The agent conducts the full review across all in-scope dimensions: security, architecture, correctness, tests, and accessibility.
+
+The review output feeds directly into Phase 8. The agent does not stop here or present the report to the user — it proceeds autonomously.
+
+---
+
+## Phase 8: Triage
+
+**Invoke by reference:** `triage` skill
+
+Ingest the review output from Phase 7. Group related findings into unified revisions and prioritize by severity (Critical, Major, Minor). The triage output is the revision list for Phase 9.
+
+The agent proceeds autonomously — no user confirmation of the triage groupings is required.
+
+---
+
+## Phase 9: Revise
+
+**Invoke by reference:** `revise` skill (with autonomous commit authority)
+
+Address all **Critical** and **Major** revisions from the triage output. For each revision:
+
+1. The agent internally aligns on the issue (no user confirmation required)
+2. Implements the fix holistically across all affected files
+3. Assesses its own work against the revision description
+4. Commits when satisfied — the user-gated commit step from the standard `/revise` skill is replaced by the agent's own assessment, since leroy has been granted full autonomy by the user
+
+**Minor revisions:** The agent uses its judgment. Address minor revisions that are low-effort and clearly correct. Skip minor revisions where the fix would require a design decision that warrants user input — document those in the final summary instead.
+
+Commit messages follow the standard revise format: type prefix, revision ID in the `Revision:` trailer.
+
+### If a revision cannot be resolved autonomously:
+
+If a Critical or Major revision requires a design decision that the agent genuinely cannot make without user input, stop, alert the user, and summarize the unresolved revision clearly. Do not paper over it with a partial fix.
+
+---
+
+## Completion
+
+Leroy is complete when:
+
+- [ ] All pipeline phases have run
+- [ ] Produce has committed a clean, coherent implementation
+- [ ] Review has been run locally against the produced changes
+- [ ] Triage has grouped and prioritized review findings
+- [ ] All Critical and Major revisions have been addressed and committed
+- [ ] Any unresolvable revisions have been surfaced to the user
+
+**Final summary:** Report what was built, what the review found, what was revised, and anything that needs user attention before opening a PR.
+
+---
+
 ## Autonomy Principle
 
-Once `/leroy` is invoked, the agent owns all decisions. This means:
+Once `/leeroyyyyy` is invoked, the agent owns all decisions. This means:
 - Producing candidate solutions and tire-kicking all of them
 - Picking the best solution using evidence and codebase conventions
 - Making planning decisions based on Recon rather than asking for context
@@ -138,4 +202,6 @@ Do not use this exception as a crutch. Most ambiguities can be resolved by exami
 
 ## Sub-Skill Invocation Note
 
-The skills invoked during this pipeline (`solutioning`, `tire-kicking`, `reasoning`, `recon`, `planning`, `pre-flight`, `produce`) are being invoked **by reference** under leroy's orchestration. This is a sanctioned exception to their `user-invoked-only` constraints — leroy, as a user-invoked orchestrator, grants them permission to run within this pipeline.
+The skills invoked during this pipeline (`solutioning`, `tire-kicking`, `reasoning`, `recon`, `planning`, `pre-flight`, `produce`, `review`, `triage`, `revise`) are being invoked **by reference** under leroy's orchestration. This is a sanctioned exception to their `user-invoked-only` constraints — leroy, as a user-invoked orchestrator, grants them permission to run within this pipeline.
+
+The `revise` skill's user-gated commit constraint is similarly superseded within leroy — the agent acts as the confirmation authority on behalf of the user who invoked leroy.
