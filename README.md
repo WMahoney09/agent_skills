@@ -18,8 +18,8 @@ This directory contains portable, tool-agnostic skills implementing a structured
 ║  ┌──────────▼──────────┐  ║  ┌──────▼────────┐   ║  ┌───────────▼───────────┐  ║
 ║  │     Solutioning     │  ║  │  Pre-Flight   │   ║  │   Review & Revise     │  ║
 ║  │    /solutioning     │  ║  │  /pre-flight  │   ║  │   /review   /triage   │  ║
-║  │    /tire-kicking    │  ║  └───────────────┘   ║  └───────────────────────┘  ║
-║  └─────────────────────┘  ║                      ║                             ║
+║  │    /tire-kicking    │  ║  └───────────────┘   ║  │       /revise         │  ║
+║  └─────────────────────┘  ║                      ║  └───────────────────────┘  ║
 ║                           ║                      ║                             ║
 ╚═══════════════════════════╩══════════════════════╩═════════════════════════════╝
 
@@ -101,6 +101,13 @@ Two distinct approaches depending on your workflow:
 - Prioritize by severity: Critical, Major, Minor
 - Produce a structured report ready for action with `/revise`
 
+**`/revise`** → `revise/SKILL.md`
+- Address one revision at a time: align, implement, confirm, commit
+- Lightweight alignment check before any code changes — agent states its understanding, you confirm
+- Holistic implementation — if the issue is a pattern across files, all instances are fixed together
+- User-gated commit — no change is committed until you explicitly confirm the issue is resolved
+- Commit messages include revision ID and PR comment IDs for traceability with `/reply`
+
 ## Meta
 
 **Skill:** `/commit` → `commit/SKILL.md`
@@ -176,6 +183,12 @@ These skills can be used at any point in the workflow to deepen understanding, v
 - Group related items into unified revisions with quoted source linkage
 - Prioritize by severity: Critical, Major, Minor
 - **Typical usage:** After `/review` or when addressing PR comments — produces a prioritized revision list ready for `/revise`
+
+**Skill:** `/revise` → `revise/SKILL.md`
+- Address one revision at a time with a user-gated commit
+- Align on the issue before touching code, implement holistically, confirm before committing
+- Commit messages include revision ID and PR comment IDs for traceability with `/reply`
+- **Typical usage:** After `/triage` to work through revisions one by one, or standalone for a direct fix
 
 ## How Skills Work
 
