@@ -18,7 +18,7 @@ This directory contains portable, tool-agnostic skills implementing a structured
 ║  ┌──────────▼──────────┐  ║  ┌──────▼────────┐   ║  ┌───────────▼───────────┐  ║
 ║  │     Solutioning     │  ║  │  Pre-Flight   │   ║  │   Review & Revise     │  ║
 ║  │    /solutioning     │  ║  │  /pre-flight  │   ║  │   /review   /triage   │  ║
-║  │    /tire-kicking    │  ║  └───────────────┘   ║  │       /revise         │  ║
+║  │    /tire-kicking    │  ║  └───────────────┘   ║  │   /revise   /reply    │  ║
 ║  └─────────────────────┘  ║                      ║  └───────────────────────┘  ║
 ║                           ║                      ║                             ║
 ╚═══════════════════════════╩══════════════════════╩═════════════════════════════╝
@@ -108,6 +108,12 @@ Two distinct approaches depending on your workflow:
 - User-gated commit — no change is committed until you explicitly confirm the issue is resolved
 - Commit messages include revision ID and PR comment IDs for traceability with `/reply`
 
+**`/reply`** → `reply/SKILL.md`
+- Close the feedback loop by replying to each PR comment with the commit hash that addresses it
+- Reads `Addresses:` trailers from `/revise` commits to build the mapping automatically
+- Presents the full comment-to-commit mapping for confirmation before posting anything
+- Flags any comments that have no associated commit so nothing slips through
+
 ## Meta
 
 **Skill:** `/commit` → `commit/SKILL.md`
@@ -189,6 +195,12 @@ These skills can be used at any point in the workflow to deepen understanding, v
 - Align on the issue before touching code, implement holistically, confirm before committing
 - Commit messages include revision ID and PR comment IDs for traceability with `/reply`
 - **Typical usage:** After `/triage` to work through revisions one by one, or standalone for a direct fix
+
+**Skill:** `/reply` → `reply/SKILL.md`
+- Close the PR feedback loop by replying to each reviewer comment with the commit hash that addresses it
+- Reads `Addresses:` trailers from `/revise` commits to build the mapping automatically
+- Confirms the full comment-to-commit mapping before posting anything
+- **Typical usage:** After all `/revise` work is complete — the final step before requesting re-review
 
 ## How Skills Work
 
