@@ -17,7 +17,7 @@ This directory contains portable, tool-agnostic skills implementing a structured
 ║             │             ║         │            ║              │              ║
 ║  ┌──────────▼──────────┐  ║  ┌──────▼────────┐   ║  ┌───────────▼───────────┐  ║
 ║  │     Solutioning     │  ║  │  Pre-Flight   │   ║  │   Review & Revise     │  ║
-║  │    /solutioning     │  ║  │  /pre-flight  │   ║  │        /review        │  ║
+║  │    /solutioning     │  ║  │  /pre-flight  │   ║  │   /review   /triage   │  ║
 ║  │    /tire-kicking    │  ║  └───────────────┘   ║  └───────────────────────┘  ║
 ║  └─────────────────────┘  ║                      ║                             ║
 ║                           ║                      ║                             ║
@@ -86,12 +86,20 @@ Two distinct approaches depending on your workflow:
 - Pre-flight + reasoning loop runs minimum 2, maximum 4 cycles; alerts user if unresolved critical/major issues remain at cycle 4
 - Use when you want to hand off the entire delivery workflow after aligning on the problem
 
-**Step 2 - Review & Revise:** `/review` → `review/SKILL.md`
+**Step 2 - Review & Revise:**
+
+**`/review`** → `review/SKILL.md`
 - Technical peer review of local changes or a pull request
 - Covers security, architecture, correctness, tests, and accessibility
 - Produces a severity-graded report (Critical / Major / Minor / Gaps / Opportunities)
 - Delivers an explicit go/no-go merge recommendation
 - Works locally (post-produce, pre-PR) or against any PR number
+
+**`/triage`** → `triage/SKILL.md`
+- Ingest feedback from a PR, review output, or a conversational list
+- Group related items into unified revisions with explicit source linkage
+- Prioritize by severity: Critical, Major, Minor
+- Produce a structured report ready for action with `/revise`
 
 ## Meta
 
@@ -162,6 +170,12 @@ These skills can be used at any point in the workflow to deepen understanding, v
 - Covers security, architecture, correctness, tests, and accessibility (for UI-producing files)
 - Produces a severity-graded report with an explicit go/no-go recommendation
 - **Typical usage:** After `/produce` to verify local changes before opening a PR, or to review a collaborator's PR
+
+**Skill:** `/triage` → `triage/SKILL.md`
+- Ingest feedback from a PR, `/review` output, or a conversational list
+- Group related items into unified revisions with quoted source linkage
+- Prioritize by severity: Critical, Major, Minor
+- **Typical usage:** After `/review` or when addressing PR comments — produces a prioritized revision list ready for `/revise`
 
 ## How Skills Work
 
