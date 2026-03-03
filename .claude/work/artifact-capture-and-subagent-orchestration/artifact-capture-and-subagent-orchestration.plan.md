@@ -21,10 +21,11 @@ dispatches subagents with targeted artifact handoffs and mandates subagenting fo
   progress tracking section updated by `produce` at the phase level
 - **Skills without artifacts:** `recon`, `clarify`, `revise`, `pair-on`, `produce`, `reply`,
   `commit` (no `ARTIFACT.md` needed — absence is sufficient)
-- **Estimate and phase decomposition:** `leeroyyyyy` uses `estimate` during planning to enforce
-  LOE ≤ 2 for every plan phase. Phases estimated > 2 are decomposed into subphases; decomposition
-  repeats until all phases are ≤ 2. At execution time every phase is always dispatched to a
-  subagent — no runtime estimate-gating. The decomposition guarantee is made at planning time.
+- **Estimate and phase decomposition:** `/atomize` owns plan-phase decomposition. It estimates
+  every plan phase using `/estimate` and decomposes anything > LOE 2 into subphases, iterating
+  until all plan phases score ≤ 2. In `leeroyyyyy`'s pipeline, atomize runs after pre-flight. At
+  execution time every plan phase is dispatched to a subagent unconditionally — the ≤ 2 guarantee
+  is established by atomize before produce begins.
 - **Parallel subagenting in produce:** concurrent phase subagents each update only their phase
   row in the progress section of the plan file, avoiding conflicts
 - **Canonical structure:** `SKILL.spec.md` at the project root defines the canonical section
@@ -248,10 +249,9 @@ Complexity: <Low|Medium|High> | Impact: <Low|Medium|High>
 
 **Trigger:** Whenever an estimate is requested. Output is always inline.
 
-**Note:** No file is written — estimate's artifact is its formatted output. In leeroyyyyy's
-pipeline, estimate is used during the planning phase to enforce phase decomposition: any phase
-estimated > 2 must be broken into subphases until all are ≤ 2. This guarantee is established at
-planning time; at execution time all phases are dispatched to subagents unconditionally.
+**Note:** No file is written — estimate's artifact is its formatted output. Within the pipeline,
+estimate is used by `/atomize` to enforce plan-phase decomposition: `/atomize` calls estimate per
+plan phase and decomposes anything > LOE 2 until all plan phases are ≤ 2.
 
 ### Step 2.10: leeroyyyyy/ARTIFACT.md
 
@@ -298,8 +298,8 @@ Combine all changes into one edit:
 - Add explicit guidance on the `*.plan.md` format: Phase → Step → Task breakdown
 - Document the progress tracking section and note that `produce` owns updating it
 - Clarify that plan file naming follows `<work-item>.plan.md`
-- Add LOE decomposition rule: every plan phase must be estimated ≤ 2; phases > 2 must be
-  decomposed into subphases and re-estimated; decomposition repeats until all phases are ≤ 2
+- Add reference to `/atomize` for plan-phase decomposition: after pre-flight, run `/atomize` to
+  ensure all plan phases score ≤ LOE 2 before execution begins
 - In leeroyyyyy context: Stage 1 (interactive Q&A) is automated — the agent uses recon
   rather than asking the user
 
@@ -338,8 +338,8 @@ unconditional execution strategy:
 - Context is a finite resource — treat it as such
 - Every phase handoff is a context boundary: pass artifact files, not conversation history
 - All plan phases are always dispatched to subagents — no exceptions
-- The LOE ≤ 2 guarantee is established at planning time (via the decomposition rule in
-  planning/SKILL.md); leeroyyyyy trusts this guarantee and never re-estimates at runtime
+- The LOE ≤ 2 guarantee is established by `/atomize`, which runs after pre-flight; leeroyyyyy
+  trusts this guarantee and never re-estimates at runtime
 - Concurrent phase work: multiple subagents may run in parallel; each receives only the
   artifacts it needs
 - Progress is reported in chat at each phase transition so the user can observe pipeline
@@ -358,8 +358,9 @@ For each pipeline phase, document explicitly:
 | Solutioning | problem-statement.md | solution-statement.md | mandatory |
 | Tire-kicking | problem-statement.md, solution-statement.md (all candidates) | tire-kicking-report.md | mandatory |
 | Reasoning | tire-kicking-report.md, recon findings (inline) | truth-and-vector.md | mandatory |
-| Planning | solution-statement.md, truth-and-vector.md | *.plan.md (all phases ≤ 2 LOE) | mandatory |
+| Planning | solution-statement.md, truth-and-vector.md | *.plan.md | mandatory |
 | Pre-flight | *.plan.md, solution-statement.md | pre-flight-issues.md | mandatory |
+| Atomize | *.plan.md, pre-flight-issues.md | *.plan.md (all plan phases ≤ LOE 2) | mandatory |
 | Produce (per phase) | *.plan.md only | progress update in plan file | mandatory |
 | Review | local diff | review-issues.md | mandatory |
 | Triage | review-issues.md | triage-report.md | mandatory |
