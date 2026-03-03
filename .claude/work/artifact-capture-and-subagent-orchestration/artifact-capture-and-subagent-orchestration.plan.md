@@ -549,7 +549,7 @@ in Phase 1 Step 1.3 — do not duplicate it here.
   file. The constraint (each updates only its own progress row) must be explicit in both
   produce/SKILL.md and leeroyyyyy/SKILL.md
 - **Phase 5.1 ordering** — Step 5.1 (delete artifactor directory) must not run before Step 3.4
-  is complete; leeroyyyyy/SKILL.md still references artifactor at line 86
+  is complete; verify leeroyyyyy/SKILL.md has no remaining artifactor references before deleting
 - **Understanding as Phase 1** — removing the Precondition section from leeroyyyyy requires
   updating both the frontmatter description and the pipeline diagram in addition to the prose
 
@@ -560,8 +560,8 @@ in Phase 1 Step 1.3 — do not duplicate it here.
 - [ ] README has a Conventions section pointing to both root spec files
 - [ ] Every skill with an artifact has a co-located `ARTIFACT.md` with template, naming, and trigger
 - [ ] Every per-skill `ARTIFACT.md` includes the meta-instruction block at the top
-- [ ] `planning/SKILL.md` documents the `*.plan.md` format, progress tracking section, and LOE ≤ 2
-  decomposition rule
+- [ ] `planning/SKILL.md` documents the `*.plan.md` format, progress tracking section, and
+  reference to `/atomize` for plan-phase decomposition
 - [ ] `produce/SKILL.md` describes `[plan]` commits at phase boundaries
 - [ ] `leeroyyyyy/SKILL.md` has Understanding as Phase 1 (not a precondition)
 - [ ] `leeroyyyyy/SKILL.md` explicitly maps artifact handoffs for all 10 pipeline phases
