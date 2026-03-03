@@ -8,7 +8,7 @@ absorbing its path-convention guidance into each `ARTIFACT.md`. Update the `plan
 produce a portable `*.plan.md` format. Update `produce` to write progress back to the plan file
 at phase boundaries via `[plan]` commits. Rewrite `leeroyyyyy` as a thin orchestrator that
 dispatches subagents with targeted artifact handoffs and mandates subagenting for every plan phase
-(enforced at planning time via LOE-based decomposition).
+(enforced via `/atomize` after the pre-flight loop completes).
 
 ## Notes
 
@@ -26,6 +26,24 @@ dispatches subagents with targeted artifact handoffs and mandates subagenting fo
   until all plan phases score ≤ 2. In `leeroyyyyy`'s pipeline, atomize runs after pre-flight. At
   execution time every plan phase is dispatched to a subagent unconditionally — the ≤ 2 guarantee
   is established by atomize before produce begins.
+- **Commits as handoff mechanism:** every artifact produced during a leeroyyyyy run is committed
+  atomically before the next stage begins. Subagents receive file paths, not conversation context —
+  the committed files are what make cross-agent handoffs possible without context bleed.
+  Expected commit sequence for a full run (problem-statement.md is a precondition, not a commit):
+  ```
+  [docs]  solution-statement.md       ← solutioning
+  [docs]  tire-kicking-report.md      ← tire-kicking
+  [docs]  truth-and-vector.md         ← reasoning
+  [plan]  *.plan.md                   ← planning (initial)
+  [plan]  *.plan.md                   ← pre-flight adjustments (one per cycle)
+  [plan]  *.plan.md                   ← atomize resizing
+  [code]  <implementation>            ← produce (phase N)
+  [plan]  *.plan.md                   ← phase N marked complete
+  [code]  <implementation>            ← produce (phase N+1)
+  [plan]  *.plan.md                   ← phase N+1 marked complete
+  ...
+  ```
+  The orchestrator (leeroyyyyy) is responsible for ensuring each stage commits before the next begins.
 - **Parallel subagenting in produce:** concurrent phase subagents each update only their phase
   row in the progress section of the plan file, avoiding conflicts
 - **Canonical structure:** `SKILL.spec.md` at the project root defines the canonical section
@@ -253,6 +271,29 @@ Complexity: <Low|Medium|High> | Impact: <Low|Medium|High>
 estimate is used by `/atomize` to enforce plan-phase decomposition: `/atomize` calls estimate per
 plan phase and decomposes anything > LOE 2 until all plan phases are ≤ 2.
 
+### Step 2.11: atomize/ARTIFACT.md
+
+**Output file:** `<work-item>.plan.md` (updated in-place) — decomposition log is inline only.
+
+The plan file is modified directly: oversized plan phases are replaced by their decomposed
+subphases. The decomposition log is presented inline and not saved to a separate file.
+
+Inline decomposition log format:
+```
+## Atomization Log
+
+| Original phase | LOE | Split into | New LOE |
+|---|---|---|---|
+| Phase N: <name> | 3 | Phase Na: <name>, Phase Nb: <name> | 2, 1 |
+
+All plan phases confirmed ≤ LOE 2.
+```
+
+**Trigger:** When all plan phases score ≤ 2 and the updated plan is confirmed by the user.
+
+**Note:** atomize/SKILL.md already exists (created prior to this workstream). This step creates
+only the co-located ARTIFACT.md.
+
 ### Step 2.10: leeroyyyyy/ARTIFACT.md
 
 **Output file:** `summary-statement.md`
@@ -276,8 +317,8 @@ Step 5.2 (README update) can also run in parallel with this phase — no blockin
 
 ### Step 3.1: Add `## Artifact` section to each skill with an ARTIFACT.md
 
-For each of the 10 skills (understanding, solutioning, tire-kicking, reasoning, planning,
-pre-flight, review, triage, estimate, leeroyyyyy):
+For each of the 11 skills (understanding, solutioning, tire-kicking, reasoning, planning,
+pre-flight, review, triage, estimate, atomize, leeroyyyyy):
 
 Add a brief `## Artifact` section **immediately before `## Closure Criteria`** in `SKILL.md`:
 - One line stating what artifact this skill produces
@@ -337,6 +378,11 @@ unconditional execution strategy:
 
 - Context is a finite resource — treat it as such
 - Every phase handoff is a context boundary: pass artifact files, not conversation history
+- **Commits are the handoff mechanism** — every artifact is committed before the next stage
+  begins; subagents read committed files, never conversation history
+- The full run produces a readable git log: docs → docs → docs → plan → plan → plan →
+  code → plan → code → plan → ... — each commit corresponds to one pipeline stage's output
+  (problem-statement.md is a precondition, not produced during the run)
 - All plan phases are always dispatched to subagents — no exceptions
 - The LOE ≤ 2 guarantee is established by `/atomize`, which runs after pre-flight; leeroyyyyy
   trusts this guarantee and never re-estimates at runtime
@@ -352,9 +398,13 @@ For each pipeline phase, document explicitly:
 - Output artifact (what it produces)
 - Subagent rule
 
+**Precondition:** `problem-statement.md` must exist in `.claude/work/<slug>/` before leeroyyyyy
+is invoked. Understanding requires user dialogue and cannot be automated — it is the one stage
+leeroyyyyy does not own. The roadmapping skill (future) will produce problem statements
+automatically; until then the user runs `/understanding` manually before invoking leeroyyyyy.
+
 | Phase | Input artifacts | Output artifact | Subagent rule |
 |---|---|---|---|
-| Understanding | problem statement (from user invocation) | problem-statement.md + creates .claude/work/<slug>/ | inline (bootstraps workstream directory) |
 | Solutioning | problem-statement.md | solution-statement.md | mandatory |
 | Tire-kicking | problem-statement.md, solution-statement.md (all candidates) | tire-kicking-report.md | mandatory |
 | Reasoning | tire-kicking-report.md, recon findings (inline) | truth-and-vector.md | mandatory |
@@ -366,22 +416,28 @@ For each pipeline phase, document explicitly:
 | Triage | review-issues.md | triage-report.md | mandatory |
 | Revise | triage-report.md, *.plan.md | commits | mandatory |
 
-**Note on Understanding:** Understanding is always run inline because it is the bootstrapping
-step — it creates the workstream directory that all subsequent phases depend on. It runs as
-Phase 1 of the leeroyyyyy pipeline; the old precondition ("understanding must be complete before
-invoking leeroyyyyy") is removed.
-
 ### Step 4.3: Rewrite the pipeline section
 
 Rewrite each phase's prose in leeroyyyyy to:
 
-- Add Understanding as **Phase 1** (renumber all existing phases +1) — it is now the first
-  phase of the pipeline, not a precondition the user must satisfy before invoking
+- **Restore and update the `Precondition` section** — `problem-statement.md` must exist in the
+  workstream directory before leeroyyyyy is invoked; Understanding is not part of the pipeline
+- Pipeline starts at Solutioning (Phase 1); renumber phases accordingly
 - Be explicit about what artifacts it passes to that phase
 - Remove any language that implies holding full conversation context across phase boundaries
 - Reinforce that leeroyyyyy is orchestration only — it does not implement artifact logic itself
-- Remove the `Precondition` section (understanding is now Phase 1, not a prerequisite)
-- Update the frontmatter `description` field to reflect understanding as Phase 1
+- Update the frontmatter `description` field to reflect Solutioning as Phase 1
+- **Add explicit commit instructions for every pipeline stage** — after each stage produces its
+  artifact, leeroyyyyy commits before dispatching the next subagent:
+  - Solutioning → `[docs]` commit of `solution-statement.md`
+  - Tire-kicking → `[docs]` commit of `tire-kicking-report.md`
+  - Reasoning → `[docs]` commit of `truth-and-vector.md`
+  - Planning → `[plan]` commit of `*.plan.md`
+  - Pre-flight (each cycle) → `[plan]` commit of plan adjustments
+  - Atomize → `[plan]` commit of resized plan
+  - Produce (each phase) → `[code]` commit(s) then `[plan]` commit marking phase complete
+- Add Atomize as a pipeline step after the pre-flight loop completes, before produce begins —
+  atomize runs once on the stable plan
 
 **Pre-flight loop behavior** (update the Pre-Flight + Reasoning Loop section):
 
@@ -404,8 +460,9 @@ advancing to Produce", "Pre-flight cycle N has Critical issues — running reaso
 Rewrite the Autonomy Principle section to make clear:
 - The user↔agent back-and-forth that standalone skills expect is automated here
 - Leeroyyyyy uses reasoning, recon, and subagents in place of user input
-- Understanding is automated as Phase 1 — the user provides the problem statement at invocation
-- This is the one sanctioned exception to skills' behavioral consistency
+- Understanding is the one stage leeroyyyyy does not own — it requires user dialogue and must
+  be completed before invocation; `problem-statement.md` is the handoff artifact
+- Everything from Solutioning onward is fully autonomous
 - Progress is narrated in chat throughout the pipeline so the user is never in the dark about
   pipeline state, even though no input is requested
 
