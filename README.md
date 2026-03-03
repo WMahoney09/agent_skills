@@ -18,8 +18,8 @@ This directory contains portable, tool-agnostic skills implementing a structured
 ║  ┌──────────▼──────────┐  ║  ┌──────▼────────┐   ║  ┌───────────▼───────────┐  ║
 ║  │     Solutioning     │  ║  │  Pre-Flight   │   ║  │   Review & Revise     │  ║
 ║  │    /solutioning     │  ║  │  /pre-flight  │   ║  │   /review   /triage   │  ║
-║  │    /tire-kicking    │  ║  └───────────────┘   ║  │   /revise   /reply    │  ║
-║  └─────────────────────┘  ║                      ║  └───────────────────────┘  ║
+║  │    /tire-kicking    │  ║  │  /atomize     │   ║  │   /revise   /reply    │  ║
+║  └─────────────────────┘  ║  └───────────────┘   ║  └───────────────────────┘  ║
 ║                           ║                      ║                             ║
 ╚═══════════════════════════╩══════════════════════╩═════════════════════════════╝
 
@@ -28,7 +28,7 @@ This directory contains portable, tool-agnostic skills implementing a structured
 
 ## Agentic Delivery Phases & Skills
 
-### Phase 1: Build A Shared Understanding
+### Stage 1: Build A Shared Understanding
 
 **Goal:** Arrive at a shared understanding of the problem *and* a high-level solution direction before any planning or implementation begins.
 
@@ -43,7 +43,7 @@ This directory contains portable, tool-agnostic skills implementing a structured
 - Align on the direction that best fits your constraints
 - High-level architecture only, not implementation
 
-### Phase 2: Plan The Work
+### Stage 2: Plan The Work
 
 **Goal:** Produce a documented list of discrete code changes needed to achieve the solution.
 
@@ -58,8 +58,15 @@ This directory contains portable, tool-agnostic skills implementing a structured
 - Identify gaps, contradictions, and opportunities
 - Validate plan readiness before implementation
 - Recommend parallelization or simplification
+- Estimate LOE per phase as an observation (decomposition is out of scope)
 
-### Phase 3: Implement The Plan
+**Step 3 - Atomize:** `/atomize` → `atomize/SKILL.md`
+- Estimate every phase using `/estimate`
+- Decompose any phase with LOE > 2 into subphases
+- Iterate until all phases score ≤ 2
+- Runs after pre-flight: first make it right, then make it atomic
+
+### Stage 3: Implement The Plan
 
 **Goal:** Execute the discrete changes documented in the plan, then verify the result.
 
@@ -158,6 +165,12 @@ These skills can be used at any point in the workflow to deepen understanding, v
 - Produce a Level of Effort (LOE) score for a proposed change
 - Evaluate Complexity and Impact independently, then synthesize to a 1–5 score
 - **Typical usage:** During Solutioning or Reasoning to calibrate scope and prioritize work
+
+**Skill:** `/atomize` → `atomize/SKILL.md`
+- Right-size a plan by estimating each phase and decomposing any phase with LOE > 2 into subphases
+- Iterates estimate → decompose until every phase scores ≤ 2
+- Produces a decomposition log and an updated plan ready for execution
+- **Typical usage:** After `/pre-flight` — once the plan is coherent and correct, atomize ensures each phase is bounded before implementation begins
 
 **Skill:** `/tire-kicking` → `tire-kicking/SKILL.md`
 - Stress-test proposed designs against concrete scenarios
