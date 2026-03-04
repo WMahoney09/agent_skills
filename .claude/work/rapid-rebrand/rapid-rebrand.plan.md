@@ -264,8 +264,8 @@ Rebrand the skills library from the three-stage framing (Understanding → Plann
 - CLAUDE.md checklist accurately describes the README structure
 
 ## Progress
-- [ ] Phase 1a: README top section — replace diagram and intro
-- [ ] Phase 1b: README body — replace stage sections with RAPID sections
+- [x] Phase 1a: README top section — replace diagram and intro
+- [x] Phase 1b: README body — replace stage sections with RAPID sections
 - [ ] Phase 1c: README cleanup — add Floating Skills, remove Supporting Skills, update Danger Zone
 - [ ] Phase 2: CLAUDE.md checklist update
 - [ ] Phase 3: Skill frontmatter and subtitle updates

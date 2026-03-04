@@ -64,6 +64,16 @@ This stage is currently manual. Activities include:
 - **Feedback gathering** — Collect and incorporate feedback
 - **Acceptance confirmation** — Confirm the work meets success criteria
 
+## Floating Skills
+
+These skills are valuable across multiple stages:
+
+- **`/recon`** — Read-only investigation of code and documentation. Often used during Research, but useful at any stage.
+- **`/clarify`** — Ask clarifying questions to sharpen understanding. Most common during Research and Align.
+- **`/reasoning`** — Reason through complexity to extract truths and directional clarity. Core to Research and Align, useful everywhere.
+- **`/estimate`** — Produce LOE scores (1–5). Used during Plan, but available anytime.
+- **`/commit`** — Stage and commit with typed convention. Used throughout Implement, available anytime.
+
 ## Orchestration Philosophy
 
 Subagents are a **context management tool, not a speed optimization.** Every subagent dispatch is a context boundary — the invoking agent passes a committed artifact file, not conversation history.
@@ -92,81 +102,13 @@ Concurrent tool calls within a single agent response (e.g., reading multiple fil
 - Referenced by `solutioning` and usable standalone to calibrate scope
 - **Note:** This is a shared scoring skill — invokable directly but also referenced internally by other skills
 
-## Supporting Skills
-
-These skills can be used at any point in the workflow to deepen understanding, validate decisions, or gather context. The typical usage patterns below are recommendations, not strict requirements.
-
-**Skill:** `/commit` → `commit/SKILL.md`
-- Stage and commit current working changes using the typed commit convention
-- Inspects `git status` and `git diff`, groups unrelated concerns into separate commits
-- **Typical usage:** After completing any unit of work — phase, step, or ad-hoc change
-
-**Skill:** `/recon` → `recon/SKILL.md`
-- Read-only investigation of code and documentation
-- Explore existing systems, architecture, and patterns
-- Gather context through file exploration and documentation
-- **Typical usage:** Before or during Understanding phase, or as standalone research
-
-**Skill:** `/clarify` → `clarify/SKILL.md`
-- Ask clarifying questions to sharpen and deepen shared understanding
-- Surface hidden assumptions, contradictions, and constraints
-- Test ideas and mental models through strategic questioning
-- **Typical usage:** During Understanding or Reasoning phases to clarify ambiguities
-
-**Skill:** `/reasoning` → `reasoning/SKILL.md`
-- Reason through problems to extract truths, conditionals, and directional vectors
-- Validate the problem and derive guiding principles
-- Develop directional clarity before proposing solutions
-- **Typical usage:** After Understanding, before Solutioning to establish direction
-
-**Skill:** `/estimate` → `estimate/SKILL.md`
-- Produce a Level of Effort (LOE) score for a proposed change
-- Evaluate Complexity and Impact independently, then synthesize to a 1–5 score
-- **Typical usage:** During Solutioning or Reasoning to calibrate scope and prioritize work
-
-**Skill:** `/atomize` → `atomize/SKILL.md`
-- Right-size a plan by estimating each phase and decomposing any phase with LOE > 2 into subphases
-- Iterates estimate → decompose until every phase scores ≤ 2
-- Produces a decomposition log and an updated plan ready for execution
-- **Typical usage:** After `/pre-flight` — once the plan is coherent and correct, atomize ensures each phase is bounded before implementation begins
-
-**Skill:** `/tire-kicking` → `tire-kicking/SKILL.md`
-- Stress-test proposed designs against concrete scenarios
-- Identify where designs hold, bend, or leak before implementation
-- Validate approaches against edge cases, lifecycle events, and data changes
-- **Typical usage:** After Solutioning, before or alongside Planning to validate designs
-
-**Skill:** `/review` → `review/SKILL.md`
-- Technical peer review of code changes — local diff or a specific pull request
-- Covers security, architecture, correctness, tests, and accessibility (for UI-producing files)
-- Produces a severity-graded report with an explicit go/no-go recommendation
-- **Typical usage:** After `/produce` to verify local changes before opening a PR, or to review a collaborator's PR
-
-**Skill:** `/triage` → `triage/SKILL.md`
-- Ingest feedback from a PR, `/review` output, or a conversational list
-- Group related items into unified revisions with quoted source linkage
-- Prioritize by severity: Critical, Major, Minor
-- **Typical usage:** After `/review` or when addressing PR comments — produces a prioritized revision list ready for `/revise`
-
-**Skill:** `/revise` → `revise/SKILL.md`
-- Address one revision at a time with a user-gated commit
-- Align on the issue before touching code, implement holistically, confirm before committing
-- Commit messages include revision ID and PR comment IDs for traceability with `/reply`
-- **Typical usage:** After `/triage` to work through revisions one by one, or standalone for a direct fix
-
-**Skill:** `/reply` → `reply/SKILL.md`
-- Close the PR feedback loop by replying to each reviewer comment with the commit hash that addresses it
-- Reads `Addresses:` trailers from `/revise` commits to build the mapping automatically
-- Confirms the full comment-to-commit mapping before posting anything
-- **Typical usage:** After all `/revise` work is complete — the final step before requesting re-review
-
 ## Danger Zone
 
 > ⚠️ **Experimental skills live here. These push the boundaries of autonomous agent behavior. Use them when you're ready to hand the wheel over entirely and see what happens.**
 
 **Skill:** `/leeroyyyyy` → `leeroyyyyy/SKILL.md`
 
-The full send. **Precondition:** Understanding must be complete and `problem-statement.md` must exist in the workstream directory before invocation. Leeroyyyyy runs the entire delivery pipeline autonomously, dispatching every phase to a subagent with artifact file handoffs (not conversation context).
+The full send. **Precondition:** Research must be complete and `problem-statement.md` must exist in the workstream directory before invocation. Leeroyyyyy runs the entire delivery pipeline autonomously, dispatching every phase to a subagent with artifact file handoffs (not conversation context).
 
 What Leeroyyyyy does autonomously:
 - Explores 2–3 candidate solutions and stress-tests all of them
