@@ -6,29 +6,52 @@ Rebrand the skills library from the three-stage framing (Understanding → Plann
 
 ## Phases
 
-### Phase 1: README restructure
+### Phase 1a: README top section — replace diagram and intro
 **Files:** `README.md`
 **Changes:**
-1. Replace the ASCII diagram with the one-line flow: `**RAPID flow:** Research → Align → Plan → Implement → Deliver` plus the floating skills callout block
-2. Replace the intro paragraph to reference RAPID delivery workflow
-3. Replace `## Agentic Delivery Phases & Skills` and its three `### Stage N` subsections with five `## Letter — Name` sections:
+1. Replace the ASCII diagram (lines 5–27) with the one-line flow: `**RAPID flow:** Research → Align → Plan → Implement → Deliver` plus the floating skills callout block
+2. Replace the intro paragraph (lines 1–3) to reference RAPID delivery workflow
+
+**Dependencies:** none
+**Success criteria:**
+- README opens with the RAPID flow line instead of the old ASCII diagram
+- Floating skills callout is present
+- Intro paragraph references RAPID
+
+---
+
+### Phase 1b: README body — replace stage sections with RAPID sections
+**Files:** `README.md`
+**Changes:**
+1. Replace `## Agentic Delivery Phases & Skills` and its three `### Stage N` subsections (lines 33–119) with five `## Letter — Name` sections:
    - `## R — Research` (goal line, `/understanding` card, `/recon` *(floating)* card)
    - `## A — Align` (goal line, `/solutioning` card, `/tire-kicking` card, `/reasoning` *(floating)* card)
    - `## P — Plan` (goal line, `/planning` card, `/pre-flight` card, `/atomize` card)
    - `## I — Implement` (goal line, `/produce` card, `/pair-on` card, `/review` card, `/triage` card, `/revise` card, `/reply` card)
    - `## D — Deliver` (goal line, manual activities list: PR, deploy, demo, feedback, acceptance)
-4. Add `## Floating Skills` section listing `/recon`, `/clarify`, `/reasoning`, `/estimate`, `/commit` with stage affinities where applicable
-5. Remove the `## Supporting Skills` section entirely (absorbed into RAPID sections + Floating Skills)
-6. Keep `## Conventions`, `## Orchestration Philosophy`, `## Meta` unchanged
-7. Update `## Danger Zone` prose: replace "Understanding must be complete" → "Research must be complete" in the `/leeroyyyyy` description paragraph
-8. Keep `## How Skills Work`, `## Where Skills Live`, `## Portability`, `## Invocation`, `## File Structure`, `## Sources` unchanged
 
-**Dependencies:** none
+**Dependencies:** Phase 1a
 **Success criteria:**
-- README renders correctly with the one-line flow, five RAPID sections, floating skills section
+- Five RAPID sections exist with correct skill cards
+- Old `## Agentic Delivery Phases & Skills` and `### Stage N` subsections are gone
+
+---
+
+### Phase 1c: README cleanup — add Floating Skills, remove Supporting Skills, update Danger Zone
+**Files:** `README.md`
+**Changes:**
+1. Add `## Floating Skills` section listing `/recon`, `/clarify`, `/reasoning`, `/estimate`, `/commit` with stage affinities where applicable
+2. Remove the `## Supporting Skills` section entirely (absorbed into RAPID sections + Floating Skills)
+3. Update `## Danger Zone` prose: replace "Understanding must be complete" → "Research must be complete" in the `/leeroyyyyy` description paragraph
+4. Keep `## Conventions`, `## Orchestration Philosophy`, `## Meta`, `## How Skills Work`, `## Where Skills Live`, `## Portability`, `## Invocation`, `## File Structure`, `## Sources` unchanged
+
+**Dependencies:** Phase 1b
+**Success criteria:**
+- Floating Skills section exists with all five floating skills
+- Supporting Skills section is gone
+- Danger Zone uses "Research" not "Understanding"
 - Every skill in the library appears exactly once in a RAPID section (with floating annotation if applicable) OR in the Floating Skills section
 - No references to old stage names ("Build A Shared Understanding", "Plan The Work", "Implement The Plan", "Stage 1/2/3") remain in README
-- Supporting Skills section is gone
 
 ---
 
@@ -44,7 +67,7 @@ Rebrand the skills library from the three-stage framing (Understanding → Plann
    - "README Supporting Skills section updated" → remove this item (absorbed into RAPID section update)
    - "README phase descriptions updated" → "README RAPID stage section updated (if the skill belongs to a specific stage)"
 
-**Dependencies:** Phase 1 (README must be restructured first so CLAUDE.md references match reality)
+**Dependencies:** Phase 1c (README must be restructured first so CLAUDE.md references match reality)
 **Success criteria:**
 - CLAUDE.md checklist items reference the actual README structure (RAPID sections, floating skills, flow line)
 - No references to "diagram", "Supporting Skills section" in the old sense remain
@@ -77,17 +100,13 @@ Rebrand the skills library from the three-stage framing (Understanding → Plann
 
 ---
 
-### Phase 4: Skill body prose updates (stage-bound skills)
+### Phase 4a: Skill body prose updates — solutioning, planning, understanding
 **Files:**
 - `solutioning/SKILL.md`
 - `planning/SKILL.md`
-- `pre-flight/SKILL.md`
 - `understanding/SKILL.md`
-- `pair-on/SKILL.md`
-- `produce/SKILL.md`
-- `recon/SKILL.md`
 
-**Changes:** Replace old stage-name references in prose with RAPID equivalents. Specific edits below. **Note:** Line numbers are orientation aids from the current file state; the executor should match by string content, not line number.
+**Changes:** Replace old stage-name references in prose with RAPID equivalents. **Note:** Line numbers are orientation aids from the current file state; the executor should match by string content, not line number.
 
 1. **`solutioning/SKILL.md`**:
    - Line 32: "Those belong in the Planning and Implementation phases" → "Those belong in the Plan and Implement stages"
@@ -105,7 +124,24 @@ Rebrand the skills library from the three-stage framing (Understanding → Plann
    - Line 159: "prevents rework during implementation" → **intentional keep** — "implementation" here is behavioral language (the activity of implementing), not a pipeline stage name. No change.
    - Line 161: "go back to Solutioning" → "go back to Align (solutioning)"
 
-3. **`pre-flight/SKILL.md`**:
+3. **`understanding/SKILL.md`**:
+   - Line 30: "work of the Solutioning phase" → "work of the Align stage (solutioning)"
+   - Line 82: "hand off to the Exploration phase" → "hand off to the Align stage"
+
+**Dependencies:** Phase 3 (subtitles should be updated before body prose, for clean diffs)
+**Success criteria:**
+- No old pipeline stage names remain in solutioning, planning, or understanding body prose
+- Internal stage numbering in planning (Stage 1/2/3) is unchanged
+
+---
+
+### Phase 4b: Skill body prose updates — pre-flight
+**Files:**
+- `pre-flight/SKILL.md`
+
+**Changes:**
+
+1. **`pre-flight/SKILL.md`**:
    - Line 10: "catch issues before they derail work during Implementation" → "catch issues before they derail work during the Implement stage"
    - Line 22: "Provide the finalized plan from Phase 3" → "Provide the finalized plan from the Plan stage"
    - Line 24: "Decide on changes before moving to Implementation" → "Decide on changes before moving to Implement"
@@ -117,27 +153,37 @@ Rebrand the skills library from the three-stage framing (Understanding → Plann
    - Line 140: "cause delays in Implementation" → "cause delays during Implement"
    - Line 141: "resolved during Implementation" → "resolved during the Implement stage"
 
-4. **`understanding/SKILL.md`**:
-   - Line 30: "work of the Solutioning phase" → "work of the Align stage (solutioning)"
-   - Line 82: "hand off to the Exploration phase" → "hand off to the Align stage"
+**Dependencies:** Phase 4a
+**Success criteria:**
+- No old pipeline stage names remain in pre-flight body prose
 
-5. **`pair-on/SKILL.md`**:
+---
+
+### Phase 4c: Skill body prose updates — pair-on, produce, recon
+**Files:**
+- `pair-on/SKILL.md`
+- `produce/SKILL.md`
+- `recon/SKILL.md`
+
+**Changes:**
+
+1. **`pair-on/SKILL.md`**:
    - Line 10: "implementation plan from Phase 3" → "implementation plan from the Plan stage"
    - Line 167: "Ready to move to Review phase?" → "Ready to move to review?"
    - Line 169: "the workflow moves to the Review phase" → "the workflow moves to review"
 
-6. **`produce/SKILL.md`**:
+2. **`produce/SKILL.md`**:
    - Line 44: "Review the plan from Phase 3" → "Review the plan from the Plan stage"
 
-7. **`recon/SKILL.md`**:
+3. **`recon/SKILL.md`**:
    - Line 143: "move on to Understanding" → "move on to Research (understanding)"
    - Line 150: "Before Understanding a new problem" → "Before researching a new problem"
    - Line 153: "As part of Understanding" → "As part of Research"
    - Line 162: "surprises during Implementation" → "surprises during the Implement stage"
 
-**Dependencies:** Phase 3 (subtitles should be updated before body prose, for clean diffs)
+**Dependencies:** Phase 4b
 **Success criteria:**
-- No skill body text references "Understanding phase", "Solutioning phase", "Planning phase", "Implementation phase", "Exploration phase", "Discovery phase", "Phase 3" (when meaning the pipeline stage), "Build A Shared Understanding", "Plan The Work", or "Implement The Plan"
+- No old pipeline stage names remain in pair-on, produce, or recon body prose
 - Internal stage numbering within skills (e.g., planning's own "Stage 1/2/3" for its internal steps, revise's "Stage 1: Align / Stage 2: Implement") is left unchanged — those are skill-internal, not pipeline stages
 
 ---
@@ -166,7 +212,7 @@ Rebrand the skills library from the three-stage framing (Understanding → Plann
    - Line 77: "Not Implementation" → "Not Implement"
    - Line 101: "move to implementation" → "move to the Implement stage"
 
-**Dependencies:** Phase 4 (keep all skill prose updates sequential for clean commits)
+**Dependencies:** Phase 4c (keep all skill prose updates sequential for clean commits)
 **Success criteria:**
 - Floating skills use RAPID stage names when referring to pipeline stages
 - Skill names (e.g., `/solutioning`, `/understanding`) remain unchanged — only pipeline stage references are updated
@@ -211,17 +257,21 @@ Rebrand the skills library from the three-stage framing (Understanding → Plann
 3. Verify README structure: one-line flow present, five RAPID sections present, Floating Skills section present, no Supporting Skills section
 4. Verify CLAUDE.md checklist matches README structure
 
-**Dependencies:** Phases 1–6 all complete
+**Dependencies:** Phases 1a–6 all complete
 **Success criteria:**
 - Zero hits for old pipeline stage names in README
 - Zero hits for old pipeline stage names in SKILL.md files (excluding skill-internal stage numbering in planning, revise, and produce). Expected false positives for "Stage 1/2/3" grep: `planning/SKILL.md` (internal Stage 1/2/3 steps), `revise/SKILL.md` ("Stage 1: Align / Stage 2: Implement" internal phases), `produce/SKILL.md` (internal phase references). These are skill-internal numbering and must be left unchanged.
 - CLAUDE.md checklist accurately describes the README structure
 
 ## Progress
-- [ ] Phase 1: README restructure
+- [ ] Phase 1a: README top section — replace diagram and intro
+- [ ] Phase 1b: README body — replace stage sections with RAPID sections
+- [ ] Phase 1c: README cleanup — add Floating Skills, remove Supporting Skills, update Danger Zone
 - [ ] Phase 2: CLAUDE.md checklist update
 - [ ] Phase 3: Skill frontmatter and subtitle updates
-- [ ] Phase 4: Skill body prose updates (stage-bound skills)
+- [ ] Phase 4a: Skill body prose updates — solutioning, planning, understanding
+- [ ] Phase 4b: Skill body prose updates — pre-flight
+- [ ] Phase 4c: Skill body prose updates — pair-on, produce, recon
 - [ ] Phase 5: Floating skill prose updates
 - [ ] Phase 6: leeroyyyyy internal documentation
 - [ ] Phase 7: Final validation sweep
