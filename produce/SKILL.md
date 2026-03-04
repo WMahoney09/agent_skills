@@ -14,7 +14,7 @@ This skill executes the implementation plan autonomously, with the agent making 
 ## Goal
 
 Complete the implementation plan without pause, managing:
-- **Work order** - Choosing which units to execute and in what order (including parallelization where beneficial)
+- **Work order** - Choosing which units to execute and in what order
 - **Commit strategy** - Creating atomic, logically grouped commits based on semantic relationships
 - **Git history** - Producing a clean, navigable commit history that tells the story of the implementation
 
@@ -31,7 +31,7 @@ Complete the implementation plan without pause, managing:
 The agent executing this skill (when invoked by the user) should:
 
 1. **Review the plan** thoroughly
-2. **Determine execution strategy** based on dependencies and parallelization opportunities
+2. **Determine execution order** based on dependencies
 3. **Execute all units** in an optimal order
 4. **Create atomic commits** with semantic coherence
 5. **Manage git history** throughout execution
@@ -43,9 +43,8 @@ Before beginning implementation, the agent should:
 
 - Review the plan from Phase 3
 - Identify dependencies and execution order
-- Look for parallelizable work
 - Understand the logical groupings and concerns
-- Plan a work sequence that respects dependencies while optimizing flow
+- Plan a work sequence that respects dependencies
 
 ## Phase 2: Execution with Intelligent Commits
 
@@ -80,14 +79,9 @@ Each commit should represent a **logically coherent unit of work**. Files change
 
 ### Execution Patterns
 
-#### Sequential Execution
-If work is dependent, execute in order and commit after each logical unit completes.
+#### Sequential Execution is the Standard
 
-#### Parallel Execution
-If work is decoupled (e.g., User feature and Order feature are independent):
-- Interleave execution to balance progress
-- Keep changes grouped by domain when committing
-- Don't mix Order changes with User changes in the same commit
+Every phase runs to completion before the next begins. This is intentional — context isolation over throughput. When steps are independent, they can be executed in any order, but not simultaneously.
 
 #### Layered Execution
 If implementing by layer (e.g., all migrations, then all APIs, then all UI):
@@ -168,5 +162,4 @@ If the agent encounters:
 - This is autopilot mode: the agent has full autonomy over work order and commits
 - The git history is the primary deliverable—it should be clean and navigable
 - Semantic coherence matters more than batch size; a 5-file commit is fine if they're all related
-- Parallel execution of decoupled work is encouraged for efficiency
 - The agent should think like a human developer managing their own commits
