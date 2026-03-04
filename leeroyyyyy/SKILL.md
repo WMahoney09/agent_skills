@@ -42,6 +42,54 @@ Revise  ← address all Critical and Major revisions autonomously
 
 ---
 
+## Context Management and Subagent Dispatch
+
+Context is a finite resource — treat it as such.
+
+Every phase handoff is a context boundary: pass artifact files, not conversation history. **Commits are the handoff mechanism** — every artifact is committed before the next stage begins; subagents read committed files, never conversation history.
+
+The full run produces a readable git log:
+```
+[docs]  solution-statement.md       ← solutioning
+[docs]  tire-kicking-report.md      ← tire-kicking
+[docs]  truth-and-vector.md         ← reasoning
+[plan]  *.plan.md                   ← planning (initial)
+[plan]  *.plan.md                   ← pre-flight adjustments (one per cycle)
+[plan]  *.plan.md                   ← atomize resizing
+[code]  <implementation>            ← produce (phase N)
+[plan]  *.plan.md                   ← phase N marked complete
+[code]  <implementation>            ← produce (phase N+1)
+[plan]  *.plan.md                   ← phase N+1 marked complete
+...
+```
+
+Each commit corresponds to one pipeline stage's output. `problem-statement.md` is a precondition, not produced during the run.
+
+**All plan phases are always dispatched to subagents — no exceptions.** The LOE ≤ 2 guarantee is established by `/atomize`, which runs after pre-flight; leeroyyyyy trusts this guarantee and never re-estimates at runtime.
+
+Progress is reported in chat at each phase transition so the user can observe pipeline state without being blocked.
+
+### Artifact Handoff Map
+
+**Precondition:** `problem-statement.md` must exist in `.claude/work/<slug>/` before leeroyyyyy is invoked. Understanding requires user dialogue and cannot be automated — it is the one stage leeroyyyyy does not own.
+
+| Phase | Input artifacts | Output artifact | Subagent rule |
+|---|---|---|---|
+| Solutioning | problem-statement.md | solution-statement.md | mandatory |
+| Tire-kicking | problem-statement.md, solution-statement.md (all candidates) | tire-kicking-report.md | mandatory |
+| Reasoning | tire-kicking-report.md | truth-and-vector.md | mandatory |
+| Planning | solution-statement.md, truth-and-vector.md | *.plan.md | mandatory |
+| Pre-flight | *.plan.md, solution-statement.md | inline findings → `[plan]` *.plan.md commit (via reasoning pass) | mandatory |
+| Atomize | *.plan.md | *.plan.md (all phases ≤ LOE 2) | mandatory |
+| Produce (per phase) | *.plan.md only | progress update in plan file | mandatory |
+| Review | local diff | review-issues.md | mandatory |
+| Triage | review-issues.md | triage-report.md | mandatory |
+| Revise | triage-report.md, *.plan.md | commits | mandatory |
+
+**Note on Reasoning:** The reasoning subagent executes its own recon pass — no committed recon artifact is produced or passed by leeroyyyyy. Recon findings are internal to the reasoning subagent's context. This is the one sanctioned exception to the commits-as-handoff principle, because recon is read-only investigation with no canonical output.
+
+---
+
 ## Phase 1: Solutioning
 
 **Invoke by reference:** `solutioning` skill
