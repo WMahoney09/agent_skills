@@ -7,7 +7,7 @@ agent-note: "Agents may execute this skill ONLY when explicitly invoked by the u
 
 # Pair-On: Pair Programming Implementation with User-Controlled Boundaries
 
-This skill enables pair programming through the implementation plan from Phase 3, with you directing when to pause for review and committing between units.
+This skill enables pair programming through the implementation plan from the Plan stage, with you directing when to pause for review and committing between units.
 
 ## Goal
 
@@ -164,9 +164,9 @@ Pair-on is complete when:
 
 When the final unit is complete and committed:
 
-**Agent:** "Implementation complete. All phases/steps/tasks finished and committed. Ready to move to Review phase?"
+**Agent:** "Implementation complete. All phases/steps/tasks finished and committed. Ready to move to review?"
 
-At this point, the workflow moves to the Review phase where you'll do a holistic review before any finalization.
+At this point, the workflow moves to review where you'll do a holistic review before any finalization.
 
 ## Notes
 
