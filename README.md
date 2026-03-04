@@ -10,93 +10,59 @@ A library of composable skills for structured software delivery, organized aroun
 
 Every skill directory contains a `SKILL.md` conforming to [`SKILL.spec.md`](./SKILL.spec.md). Skills that produce phase artifacts also contain an `ARTIFACT.md` conforming to [`ARTIFACT.spec.md`](./ARTIFACT.spec.md). These two root-level spec files are the authoritative references for skill file structure and artifact definition structure, respectively.
 
-## Agentic Delivery Phases & Skills
+## R — Research
 
-### Stage 1: Build A Shared Understanding
+> Build context, understand the problem, identify constraints.
 
-**Goal:** Arrive at a shared understanding of the problem *and* a high-level solution direction before any planning or implementation begins.
+- **`/understanding`** — Build shared understanding of a problem through discovery. Start here for new work.
+- **`/recon`** *(floating)* — Read-only investigation of code and documentation. Usable at any stage.
 
-**Step 1 - Understanding:** `/understanding` → `understanding/SKILL.md`
-- Build shared understanding of the problem
-- Clarify constraints, context, and success criteria
-- No solutions proposed in this phase
+---
 
-**Step 2 - Solutioning:** `/solutioning` → `solutioning/SKILL.md`
-- Explore 2-3 distinct architectural approaches
-- Reason through tradeoffs of each
-- Align on the direction that best fits your constraints
-- High-level architecture only, not implementation
+## A — Align
 
-### Stage 2: Plan The Work
+> Converge on a solution direction through exploration and stress-testing.
 
-**Goal:** Produce a documented list of discrete code changes needed to achieve the solution.
+- **`/solutioning`** — Co-architect solutions by exploring multiple approaches and their tradeoffs.
+- **`/tire-kicking`** — Stress-test a proposed design against scenarios (edge cases, lifecycle, multi-actor, data change).
+- **`/reasoning`** *(floating)* — Reason through a problem to extract truths and directional clarity. Usable at any stage.
 
-**Step 1 - Planning:** `/planning` → `planning/SKILL.md`
-- Interactive Q&A to gather full context
-- Design step-by-step implementation plan
-- Identify phases, steps, tasks, dependencies, and risks
-- Generate initial plan document
+---
 
-**Step 2 - Pre-Flight Validation:** `/pre-flight` → `pre-flight/SKILL.md`
-- Interactive review and refinement of the plan
-- Identify gaps, contradictions, and opportunities
-- Validate plan readiness before implementation
-- Recommend simplification
-- Estimate LOE per phase as an observation (decomposition is out of scope)
+## P — Plan
 
-**Step 3 - Atomize:** `/atomize` → `atomize/SKILL.md`
-- Estimate every phase using `/estimate`
-- Decompose any phase with LOE > 2 into subphases
-- Iterate until all phases score ≤ 2
-- Runs after pre-flight: first make it right, then make it atomic
+> Lock the implementation approach with a validated, right-sized plan.
 
-### Stage 3: Implement The Plan
+- **`/planning`** — Design and document the implementation approach as a detailed step-by-step plan.
+- **`/pre-flight`** — Review the plan for gaps, contradictions, and opportunities before execution.
+- **`/atomize`** — Right-size a plan by decomposing any phase with LOE > 2 into subphases.
 
-**Goal:** Execute the discrete changes documented in the plan, then verify the result.
+---
 
-**Step 1 - Implementation:**
+## I — Implement
 
-Two distinct approaches depending on your workflow:
+> Build, review, and revise until the work is complete.
 
-**Option A:** `/pair-on` → `pair-on/SKILL.md`
-- Pair program with the agent through implementation
-- Choose your review boundary: Phase, Step, or Task level
-- Pause after each unit for your review and commit
-- Agent executes, you manage git history and gate progress
+- **`/produce`** — Execute the implementation plan autonomously with intelligent atomic commits.
+- **`/pair-on`** — Pair program through the plan with user-controlled review boundaries and commits.
+- **`/review`** — Technical peer review of code changes with severity-graded report and go/no-go recommendation.
+- **`/triage`** — Ingest feedback, group related items into unified revisions, and prioritize by severity.
+- **`/revise`** — Address a discrete revision with a lightweight alignment check and holistic implementation.
+- **`/reply`** — Close the feedback loop on a PR by replying to each reviewer comment with the addressing commit.
 
-**Option B:** `/produce` → `produce/SKILL.md`
-- Autonomous execution with intelligent atomic commits
-- Agent chooses work order and commit strategy
-- Agent manages git history with semantically coherent commits
-- Minimal intervention needed—commits are the deliverable
+---
 
-**Step 2 - Review & Revise:**
+## D — Deliver
 
-**`/review`** → `review/SKILL.md`
-- Technical peer review of local changes or a pull request
-- Covers security, architecture, correctness, tests, and accessibility
-- Produces a severity-graded report (Critical / Major / Minor / Gaps / Opportunities)
-- Delivers an explicit go/no-go merge recommendation
-- Works locally (post-produce, pre-PR) or against any PR number
+> Ship the work, gather feedback, confirm acceptance.
 
-**`/triage`** → `triage/SKILL.md`
-- Ingest feedback from a PR, review output, or a conversational list
-- Group related items into unified revisions with explicit source linkage
-- Prioritize by severity: Critical, Major, Minor
-- Produce a structured report ready for action with `/revise`
+This stage is currently manual. Activities include:
 
-**`/revise`** → `revise/SKILL.md`
-- Address one revision at a time: align, implement, confirm, commit
-- Lightweight alignment check before any code changes — agent states its understanding, you confirm
-- Holistic implementation — if the issue is a pattern across files, all instances are fixed together
-- User-gated commit — no change is committed until you explicitly confirm the issue is resolved
-- Commit messages include revision ID and PR comment IDs for traceability with `/reply`
-
-**`/reply`** → `reply/SKILL.md`
-- Close the feedback loop by replying to each PR comment with the commit hash that addresses it
-- Reads `Addresses:` trailers from `/revise` commits to build the mapping automatically
-- Presents the full comment-to-commit mapping for confirmation before posting anything
-- Flags any comments that have no associated commit so nothing slips through
+- **Pull request creation** — Open a PR with a clear summary and test plan
+- **Deployment** — Deploy to the target environment
+- **Demonstration** — Demo the changes to stakeholders
+- **Feedback gathering** — Collect and incorporate feedback
+- **Acceptance confirmation** — Confirm the work meets success criteria
 
 ## Orchestration Philosophy
 
