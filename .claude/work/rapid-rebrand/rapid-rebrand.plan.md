@@ -20,7 +20,7 @@ Rebrand the skills library from the three-stage framing (Understanding → Plann
 4. Add `## Floating Skills` section listing `/recon`, `/clarify`, `/reasoning`, `/estimate`, `/commit` with stage affinities where applicable
 5. Remove the `## Supporting Skills` section entirely (absorbed into RAPID sections + Floating Skills)
 6. Keep `## Conventions`, `## Orchestration Philosophy`, `## Meta` unchanged
-7. Update `## Danger Zone` prose: replace "Understanding must be complete" old-stage language with RAPID terminology ("Research must be complete")
+7. Update `## Danger Zone` prose: replace "Understanding must be complete" → "Research must be complete" in the `/leeroyyyyy` description paragraph
 8. Keep `## How Skills Work`, `## Where Skills Live`, `## Portability`, `## Invocation`, `## File Structure`, `## Sources` unchanged
 
 **Dependencies:** none
@@ -87,11 +87,12 @@ Rebrand the skills library from the three-stage framing (Understanding → Plann
 - `produce/SKILL.md`
 - `recon/SKILL.md`
 
-**Changes:** Replace old stage-name references in prose with RAPID equivalents. Specific edits:
+**Changes:** Replace old stage-name references in prose with RAPID equivalents. Specific edits below. **Note:** Line numbers are orientation aids from the current file state; the executor should match by string content, not line number.
 
 1. **`solutioning/SKILL.md`**:
    - Line 32: "Those belong in the Planning and Implementation phases" → "Those belong in the Plan and Implement stages"
    - Line 64: "constraints from the Understanding phase" → "constraints from the Research stage"
+   - Line 89: "You're ready to move to Planning when:" → "You're ready to move to the Plan stage when:"
    - Line 111: "move to Planning phase" → "move to the Plan stage"
 
 2. **`planning/SKILL.md`**:
@@ -120,6 +121,7 @@ Rebrand the skills library from the three-stage framing (Understanding → Plann
 5. **`pair-on/SKILL.md`**:
    - Line 10: "implementation plan from Phase 3" → "implementation plan from the Plan stage"
    - Line 167: "Ready to move to Review phase?" → "Ready to move to review?"
+   - Line 169: "the workflow moves to the Review phase" → "the workflow moves to review"
 
 6. **`produce/SKILL.md`**:
    - Line 44: "Review the plan from Phase 3" → "Review the plan from the Plan stage"
@@ -148,6 +150,7 @@ Rebrand the skills library from the three-stage framing (Understanding → Plann
 1. **`clarify/SKILL.md`**:
    - Line 101: "for Recon and Understanding phases" → "for Research and Align stages"
    - Line 105: "for Solutioning and beyond" → "for Align (solutioning) and beyond"
+   - Line 109: "discovery phases" → "research phases" (lowercase "discovery" referred to the old Discovery Phase stage name; "research" aligns with the RAPID Research stage)
 
 2. **`reasoning/SKILL.md`**:
    - No changes to "Solutioning" references — reasoning explicitly names the `/solutioning` skill, not the old pipeline stage. "Solutioning" in reasoning's prose refers to the skill/activity, which is correct. Similarly "Understanding" refers to the `/understanding` skill. These are skill names, not stage names, and should stay.
@@ -158,6 +161,7 @@ Rebrand the skills library from the three-stage framing (Understanding → Plann
    - Line 75: "Not Understanding" → "Not Research"
    - Line 76: "Not Solutioning" → "Not Align"
    - Line 77: "Not Implementation" → "Not Implement"
+   - Line 101: "move to implementation" → "move to the Implement stage"
 
 **Dependencies:** Phase 4 (keep all skill prose updates sequential for clean commits)
 **Success criteria:**
@@ -207,7 +211,7 @@ Rebrand the skills library from the three-stage framing (Understanding → Plann
 **Dependencies:** Phases 1–6 all complete
 **Success criteria:**
 - Zero hits for old pipeline stage names in README
-- Zero hits for old pipeline stage names in SKILL.md files (excluding skill-internal stage numbering in planning, revise, and produce)
+- Zero hits for old pipeline stage names in SKILL.md files (excluding skill-internal stage numbering in planning, revise, and produce). Expected false positives for "Stage 1/2/3" grep: `planning/SKILL.md` (internal Stage 1/2/3 steps), `revise/SKILL.md` ("Stage 1: Align / Stage 2: Implement" internal phases), `produce/SKILL.md` (internal phase references). These are skill-internal numbering and must be left unchanged.
 - CLAUDE.md checklist accurately describes the README structure
 
 ## Progress
