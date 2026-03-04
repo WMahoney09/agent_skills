@@ -93,13 +93,16 @@ Rebrand the skills library from the three-stage framing (Understanding → Plann
    - Line 32: "Those belong in the Planning and Implementation phases" → "Those belong in the Plan and Implement stages"
    - Line 64: "constraints from the Understanding phase" → "constraints from the Research stage"
    - Line 89: "You're ready to move to Planning when:" → "You're ready to move to the Plan stage when:"
+   - Line 101: "Ready to move to planning?" → "Ready to move to the Plan stage?"
    - Line 111: "move to Planning phase" → "move to the Plan stage"
 
 2. **`planning/SKILL.md`**:
    - Line 8: "solution direction chosen during Solutioning" → "solution direction chosen during the Align stage"
    - Line 135: "In the leeroyyyyy context, Stage 1 (interactive Q&A) is automated" → keep "Stage 1" here — it refers to planning's own internal stage numbering, not the pipeline stage. No change.
    - Line 139: "You're ready to move to Implementation when" → "You're ready to move to the Implement stage when"
+   - Line 153: "before we move to implementation" → "before we move to the Implement stage"
    - Line 155: "you're ready for Implementation" → "you're ready for the Implement stage"
+   - Line 159: "prevents rework during implementation" → **intentional keep** — "implementation" here is behavioral language (the activity of implementing), not a pipeline stage name. No change.
    - Line 161: "go back to Solutioning" → "go back to Align (solutioning)"
 
 3. **`pre-flight/SKILL.md`**:
