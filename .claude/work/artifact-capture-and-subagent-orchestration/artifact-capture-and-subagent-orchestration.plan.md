@@ -50,16 +50,16 @@ dispatches subagents with targeted artifact handoffs and mandates subagenting fo
 
 ## Progress
 
-- [ ] Phase 1: Create canonical template files
-- [ ] Phase 2a: Create ARTIFACT.md files — understanding, solutioning, tire-kicking, reasoning
-- [ ] Phase 2b: Create ARTIFACT.md files — planning, pre-flight, review, triage
-- [ ] Phase 2c: Create ARTIFACT.md files — estimate, atomize, leeroyyyyy
-- [ ] Phase 3a: Add `## Artifact` section to 9 SKILL.md files
-- [ ] Phase 3b: Update planning + produce SKILL.md; scan for artifactor refs
-- [ ] Phase 4a: leeroyyyyy — add Context Management section + artifact handoff map
-- [ ] Phase 4b: leeroyyyyy — rewrite pipeline section + pre-flight loop + commit instructions
-- [ ] Phase 4c: leeroyyyyy — autonomy principle + frontmatter + Completion section
-- [ ] Phase 5: Retire artifactor directory
+- [x] Phase 1: Create canonical template files
+- [x] Phase 2a: Create ARTIFACT.md files — understanding, solutioning, tire-kicking, reasoning
+- [x] Phase 2b: Create ARTIFACT.md files — planning, pre-flight, review, triage
+- [x] Phase 2c: Create ARTIFACT.md files — estimate, atomize, leeroyyyyy
+- [x] Phase 3a: Add `## Artifact` section to 9 SKILL.md files
+- [x] Phase 3b: Update planning + produce SKILL.md; scan for artifactor refs
+- [x] Phase 4a: leeroyyyyy — add Context Management section + artifact handoff map
+- [x] Phase 4b: leeroyyyyy — rewrite pipeline section + pre-flight loop + commit instructions
+- [x] Phase 4c: leeroyyyyy — autonomy principle + frontmatter + Completion section
+- [x] Phase 5: Retire artifactor directory
 
 ---
 
