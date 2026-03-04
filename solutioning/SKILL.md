@@ -3,7 +3,7 @@ name: solutioning
 description: Co-architect solutions by exploring multiple approaches and their tradeoffs. Use after building shared understanding of a problem to reason through viable solutions.
 ---
 
-# Solutioning: Exploration Phase Skill
+# Solutioning: Align Phase Skill
 
 This skill guides you through exploring multiple solution approaches before committing to one.
 

@@ -3,7 +3,7 @@ name: understanding
 description: Build shared understanding of a problem through discovery. Use when starting new work to clarify what's being solved, why it matters, and what constraints exist.
 ---
 
-# Understanding: Discovery Phase Skill
+# Understanding: Research Phase Skill
 
 This skill guides you through building a shared understanding of the problem before exploring solutions.
 

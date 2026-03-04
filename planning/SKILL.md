@@ -3,7 +3,7 @@ name: planning
 description: Design and document the implementation approach. Use after aligning on a solution direction to create a detailed step-by-step plan before implementation begins.
 ---
 
-# Planning: Architecture-to-Implementation Phase Skill
+# Planning: Plan Phase Skill
 
 This skill guides you through creating a detailed implementation plan based on the solution direction chosen during Solutioning.
 
