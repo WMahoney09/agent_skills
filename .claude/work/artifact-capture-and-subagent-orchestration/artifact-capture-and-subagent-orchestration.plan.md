@@ -44,8 +44,6 @@ dispatches subagents with targeted artifact handoffs and mandates subagenting fo
   ...
   ```
   The orchestrator (leeroyyyyy) is responsible for ensuring each stage commits before the next begins.
-- **Parallel subagenting in produce:** concurrent phase subagents each update only their phase
-  row in the progress section of the plan file, avoiding conflicts
 - **Canonical structure:** `SKILL.spec.md` at the project root defines the canonical section
   order for all skill files. The invariant for this workstream: `## Artifact` always appears
   immediately before `## Closure Criteria`.
@@ -68,7 +66,7 @@ dispatches subagents with targeted artifact handoffs and mandates subagenting fo
 ## Phase 1: Create canonical template files
 
 Establishes the authoritative specifications that all subsequent phases conform to.
-Steps are independent and can be parallelized. Phases 2a/2b/2c and 3a/3b depend on this phase.
+Steps are independent and can be executed in any order. Phases 2a/2b/2c and 3a/3b depend on this phase.
 
 ### Step 1.1: Create SKILL.spec.md — canonical skill file specification
 
@@ -158,7 +156,7 @@ Do all README changes in one edit:
 ## Phase 2a: Create ARTIFACT.md files — understanding, solutioning, tire-kicking, reasoning
 
 Depends on Phase 1 (`ARTIFACT.spec.md` defines the required structure).
-All four files are independent and can be created in parallel.
+All four files are independent and can be executed in any order.
 
 Every `ARTIFACT.md` must include the meta-instruction block at the top (per `ARTIFACT.spec.md`).
 
@@ -223,7 +221,7 @@ Template sections:
 
 ## Phase 2b: Create ARTIFACT.md files — planning, pre-flight, review, triage
 
-Depends on Phase 1. All four files are independent and can be created in parallel.
+Depends on Phase 1. All four files are independent and can be executed in any order.
 Pre-flight has a nuanced inline-only pattern — read the plan notes carefully before authoring.
 
 ### Step 2b.1: planning/ARTIFACT.md
@@ -297,7 +295,7 @@ Template sections:
 ## Phase 2c: Create ARTIFACT.md files — estimate, atomize, leeroyyyyy
 
 Depends on Phase 1. All three files have special patterns; read the plan notes for each carefully.
-Files are independent and can be created in parallel.
+Files are independent and can be executed in any order.
 
 ### Step 2c.1: estimate/ARTIFACT.md
 
@@ -357,7 +355,7 @@ or after aborting with unresolvable issues — document the abort reason in the 
 ## Phase 3a: Add `## Artifact` section to 9 SKILL.md files
 
 Depends on Phase 1 (`SKILL.spec.md` defines canonical structure and `## Artifact` placement).
-All 9 files are independent — can be edited in parallel.
+All 9 files are independent — can be edited in any order.
 
 ### Step 3a.1: Add `## Artifact` section to each skill with an ARTIFACT.md
 
@@ -406,7 +404,6 @@ Combine all changes into one edit:
   - Commit the plan file update as a `[plan]` commit before moving to the next phase
 - Add subagent context note: produce subagents receive only the plan file — not full
   conversation history
-- Add parallel subagent note: concurrent phase subagents update only their own progress row
 
 ### Step 3b.3: Remove artifactor references from all remaining SKILL.md files
 
@@ -439,8 +436,6 @@ unconditional execution strategy:
 - All plan phases are always dispatched to subagents — no exceptions
 - The LOE ≤ 2 guarantee is established by `/atomize`, which runs after pre-flight; leeroyyyyy
   trusts this guarantee and never re-estimates at runtime
-- Concurrent phase work: multiple subagents may run in parallel; each receives only the
-  artifacts it needs
 - Progress is reported in chat at each phase transition so the user can observe pipeline
   state without being blocked
 
@@ -617,9 +612,6 @@ leeroyyyyy update) are executed as a single pass in Step 1.3. No separate execut
 - **Leeroyyyyy rewrite scope** — Phases 4a–4c are the most complex. The artifact handoff
   map must accurately reflect what each downstream subagent actually needs; getting this wrong
   breaks the context isolation goal
-- **Concurrent subagent plan file updates** — parallel produce subagents both write to the plan
-  file. The constraint (each updates only its own progress row) must be explicit in both
-  produce/SKILL.md and leeroyyyyy/SKILL.md
 - **Phase 5 ordering** — Phase 5 (delete artifactor directory) must not run before Phase 3b
   is complete; verify leeroyyyyy/SKILL.md has no remaining artifactor references before deleting
 - **Understanding as Precondition (not Phase 1)** — leeroyyyyy already has a Precondition

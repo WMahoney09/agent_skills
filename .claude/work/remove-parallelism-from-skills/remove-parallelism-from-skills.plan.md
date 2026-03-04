@@ -22,11 +22,11 @@ section as a durable library-level reference.
 
 ## Progress
 
-- [ ] Phase 1: README — Orchestration Philosophy + inline cleanup
-- [ ] Phase 2: produce/SKILL.md — remove parallel execution guidance
-- [ ] Phase 3: pre-flight/SKILL.md — replace parallelization rubric with simplification rubric
-- [ ] Phase 4: planning, atomize, leeroyyyyy — minor single-reference updates
-- [ ] Phase 5: Amend artifact-capture plan
+- [x] Phase 1: README — Orchestration Philosophy + inline cleanup
+- [x] Phase 2: produce/SKILL.md — remove parallel execution guidance
+- [x] Phase 3: pre-flight/SKILL.md — replace parallelization rubric with simplification rubric
+- [x] Phase 4: planning, atomize, leeroyyyyy — minor single-reference updates
+- [x] Phase 5: Amend artifact-capture plan
 
 ---
 
