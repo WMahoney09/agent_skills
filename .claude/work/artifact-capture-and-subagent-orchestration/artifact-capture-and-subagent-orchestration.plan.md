@@ -53,17 +53,22 @@ dispatches subagents with targeted artifact handoffs and mandates subagenting fo
 ## Progress
 
 - [ ] Phase 1: Create canonical template files
-- [ ] Phase 2: Create all per-skill ARTIFACT.md files
-- [ ] Phase 3: Update SKILL.md files
-- [ ] Phase 4: Rewrite leeroyyyyy SKILL.md
-- [ ] Phase 5: Retire artifactor + update README
+- [ ] Phase 2a: Create ARTIFACT.md files — understanding, solutioning, tire-kicking, reasoning
+- [ ] Phase 2b: Create ARTIFACT.md files — planning, pre-flight, review, triage
+- [ ] Phase 2c: Create ARTIFACT.md files — estimate, atomize, leeroyyyyy
+- [ ] Phase 3a: Add `## Artifact` section to 9 SKILL.md files
+- [ ] Phase 3b: Update planning + produce SKILL.md; scan for artifactor refs
+- [ ] Phase 4a: leeroyyyyy — add Context Management section + artifact handoff map
+- [ ] Phase 4b: leeroyyyyy — rewrite pipeline section + pre-flight loop + commit instructions
+- [ ] Phase 4c: leeroyyyyy — autonomy principle + frontmatter + Completion section
+- [ ] Phase 5: Retire artifactor directory
 
 ---
 
 ## Phase 1: Create canonical template files
 
 Establishes the authoritative specifications that all subsequent phases conform to.
-Steps are independent and can be parallelized. Phase 2 and Phase 3 depend on this phase.
+Steps are independent and can be parallelized. Phases 2a/2b/2c and 3a/3b depend on this phase.
 
 ### Step 1.1: Create SKILL.spec.md — canonical skill file specification
 
@@ -150,15 +155,14 @@ Do all README changes in one edit:
 
 ---
 
-## Phase 2: Create all per-skill ARTIFACT.md files
+## Phase 2a: Create ARTIFACT.md files — understanding, solutioning, tire-kicking, reasoning
 
 Depends on Phase 1 (`ARTIFACT.spec.md` defines the required structure).
-Phases 2 and 3 are independent of each other and can both run in parallel once Phase 1 completes.
-Each file within this phase is independent — all can be created in parallel.
+All four files are independent and can be created in parallel.
 
 Every `ARTIFACT.md` must include the meta-instruction block at the top (per `ARTIFACT.spec.md`).
 
-### Step 2.1: understanding/ARTIFACT.md
+### Step 2a.1: understanding/ARTIFACT.md
 
 **Output file:** `problem-statement.md`
 
@@ -173,7 +177,7 @@ Template sections:
 **Trigger:** When understanding phase closes and mutual alignment is confirmed.
 **Side effect:** Create `.claude/work/<slug>/` directory if it doesn't exist.
 
-### Step 2.2: solutioning/ARTIFACT.md
+### Step 2a.2: solutioning/ARTIFACT.md
 
 **Output file:** `solution-statement.md`
 
@@ -186,7 +190,7 @@ Template sections:
 
 **Trigger:** When a solution is confirmed and the phase closes.
 
-### Step 2.3: tire-kicking/ARTIFACT.md
+### Step 2a.3: tire-kicking/ARTIFACT.md
 
 **Output file:** `tire-kicking-report.md`
 
@@ -204,7 +208,7 @@ Template sections:
 `path-forward.md` as example artifacts — do not replicate these names in ARTIFACT.md. The
 canonical output filename for this workstream is `tire-kicking-report.md`.
 
-### Step 2.4: reasoning/ARTIFACT.md
+### Step 2a.4: reasoning/ARTIFACT.md
 
 **Output file:** `truth-and-vector.md`
 
@@ -215,7 +219,14 @@ Template sections:
 
 **Trigger:** When the reasoning pass is complete and a direction has been established.
 
-### Step 2.5: planning/ARTIFACT.md
+---
+
+## Phase 2b: Create ARTIFACT.md files — planning, pre-flight, review, triage
+
+Depends on Phase 1. All four files are independent and can be created in parallel.
+Pre-flight has a nuanced inline-only pattern — read the plan notes carefully before authoring.
+
+### Step 2b.1: planning/ARTIFACT.md
 
 **Output file:** `<work-item>.plan.md`
 
@@ -240,7 +251,7 @@ Progress section is updated by `produce` at phase boundaries (not by planning it
 
 **Trigger:** When the plan document is finalized and ready for pre-flight.
 
-### Step 2.6: pre-flight/ARTIFACT.md
+### Step 2b.2: pre-flight/ARTIFACT.md
 
 **Output file:** Inline — pre-flight findings are produced in-context (not saved to a file).
 
@@ -258,7 +269,7 @@ The ARTIFACT.md defines the canonical output format:
 pass that follows and committed as `[plan]`. Pre-flight findings are consumed in-context by the
 reasoning subagent; no file is written and the working index stays clean.
 
-### Step 2.7: review/ARTIFACT.md
+### Step 2b.3: review/ARTIFACT.md
 
 **Output file:** `review-issues.md`
 
@@ -269,7 +280,7 @@ Template sections:
 
 **Trigger:** When the review pass is complete.
 
-### Step 2.8: triage/ARTIFACT.md
+### Step 2b.4: triage/ARTIFACT.md
 
 **Output file:** `triage-report.md`
 
@@ -281,7 +292,14 @@ Template sections:
 
 **Trigger:** When triage groupings are finalized.
 
-### Step 2.9: estimate/ARTIFACT.md
+---
+
+## Phase 2c: Create ARTIFACT.md files — estimate, atomize, leeroyyyyy
+
+Depends on Phase 1. All three files have special patterns; read the plan notes for each carefully.
+Files are independent and can be created in parallel.
+
+### Step 2c.1: estimate/ARTIFACT.md
 
 **Output file:** Inline — estimate output is produced in-context (not saved to a file).
 
@@ -298,7 +316,7 @@ Complexity: <Low|Medium|High> | Impact: <Low|Medium|High>
 estimate is used by `/atomize` to enforce plan-phase decomposition: `/atomize` calls estimate per
 plan phase and decomposes anything > LOE 2 until all plan phases are ≤ 2.
 
-### Step 2.10: atomize/ARTIFACT.md
+### Step 2c.2: atomize/ARTIFACT.md
 
 **Output file:** `<work-item>.plan.md` (updated in-place) — decomposition log is inline only.
 
@@ -321,7 +339,7 @@ All plan phases confirmed ≤ LOE 2.
 **Note:** atomize/SKILL.md already exists (created prior to this workstream). This step creates
 only the co-located ARTIFACT.md.
 
-### Step 2.11: leeroyyyyy/ARTIFACT.md
+### Step 2c.3: leeroyyyyy/ARTIFACT.md
 
 **Output file:** `summary-statement.md`
 
@@ -336,13 +354,12 @@ or after aborting with unresolvable issues — document the abort reason in the 
 
 ---
 
-## Phase 3: Update SKILL.md files
+## Phase 3a: Add `## Artifact` section to 9 SKILL.md files
 
 Depends on Phase 1 (`SKILL.spec.md` defines canonical structure and `## Artifact` placement).
-Phases 2 and 3 are independent of each other and can both run in parallel once Phase 1 completes.
-Steps within this phase are independent and can be parallelized.
+All 9 files are independent — can be edited in parallel.
 
-### Step 3.1: Add `## Artifact` section to each skill with an ARTIFACT.md
+### Step 3a.1: Add `## Artifact` section to each skill with an ARTIFACT.md
 
 For each of the following 9 skills (understanding, solutioning, tire-kicking, reasoning,
 pre-flight, review, triage, estimate, atomize):
@@ -355,16 +372,22 @@ Add a brief `## Artifact` section **immediately before `## Closure Criteria`** i
 Keep it short — the detail lives in `ARTIFACT.md`. Follow `SKILL.spec.md` for canonical structure.
 
 **Note:** `leeroyyyyy` is excluded here — its `## Artifact` section is incorporated into the
-full rewrite in Phase 4. Do not touch `leeroyyyyy/SKILL.md` in this step.
+full rewrite in Phases 4a–4c. Do not touch `leeroyyyyy/SKILL.md` in this phase.
 
 **Note on planning/SKILL.md:** The `## Artifact` addition and all other structural changes are
-handled together in Step 3.2 as a single pass.
+handled together in Phase 3b as a single pass.
 
-### Step 3.2: Update planning/SKILL.md — single combined pass
+---
+
+## Phase 3b: Update planning + produce SKILL.md; scan for artifactor refs
+
+Depends on Phase 1. Steps within this phase are sequential where noted, otherwise independent.
+
+### Step 3b.1: Update planning/SKILL.md — single combined pass
 
 Combine all changes into one edit:
 
-- Add `## Artifact` section immediately before `## Closure Criteria` (per Step 3.1)
+- Add `## Artifact` section immediately before `## Closure Criteria` (per Phase 3a)
 - Remove reference to `artifactor` skill (it's being retired)
 - Add explicit guidance on the `*.plan.md` format: Phase → Step → Task breakdown
 - Document the progress tracking section and note that `produce` owns updating it
@@ -374,7 +397,7 @@ Combine all changes into one edit:
 - In leeroyyyyy context: Stage 1 (interactive Q&A) is automated — the agent uses recon
   rather than asking the user
 
-### Step 3.3: Update produce/SKILL.md for phase-boundary progress tracking
+### Step 3b.2: Update produce/SKILL.md for phase-boundary progress tracking
 
 - Add Phase-boundary checkpoint behavior:
   - After completing each plan phase, update the plan file's progress section
@@ -385,26 +408,23 @@ Combine all changes into one edit:
   conversation history
 - Add parallel subagent note: concurrent phase subagents update only their own progress row
 
-### Step 3.4: Remove artifactor references from all SKILL.md files
+### Step 3b.3: Remove artifactor references from all remaining SKILL.md files
 
-Scan all SKILL.md files for references to `artifactor` skill. Replace with inline convention:
+Scan all SKILL.md files (excluding `leeroyyyyy/SKILL.md` and `planning/SKILL.md` — already handled)
+for references to `artifactor` skill. Replace with inline convention:
 "Save artifacts to `.claude/work/<work-item>/` at the nearest project root."
 
-Skip `leeroyyyyy/SKILL.md` — the Phase 4 rewrite produces a clean file with no artifactor
-references. `planning/SKILL.md` is already handled in Step 3.2 — skip it here.
-Check all remaining SKILL.md files for stray references.
-
-**Note:** If Steps 3.2 and Phase 4 are complete, this step may find nothing to change — that is
-the expected outcome. Run it as a verification scan regardless.
+**Note:** This step may find nothing to change — that is the expected outcome. Run it as a
+verification scan regardless.
 
 ---
 
-## Phase 4: Rewrite leeroyyyyy/SKILL.md
+## Phase 4a: leeroyyyyy — add Context Management section + artifact handoff map
 
-Depends on Phase 2 (needs to know what artifacts each phase produces).
-Can be written in parallel with Phase 3 — but not until Phase 2 is complete.
+Depends on Phases 2a, 2b, 2c (needs to know what artifacts each phase produces).
+Read the current `leeroyyyyy/SKILL.md` before editing.
 
-### Step 4.1: Establish the Context Management and Subagent Dispatch Principle
+### Step 4a.1: Add Context Management and Subagent Dispatch Principle section
 
 Add a prominent section (early in the file) establishing subagent dispatch as the
 unconditional execution strategy:
@@ -424,7 +444,7 @@ unconditional execution strategy:
 - Progress is reported in chat at each phase transition so the user can observe pipeline
   state without being blocked
 
-### Step 4.2: Define the artifact handoff map per phase
+### Step 4a.2: Add artifact handoff map table
 
 For each pipeline phase, document explicitly:
 - Input artifacts (what the subagent/agent receives)
@@ -454,7 +474,13 @@ recon artifact is produced or passed by leeroyyyyy. "Recon findings" are interna
 reasoning subagent's context, not a file handoff. This is the one sanctioned exception to the
 commits-as-handoff principle, because recon is read-only investigation with no canonical output.
 
-### Step 4.3: Rewrite the pipeline section
+---
+
+## Phase 4b: leeroyyyyy — rewrite pipeline section + pre-flight loop + commit instructions
+
+Depends on Phase 4a (builds on the new sections added there).
+
+### Step 4b.1: Rewrite the pipeline section
 
 Rewrite each phase's prose in leeroyyyyy to:
 
@@ -477,10 +503,8 @@ Rewrite each phase's prose in leeroyyyyy to:
   - Produce (each phase) → `[code]` commit(s) then `[plan]` commit marking phase complete
 - Add Atomize as a pipeline step after the pre-flight loop completes, before produce begins —
   atomize runs once on the stable plan
-- Update the Completion section to reference `summary-statement.md` as the closure artifact —
-  agent writes this file per `leeroyyyyy/ARTIFACT.md` before reporting completion
 
-**Pre-flight loop behavior** (update the Pre-Flight + Reasoning Loop section):
+### Step 4b.2: Rewrite the Pre-Flight + Reasoning Loop section
 
 The loop runs with a minimum of 2 pre-flights and a maximum of 4. Note: this replaces the
 existing skill's "2 cycle" framing — a "pre-flight" here means one pre-flight run; the minimum
@@ -498,7 +522,13 @@ of 2 pre-flights (with 1 reasoning pass between them) is intentional.
 Report progress in chat at each step: "Running pre-flight cycle N/4...", "Pre-flight clear —
 advancing to Produce", "Pre-flight cycle N has Critical issues — running reasoning pass...", etc.
 
-### Step 4.4: Strengthen the autonomy principle
+---
+
+## Phase 4c: leeroyyyyy — autonomy principle + frontmatter + Completion section
+
+Depends on Phase 4b. Final pass over the file.
+
+### Step 4c.1: Strengthen the Autonomy Principle section
 
 Rewrite the Autonomy Principle section to make clear:
 - The user↔agent back-and-forth that standalone skills expect is automated here
@@ -509,17 +539,23 @@ Rewrite the Autonomy Principle section to make clear:
 - Progress is narrated in chat throughout the pipeline so the user is never in the dark about
   pipeline state, even though no input is requested
 
+### Step 4c.2: Update Completion section + frontmatter
+
+- Update the Completion section to reference `summary-statement.md` as the closure artifact —
+  agent writes this file per `leeroyyyyy/ARTIFACT.md` before reporting completion
+- Update frontmatter `description` field to include Atomize in the pipeline sequence and reflect
+  precondition framing for Understanding
+
 ---
 
-## Phase 5: Retire artifactor
+## Phase 5: Retire artifactor directory
 
-Step 5.1 depends on Phase 3 (Step 3.4 must complete before artifactor directory is deleted).
-Step 5.2 is complete — absorbed into Step 1.3.
+Depends on Phase 3b (Step 3b.3 must complete — no SKILL.md files may still reference artifactor).
 
 ### Step 5.1: Remove artifactor skill directory
 
 Delete `/Users/will/agentic/skills/artifactor/` and its contents.
-**Prerequisite:** Step 3.4 must be complete (no SKILL.md files may still reference artifactor).
+**Prerequisite:** Phase 3b must be complete (no SKILL.md files may still reference artifactor).
 
 ### Step 5.2: Update README ✓ Complete
 
@@ -573,21 +609,21 @@ leeroyyyyy update) are executed as a single pass in Step 1.3. No separate execut
   skill loader globbing the directory should not pick them up as actionable files.
 - **Tire-kicking already has implicit artifact behavior** — need to read it carefully before
   writing its ARTIFACT.md to avoid contradiction or duplication
-- **Planning SKILL.md references artifactor** — handled in Step 3.2 as a single combined pass
+- **Planning SKILL.md references artifactor** — handled in Phase 3b as a single combined pass
   (not two separate edits to the same file)
 - **Estimate has no file output** — its ARTIFACT.md defines a canonical inline format, not a
   saved file. This is an exception to the general pattern; document it clearly in the ARTIFACT.md
   itself so it's not mistakenly treated as a file-producing skill
-- **Leeroyyyyy rewrite scope** — Phase 4 is the most complex single phase. The artifact handoff
+- **Leeroyyyyy rewrite scope** — Phases 4a–4c are the most complex. The artifact handoff
   map must accurately reflect what each downstream subagent actually needs; getting this wrong
   breaks the context isolation goal
 - **Concurrent subagent plan file updates** — parallel produce subagents both write to the plan
   file. The constraint (each updates only its own progress row) must be explicit in both
   produce/SKILL.md and leeroyyyyy/SKILL.md
-- **Phase 5.1 ordering** — Step 5.1 (delete artifactor directory) must not run before Step 3.4
+- **Phase 5 ordering** — Phase 5 (delete artifactor directory) must not run before Phase 3b
   is complete; verify leeroyyyyy/SKILL.md has no remaining artifactor references before deleting
 - **Understanding as Precondition (not Phase 1)** — leeroyyyyy already has a Precondition
-  section; Phase 4 restores and updates it. Ensure the frontmatter description and pipeline
+  section; Phases 4a–4c restore and update it. Ensure the frontmatter description and pipeline
   diagram both reflect the precondition framing, not a numbered phase
 
 ## Success Criteria
