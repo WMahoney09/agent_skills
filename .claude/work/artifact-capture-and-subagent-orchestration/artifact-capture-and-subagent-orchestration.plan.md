@@ -120,6 +120,9 @@ Content to include:
   document the convention: ARTIFACT.md still exists and defines the canonical output format,
   but no file is written
 - **Side effects:** optional section for skills with side effects (e.g., directory creation)
+- **Canonical example of inline-only + in-place update pattern:** reference `atomize/ARTIFACT.md`
+  as the template for skills whose output modifies an existing file in-place rather than creating a
+  new one
 
 ### Step 1.3: Update README to reference canonical spec files
 
@@ -181,6 +184,10 @@ Template sections:
 
 **Trigger:** When all candidates have been stress-tested and the report is complete.
 
+**Note:** The legacy `tire-kicking/SKILL.md` references `tire-kicking-scenarios.md` and
+`path-forward.md` as example artifacts — do not replicate these names in ARTIFACT.md. The
+canonical output filename for this workstream is `tire-kicking-report.md`.
+
 ### Step 2.4: reasoning/ARTIFACT.md
 
 **Output file:** `truth-and-vector.md`
@@ -231,6 +238,9 @@ Template sections:
 
 **Trigger:** At the end of each pre-flight cycle. File is overwritten each cycle (latest state wins).
 
+**Note:** `pre-flight-issues.md` is transient scratch — not committed by leeroyyyyy between
+cycles. Only the updated plan file is committed (as a `[plan]` commit) after each reasoning pass.
+
 ### Step 2.7: review/ARTIFACT.md
 
 **Output file:** `review-issues.md`
@@ -271,7 +281,7 @@ Complexity: <Low|Medium|High> | Impact: <Low|Medium|High>
 estimate is used by `/atomize` to enforce plan-phase decomposition: `/atomize` calls estimate per
 plan phase and decomposes anything > LOE 2 until all plan phases are ≤ 2.
 
-### Step 2.11: atomize/ARTIFACT.md
+### Step 2.10: atomize/ARTIFACT.md
 
 **Output file:** `<work-item>.plan.md` (updated in-place) — decomposition log is inline only.
 
@@ -294,7 +304,7 @@ All plan phases confirmed ≤ LOE 2.
 **Note:** atomize/SKILL.md already exists (created prior to this workstream). This step creates
 only the co-located ARTIFACT.md.
 
-### Step 2.10: leeroyyyyy/ARTIFACT.md
+### Step 2.11: leeroyyyyy/ARTIFACT.md
 
 **Output file:** `summary-statement.md`
 
@@ -317,8 +327,8 @@ Step 5.2 (README update) can also run in parallel with this phase — no blockin
 
 ### Step 3.1: Add `## Artifact` section to each skill with an ARTIFACT.md
 
-For each of the 11 skills (understanding, solutioning, tire-kicking, reasoning, planning,
-pre-flight, review, triage, estimate, atomize, leeroyyyyy):
+For each of the following 10 skills (understanding, solutioning, tire-kicking, reasoning, planning,
+pre-flight, review, triage, estimate, atomize):
 
 Add a brief `## Artifact` section **immediately before `## Closure Criteria`** in `SKILL.md`:
 - One line stating what artifact this skill produces
@@ -326,6 +336,9 @@ Add a brief `## Artifact` section **immediately before `## Closure Criteria`** i
 - The trigger condition (when to generate)
 
 Keep it short — the detail lives in `ARTIFACT.md`. Follow `SKILL.spec.md` for canonical structure.
+
+**Note:** `leeroyyyyy` is excluded here — its `## Artifact` section is incorporated into the
+full rewrite in Phase 4. Do not touch `leeroyyyyy/SKILL.md` in this step.
 
 **Note on planning/SKILL.md:** The `## Artifact` addition and all other structural changes are
 handled together in Step 3.2 as a single pass.
@@ -360,8 +373,8 @@ Combine all changes into one edit:
 Scan all SKILL.md files for references to `artifactor` skill. Replace with inline convention:
 "Save artifacts to `.claude/work/<work-item>/` at the nearest project root."
 
-Primary file to check: `leeroyyyyy/SKILL.md` (line 86 references artifactor).
-`planning/SKILL.md` is already handled in Step 3.2 — skip it here.
+Skip `leeroyyyyy/SKILL.md` — the Phase 4 rewrite produces a clean file with no artifactor
+references. `planning/SKILL.md` is already handled in Step 3.2 — skip it here.
 Check all remaining SKILL.md files for stray references.
 
 ---
@@ -407,7 +420,7 @@ automatically; until then the user runs `/understanding` manually before invokin
 |---|---|---|---|
 | Solutioning | problem-statement.md | solution-statement.md | mandatory |
 | Tire-kicking | problem-statement.md, solution-statement.md (all candidates) | tire-kicking-report.md | mandatory |
-| Reasoning | tire-kicking-report.md, recon findings (inline) | truth-and-vector.md | mandatory |
+| Reasoning | tire-kicking-report.md | truth-and-vector.md | mandatory |
 | Planning | solution-statement.md, truth-and-vector.md | *.plan.md | mandatory |
 | Pre-flight | *.plan.md, solution-statement.md | pre-flight-issues.md | mandatory |
 | Atomize | *.plan.md, pre-flight-issues.md | *.plan.md (all plan phases ≤ LOE 2) | mandatory |
@@ -415,6 +428,11 @@ automatically; until then the user runs `/understanding` manually before invokin
 | Review | local diff | review-issues.md | mandatory |
 | Triage | review-issues.md | triage-report.md | mandatory |
 | Revise | triage-report.md, *.plan.md | commits | mandatory |
+
+**Note on Reasoning row:** The reasoning subagent executes its own recon pass — no committed
+recon artifact is produced or passed by leeroyyyyy. "Recon findings" are internal to the
+reasoning subagent's context, not a file handoff. This is the one sanctioned exception to the
+commits-as-handoff principle, because recon is read-only investigation with no canonical output.
 
 ### Step 4.3: Rewrite the pipeline section
 
@@ -426,7 +444,8 @@ Rewrite each phase's prose in leeroyyyyy to:
 - Be explicit about what artifacts it passes to that phase
 - Remove any language that implies holding full conversation context across phase boundaries
 - Reinforce that leeroyyyyy is orchestration only — it does not implement artifact logic itself
-- Update the frontmatter `description` field to reflect Solutioning as Phase 1
+- Update the frontmatter `description` field to include Atomize in the pipeline sequence and
+  confirm the description matches the precondition framing for Understanding (not a pipeline phase)
 - **Add explicit commit instructions for every pipeline stage** — after each stage produces its
   artifact, leeroyyyyy commits before dispatching the next subagent:
   - Solutioning → `[docs]` commit of `solution-statement.md`
@@ -441,14 +460,16 @@ Rewrite each phase's prose in leeroyyyyy to:
 
 **Pre-flight loop behavior** (update the Pre-Flight + Reasoning Loop section):
 
-The loop runs with a minimum of 2 pre-flights and a maximum of 4:
+The loop runs with a minimum of 2 pre-flights and a maximum of 4. Note: this replaces the
+existing skill's "2 cycle" framing — a "pre-flight" here means one pre-flight run; the minimum
+of 2 pre-flights (with 1 reasoning pass between them) is intentional.
 
 1. Run Pre-flight → save findings to `pre-flight-issues.md`
 2. Run Reasoning (always, even if pre-flight is clean) → reason through findings and update plan
 3. Run Pre-flight again
-4. If no Critical/Major issues: proceed to Produce
-5. If Critical/Major issues remain: run Reasoning → Pre-flight (cycle repeats)
-6. Maximum 4 pre-flight cycles total
+4. If no Critical/Major issues: proceed to Atomize
+5. If Critical/Major issues remain: run Reasoning → Pre-flight (repeats)
+6. Maximum 4 pre-flights total
 7. If the 4th pre-flight still has Critical/Major issues: **abort** — surface unresolved issues
    to the user, write summary-statement.md noting the abort reason, and stop
 
@@ -486,10 +507,13 @@ Can run in parallel with Phase 3 (no dependency on SKILL.md changes):
 - Remove `artifactor` from the Meta section
 - Remove `artifactor` from the Supporting Skills section
 - Update `planning` skill description to remove reference to artifactor
-- Update `leeroyyyyy` description to reflect subagent orchestration and understanding as Phase 1
+- Update `leeroyyyyy` description to reflect subagent orchestration, Atomize as a pipeline step,
+  and Understanding as a Precondition (not a pipeline phase)
 
 **Note:** The Conventions section pointing to `SKILL.spec.md` and `ARTIFACT.spec.md` is added
-in Phase 1 Step 1.3 — do not duplicate it here.
+in Phase 1 Step 1.3 — do not duplicate it here. **Preferred approach:** batch Step 5.2 with
+Step 1.3 into a single README pass — read Step 1.3's output first, then apply Step 5.2's
+changes in the same edit to avoid touching README.md twice.
 
 ---
 
@@ -507,6 +531,7 @@ in Phase 1 Step 1.3 — do not duplicate it here.
 - `review/ARTIFACT.md`
 - `triage/ARTIFACT.md`
 - `estimate/ARTIFACT.md`
+- `atomize/ARTIFACT.md`
 - `leeroyyyyy/ARTIFACT.md`
 - `.claude/work/artifact-capture-and-subagent-orchestration/` (this workstream directory)
 
@@ -550,8 +575,9 @@ in Phase 1 Step 1.3 — do not duplicate it here.
   produce/SKILL.md and leeroyyyyy/SKILL.md
 - **Phase 5.1 ordering** — Step 5.1 (delete artifactor directory) must not run before Step 3.4
   is complete; verify leeroyyyyy/SKILL.md has no remaining artifactor references before deleting
-- **Understanding as Phase 1** — removing the Precondition section from leeroyyyyy requires
-  updating both the frontmatter description and the pipeline diagram in addition to the prose
+- **Understanding as Precondition (not Phase 1)** — leeroyyyyy already has a Precondition
+  section; Phase 4 restores and updates it. Ensure the frontmatter description and pipeline
+  diagram both reflect the precondition framing, not a numbered phase
 
 ## Success Criteria
 
@@ -563,7 +589,7 @@ in Phase 1 Step 1.3 — do not duplicate it here.
 - [ ] `planning/SKILL.md` documents the `*.plan.md` format, progress tracking section, and
   reference to `/atomize` for plan-phase decomposition
 - [ ] `produce/SKILL.md` describes `[plan]` commits at phase boundaries
-- [ ] `leeroyyyyy/SKILL.md` has Understanding as Phase 1 (not a precondition)
+- [ ] `leeroyyyyy/SKILL.md` has Understanding as a Precondition (not a pipeline phase), with Solutioning as Phase 1
 - [ ] `leeroyyyyy/SKILL.md` explicitly maps artifact handoffs for all 10 pipeline phases
 - [ ] `leeroyyyyy/SKILL.md` mandates subagenting for all phases unconditionally
 - [ ] `leeroyyyyy/SKILL.md` pre-flight loop: min 2, max 4 cycles; abort on 4th failure; progress visible in chat
