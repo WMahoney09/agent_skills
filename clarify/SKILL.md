@@ -98,15 +98,15 @@ Not every gap needs immediate filling. Some things clarify through action. Judge
 
 ### Distinguish Between Questions for Understanding vs. Questions for Decision
 
-**Understanding questions** sharpen what's true (for Recon and Understanding phases):
+**Understanding questions** sharpen what's true (for Research and Align stages):
 - "How does the system currently work?"
 - "What constraints are we really bound by?"
 
-**Decision questions** help choose between options (for Solutioning and beyond):
+**Decision questions** help choose between options (for Align (solutioning) and beyond):
 - "Which approach fits better?"
 - "What should we prioritize?"
 
-Stay focused on understanding during discovery phases.
+Stay focused on understanding during research phases.
 
 ## Closure Criteria
 
