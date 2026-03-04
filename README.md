@@ -57,7 +57,7 @@ This directory contains portable, tool-agnostic skills implementing a structured
 - Interactive review and refinement of the plan
 - Identify gaps, contradictions, and opportunities
 - Validate plan readiness before implementation
-- Recommend parallelization or simplification
+- Recommend simplification
 - Estimate LOE per phase as an observation (decomposition is out of scope)
 
 **Step 3 - Atomize:** `/atomize` → `atomize/SKILL.md`
@@ -82,7 +82,7 @@ Two distinct approaches depending on your workflow:
 
 **Option B:** `/produce` → `produce/SKILL.md`
 - Autonomous execution with intelligent atomic commits
-- Agent chooses work order and parallelization strategy
+- Agent chooses work order and commit strategy
 - Agent manages git history with semantically coherent commits
 - Minimal intervention needed—commits are the deliverable
 
@@ -113,6 +113,20 @@ Two distinct approaches depending on your workflow:
 - Reads `Addresses:` trailers from `/revise` commits to build the mapping automatically
 - Presents the full comment-to-commit mapping for confirmation before posting anything
 - Flags any comments that have no associated commit so nothing slips through
+
+## Orchestration Philosophy
+
+Subagents are a **context management tool, not a speed optimization.** Every subagent dispatch is a context boundary — the invoking agent passes a committed artifact file, not conversation history.
+
+**Sequential execution is the standard.** Phases and subagents run one at a time. Concurrent subagent dispatch introduces coordination risk (git index conflicts, file write races, ambiguous commit ownership) with no quality benefit.
+
+**Commits are the handoff mechanism.** Each phase produces a committed artifact before the next phase begins. Subagents read committed files, never conversation context. This produces a readable git log that mirrors the pipeline: one commit per stage.
+
+**Independence ≠ concurrency.** Noting that two steps are independent means they can be executed in any order — not that they should run simultaneously.
+
+Concurrent tool calls within a single agent response (e.g., reading multiple files at once) are fine and unaffected by this principle.
+
+---
 
 ## Meta
 
