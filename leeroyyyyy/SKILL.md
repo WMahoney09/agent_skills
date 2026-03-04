@@ -16,7 +16,7 @@ This skill picks up where Understanding left off. The problem is known. The agen
 
 ## Precondition
 
-The Understanding phase must be complete before invoking `/leeroyyyyy`. If the problem is not yet well-defined, invoke `/understanding` first and return here when ready.
+Understanding must be complete and `problem-statement.md` must exist in `.claude/work/<slug>/` before invoking `/leeroyyyyy`. Understanding requires user dialogue and cannot be automated — it is the one stage leeroyyyyy does not own. If the problem is not yet well-defined, invoke `/understanding` first and return here when ready.
 
 ## Pipeline
 
@@ -31,7 +31,9 @@ Planning
     ↓
 Pre-Flight → Reasoning → update plan  (min 2, max 4 cycles)
     ↓
-Produce
+Atomize  ← ensure all plan phases ≤ LOE 2
+    ↓
+Produce  ← dispatch each plan phase to a subagent
     ↓
 Review  ← local technical review of the produced changes
     ↓
@@ -92,26 +94,36 @@ Progress is reported in chat at each phase transition so the user can observe pi
 
 ## Phase 1: Solutioning
 
+**Dispatch:** subagent with `problem-statement.md`
 **Invoke by reference:** `solutioning` skill
 
 Explore 2–3 meaningfully distinct approaches to the problem. For each, surface tradeoffs, constraints, and an LOE estimate. The goal of this phase is to produce a set of candidates — do not pick a solution yet. All viable candidates carry forward into tire-kicking.
+
+**Commit:** `[docs]` commit of `solution-statement.md` before advancing.
+
+Report in chat: "Solutioning complete — N candidates identified. Advancing to Tire-Kicking."
 
 ---
 
 ## Phase 2: Tire-Kicking
 
+**Dispatch:** subagent with `problem-statement.md`, `solution-statement.md`
 **Invoke by reference:** `tire-kicking` skill
 
 Stress-test all candidates from Solutioning against concrete scenarios: edge cases, lifecycle events, multi-actor interactions, and data changes. Classify each scenario for each candidate as **holds**, **bends**, or **leaks**. The goal is a comparative picture across candidates, not a verdict on any single one.
 
 Document all bends and leaks per approach. This record becomes the primary input to Phase 3.
 
+**Commit:** `[docs]` commit of `tire-kicking-report.md` before advancing.
+
+Report in chat: "Tire-Kicking complete. Advancing to Reasoning."
+
 ---
 
 ## Phase 3: Reasoning — Pick a Solution
 
-**Invoke by reference:** `reasoning` skill
-**Invoke by reference:** `recon` skill
+**Dispatch:** subagent with `tire-kicking-report.md`
+**Invoke by reference:** `reasoning` skill, `recon` skill
 
 Synthesize the tire-kicking report and the codebase's existing patterns to make a decisive solution choice.
 
@@ -125,81 +137,122 @@ Synthesize the tire-kicking report and the codebase's existing patterns to make 
 
 **Output:** A chosen solution with the evidence documented — tire-kicking scores, convention alignment, and any justified departures from existing patterns. The agent proceeds without user confirmation unless the reasoning genuinely cannot resolve between approaches.
 
+**Commit:** `[docs]` commit of `truth-and-vector.md` before advancing.
+
+Report in chat: "Reasoning complete — solution chosen. Advancing to Planning."
+
 ---
 
 ## Phase 4: Planning
 
+**Dispatch:** subagent with `solution-statement.md`, `truth-and-vector.md`
 **Invoke by reference:** `planning` skill
 
-Transform the chosen solution into a detailed, phase-by-step implementation plan. The agent uses Recon to gather context rather than asking the user. Produce a written plan document saved to the project directory per the `artifactor` skill.
+Transform the chosen solution into a detailed, phase-by-step implementation plan. The agent uses Recon to gather context rather than asking the user. Save the plan file to `.claude/work/<work-item>/<work-item>.plan.md`.
 
 Do not ask the user to review the plan before advancing — the pre-flight loop is the review mechanism.
 
 The plan must include: phases, steps, dependencies, critical files, gotchas, success criteria, and any explicit notes on convention alignment or justified departures from existing patterns.
 
+**Commit:** `[plan]` commit of `*.plan.md` before advancing.
+
+Report in chat: "Plan drafted. Advancing to Pre-Flight validation."
+
 ---
 
 ## Phase 5: Pre-Flight + Reasoning Loop
 
-**Minimum 2 cycles. Maximum 4 cycles.**
+**Minimum 2 pre-flights. Maximum 4 pre-flights.**
 
 ### Each cycle:
 
-**Step A — Pre-Flight:** Invoke `pre-flight` skill by reference
+**Step A — Pre-Flight:** Dispatch subagent with `*.plan.md`, `solution-statement.md`
 
-Review the plan for gaps, contradictions, ambiguities, and optimization opportunities. Produce a findings report with severity levels (critical, major, minor) and a confidence assessment.
+Invoke `pre-flight` skill by reference. Review the plan for gaps, contradictions, ambiguities, and optimization opportunities. Produce findings inline with severity levels (critical, major, minor) and a confidence assessment.
 
-**Step B — Reasoning:** Invoke `reasoning` skill by reference
+**Step B — Reasoning:** Dispatch subagent with pre-flight findings and `*.plan.md`
 
-Take the pre-flight report as input. Use reasoning both to **address the issues raised** and to **reduce remaining ambiguity** in the plan — these are equally important goals. Make autonomous decisions about each finding:
+Invoke `reasoning` skill by reference. Take the pre-flight findings as input. Use reasoning both to **address the issues raised** and to **reduce remaining ambiguity** in the plan — these are equally important goals. Make autonomous decisions about each finding:
 - Structural issues → revise the relevant plan sections
 - Ambiguities → reason to a decision and document the resolution in the plan
 - Clarifications → document them in-place in the plan
 - Non-issues → note why and discard
 
-Update the plan file before the next cycle. Do not ask the user which issues to address or how to resolve ambiguities — reason to a conclusion and act.
+**Commit:** `[plan]` commit of plan adjustments after each reasoning pass.
 
-### Loop exit criteria (agent decides):
-- At least 2 full cycles have completed
-- The most recent pre-flight returns no critical or major issues
-- Reasoning confirms the plan is unambiguous and complete
-- The agent is confident it can execute without mid-flight decisions
+Report in chat at each step: "Running pre-flight cycle N/4...", "Pre-flight cycle N complete — running reasoning pass...", etc.
 
-### If critical or major issues persist at 4 cycles:
-**Stop. Alert the user.** Summarize the unresolved issues and explain why autonomous reasoning was insufficient to close them. The user must intervene before the pipeline can continue.
+### Loop flow:
+
+1. Run Pre-flight (cycle 1)
+2. Run Reasoning (always, even if pre-flight is clean) → update plan → commit
+3. Run Pre-flight (cycle 2)
+4. If no Critical/Major issues: proceed to Atomize
+5. If Critical/Major issues remain: run Reasoning → commit → Pre-flight (cycle 3)
+6. Repeat until clean or cycle 4 reached
+7. If the 4th pre-flight still has Critical/Major issues: **abort** — surface unresolved issues to the user, write `summary-statement.md` noting the abort reason, and stop
+
+Report in chat: "Pre-flight clear — advancing to Atomize." or "Pre-flight cycle N has Critical issues — running reasoning pass..."
 
 ---
 
-## Phase 6: Produce
+## Phase 6: Atomize
 
+**Dispatch:** subagent with `*.plan.md`
+**Invoke by reference:** `atomize` skill
+
+Ensure all plan phases score ≤ LOE 2. Atomize runs once on the stable plan after the pre-flight loop completes.
+
+**Commit:** `[plan]` commit of resized plan before advancing.
+
+Report in chat: "Atomize complete — all plan phases ≤ LOE 2. Advancing to Produce."
+
+---
+
+## Phase 7: Produce
+
+**Dispatch:** subagent per plan phase with `*.plan.md`
 **Invoke by reference:** `produce` skill
 
-Execute the plan autonomously. The agent manages work order and git history. Semantically coherent atomic commits are the deliverable.
+Execute the plan autonomously, dispatching each plan phase to a subagent. Each subagent receives only the plan file path. The agent manages work order and git history. Semantically coherent atomic commits are the deliverable.
+
+After each plan phase completes:
+- `[code]` commit(s) for the implementation
+- `[plan]` commit marking the phase complete in the plan file's Progress section
+
+Report in chat at each phase boundary: "Phase N complete. Advancing to Phase N+1."
 
 ---
 
-## Phase 7: Review
+## Phase 8: Review
 
+**Dispatch:** subagent with local diff
 **Invoke by reference:** `review` skill
 
-Run a local technical review of the changes produced in Phase 6. This is a review against the local branch diff — not against a PR. The agent conducts the full review across all in-scope dimensions: security, architecture, correctness, tests, and accessibility.
+Run a local technical review of the changes produced in Phase 7. This is a review against the local branch diff — not against a PR. The agent conducts the full review across all in-scope dimensions: security, architecture, correctness, tests, and accessibility.
 
-The review output feeds directly into Phase 8. The agent does not stop here or present the report to the user — it proceeds autonomously.
+The review output feeds directly into Phase 9. The agent does not stop here or present the report to the user — it proceeds autonomously.
+
+**Commit:** `[docs]` commit of `review-issues.md` before advancing.
 
 ---
 
-## Phase 8: Triage
+## Phase 9: Triage
 
+**Dispatch:** subagent with `review-issues.md`
 **Invoke by reference:** `triage` skill
 
-Ingest the review output from Phase 7. Group related findings into unified revisions and prioritize by severity (Critical, Major, Minor). The triage output is the revision list for Phase 9.
+Ingest the review output from Phase 8. Group related findings into unified revisions and prioritize by severity (Critical, Major, Minor). The triage output is the revision list for Phase 10.
 
 The agent proceeds autonomously — no user confirmation of the triage groupings is required.
 
+**Commit:** `[docs]` commit of `triage-report.md` before advancing.
+
 ---
 
-## Phase 9: Revise
+## Phase 10: Revise
 
+**Dispatch:** subagent with `triage-report.md`, `*.plan.md`
 **Invoke by reference:** `revise` skill (with autonomous commit authority)
 
 Address all **Critical** and **Major** revisions from the triage output. For each revision:
