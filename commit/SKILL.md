@@ -83,6 +83,8 @@ When a user invokes `/commit`, the agent should:
 
 Skills like `produce` delegate all commit decisions to this convention. Any commit created during autonomous execution must follow the type prefix and message format defined here.
 
+**For multi-line commit messages during autonomous execution**, write the message to `/tmp/commit_msg.txt` using the Write tool, then commit with `git commit -F /tmp/commit_msg.txt`. This avoids shell command substitution patterns (e.g., `git commit -m "$(cat <<'EOF'...)"`) that trigger permission prompts and interrupt autonomous flow.
+
 ## Key Rules
 
 - Every commit starts with `[plan]`, `[plan/docs]`, `[docs]`, or `[code]` — no exceptions
