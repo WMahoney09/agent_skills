@@ -111,6 +111,18 @@ At each natural break point (task completion, step completion, or logical groupi
 
 All commits made during `produce` must follow the **commit** skill convention — type prefix, brief title, detailed body. Refer to the `commit` skill for the full format, type classification rules, and examples.
 
+## Phase-Boundary Progress Tracking
+
+After completing each plan phase, update the plan file's Progress section:
+
+1. Mark the phase row as complete: `- [x] Phase N: <name>`
+2. If the phase deviated from the plan, add a brief inline deviation note
+3. Commit the plan file update as a `[plan]` commit before moving to the next phase
+
+This produces a commit sequence of `[code]` commits for the implementation followed by a `[plan]` commit marking the phase complete, repeated for each plan phase.
+
+When running as a subagent (e.g., dispatched by leeroyyyyy), the agent receives only the plan file path — not full conversation history. Read the plan file to understand the work.
+
 ## Phase 4: Completion
 
 When all phases, steps, and tasks are complete:

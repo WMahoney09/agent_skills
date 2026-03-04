@@ -59,19 +59,36 @@ Once information gathering is complete, the agent should:
 
 ### Stage 3: Present the Plan
 
-**Before Writing the Plan Document:**
+Save the plan file to `.claude/work/<work-item>/` at the nearest project root, using the naming convention `<work-item>.plan.md`.
 
-Follow the `artifactor` skill to determine where to save the plan file, confirm the path with the user, and validate the location before writing.
+The plan file uses a **Phase → Step → Task** breakdown:
 
-Generate a written plan document that includes:
+```
+# <Title>
+
+## Overview
+## Notes
+## Progress
+- [ ] Phase N: <name>
+
+---
+
+## Phase N: <name>
+### Step N.N: <name>
+#### Task N.N.N: <description>
+```
+
+The **Progress** section uses checkbox syntax (`- [ ]` / `- [x]`). Planning creates it with all phases unchecked — `produce` owns updating it at phase boundaries.
+
+The plan document must include:
 
 - **Overview**: High-level summary of what will be built
-- **Phases**: Logical groupings of work (e.g., Setup, Core Implementation, Testing, Integration)
-- **Steps**: Within each phase, the concrete actions to take
-- **Dependencies**: What must happen before other things can begin
+- **Notes**: Out of scope items, key decisions, design rationale
+- **Progress**: Checkbox list of all phases
+- **Phases**: Logical groupings of work with steps and tasks
 - **Critical Files**: Which files will be created, modified, or removed
 - **Gotchas & Risks**: Potential problems and how to mitigate them
-- **Success Criteria**: How you'll know this phase/step is complete
+- **Success Criteria**: How you'll know the plan is complete
 
 ## Key Principles
 
@@ -80,7 +97,7 @@ Generate a written plan document that includes:
 - **Identify critical paths** - Make clear what must be done in sequence and what ordering dependencies exist.
 - **Surface assumptions** - Call out any assumptions the agent is making so they can be validated.
 - **Scope clarity** - Be explicit about what's included in this plan and what's not (e.g., "We'll update the API, but not the frontend" or "This assumes Redis is already set up").
-- **Artifacts are project-local** - All generated artifacts (plans, notes, configurations) must be saved to the project, never to home directory conventions like `~/.claude/*`, `~/.cursor/*`, or `~/.vscode/*`. See the [Artifactor skill](./artifactor.md) for full guidance on this principle.
+- **Artifacts are project-local** - All generated artifacts (plans, notes, configurations) must be saved to `.claude/work/<work-item>/` at the nearest project root, never to home directory conventions like `~/.claude/*`, `~/.cursor/*`, or `~/.vscode/*`.
 
 ## The Interactive Q&A: What to Ask
 
@@ -110,6 +127,12 @@ Example categories of questions an agent might explore:
 - What's explicitly *not* included in this work?
 - Are there related problems we should defer?
 - What should the person do if they discover X during implementation?
+
+## Artifact
+
+Produces `<work-item>.plan.md` in `.claude/work/<work-item>/`. See `ARTIFACT.md` for the full template. Generated when the plan document is finalized and ready for pre-flight.
+
+After pre-flight validation, run `/atomize` to ensure all plan phases score ≤ LOE 2 before execution begins. In the leeroyyyyy context, Stage 1 (interactive Q&A) is automated — the agent uses recon rather than asking the user.
 
 ## Closure Criteria
 
