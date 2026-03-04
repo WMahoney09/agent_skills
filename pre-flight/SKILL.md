@@ -15,7 +15,7 @@ Validate the plan by identifying and surfacing:
 - **Gaps** - Missing pieces, incomplete steps, or unaddressed requirements
 - **Contradictions** - Conflicting requirements, incompatible approaches, or circular dependencies
 - **Open Questions** - Ambiguities that need clarification before proceeding
-- **Opportunities** - Ways to parallelize work, simplify steps, or reduce complexity
+- **Opportunities** - Ways to simplify steps, reduce complexity, or clarify sequencing
 
 ## Your Role
 
@@ -63,11 +63,11 @@ The agent conducting the pre-flight review should work systematically through th
 
 ### 5. Opportunities for Optimization
 
-- Are there steps that could be parallelized but are listed sequentially?
 - Can any steps be combined or eliminated?
 - Are there repeated patterns that could be consolidated?
 - Is there unnecessary work or over-engineering?
-- Could the phases be reordered to unlock earlier parallelization?
+- Are there steps that could be simplified without losing clarity?
+- Could the phases be reordered to reduce dependencies or unblock earlier work?
 
 ## Review Output
 
@@ -115,7 +115,7 @@ Confirm that the plan is solid and ready for Implementation.
 - Missing error handling
 
 **Minor:**
-- Possible optimizations or parallelization opportunities
+- Possible simplifications or sequencing improvements
 - Steps that could be clearer
 - Non-blocking clarifications needed
 
@@ -135,4 +135,4 @@ Pre-flight is complete when:
 - Pre-flight is a sanity check, not a redesign. If major rework is needed, that's a signal to go back to Planning.
 - The goal is to catch preventable problems before they cause delays in Implementation.
 - Small details can often be resolved during Implementation; pre-flight focuses on structural issues.
-- An optimized plan (parallelized, simplified) is better than a correct-but-inefficient one.
+- A simplified, well-sequenced plan is better than a correct-but-over-engineered one.
