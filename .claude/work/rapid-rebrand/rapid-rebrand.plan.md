@@ -266,12 +266,12 @@ Rebrand the skills library from the three-stage framing (Understanding → Plann
 ## Progress
 - [x] Phase 1a: README top section — replace diagram and intro
 - [x] Phase 1b: README body — replace stage sections with RAPID sections
-- [ ] Phase 1c: README cleanup — add Floating Skills, remove Supporting Skills, update Danger Zone
-- [ ] Phase 2: CLAUDE.md checklist update
-- [ ] Phase 3: Skill frontmatter and subtitle updates
-- [ ] Phase 4a: Skill body prose updates — solutioning, planning, understanding
-- [ ] Phase 4b: Skill body prose updates — pre-flight
-- [ ] Phase 4c: Skill body prose updates — pair-on, produce, recon
-- [ ] Phase 5: Floating skill prose updates
-- [ ] Phase 6: leeroyyyyy internal documentation
-- [ ] Phase 7: Final validation sweep
+- [x] Phase 1c: README cleanup — add Floating Skills, remove Supporting Skills, update Danger Zone
+- [x] Phase 2: CLAUDE.md checklist update
+- [x] Phase 3: Skill frontmatter and subtitle updates
+- [x] Phase 4a: Skill body prose updates — solutioning, planning, understanding
+- [x] Phase 4b: Skill body prose updates — pre-flight
+- [x] Phase 4c: Skill body prose updates — pair-on, produce, recon
+- [x] Phase 5: Floating skill prose updates
+- [x] Phase 6: leeroyyyyy internal documentation
+- [x] Phase 7: Final validation sweep
