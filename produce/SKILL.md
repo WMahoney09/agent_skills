@@ -41,7 +41,7 @@ The agent executing this skill (when invoked by the user) should:
 
 Before beginning implementation, the agent should:
 
-- Review the plan from Phase 3
+- Review the plan from the Plan stage
 - Identify dependencies and execution order
 - Understand the logical groupings and concerns
 - Plan a work sequence that respects dependencies

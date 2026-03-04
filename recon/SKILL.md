@@ -140,17 +140,17 @@ The agent has read-only access to:
 
 Recon is complete when:
 - You've gained the understanding you needed
-- You're ready to move on to Understanding (for a new problem) or another phase
+- You're ready to move on to Research (understanding) or another phase
 - Or you've decided to pivot to a different investigation
 
 Say "**done**" when you're ready to end recon, or invoke another skill when ready to proceed.
 
 ## Use Cases
 
-**Before Understanding a new problem:**
+**Before researching a new problem:**
 "I need to understand how the order system works before I can understand what needs to change"
 
-**As part of Understanding:**
+**As part of Research:**
 "Let me investigate how the current auth system works while we're clarifying the problem"
 
 **Standalone exploration:**
@@ -159,7 +159,7 @@ Say "**done**" when you're ready to end recon, or invoke another skill when read
 ## Notes
 
 - Recon is exploratory—don't force conclusions
-- Good recon prevents "surprises" during Implementation
+- Good recon prevents "surprises" during the Implement stage
 - Follow the codebase and documentation; they'll tell you what matters
 - External docs (framework, library docs) provide important context
 - If something seems odd or contradicts expectations, dig deeper

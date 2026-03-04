@@ -1,6 +1,6 @@
 ---
 name: leeroyyyyy
-description: "⚠️ EXPERIMENTAL — Full send autonomous pipeline. Precondition: Understanding complete + problem-statement.md exists. Runs the entire delivery workflow without user input: solutioning → tire-kicking → reasoning + recon → planning → pre-flight loop (min 2, max 4 cycles) → atomize → produce (subagent per phase) → review → triage → revise. The agent makes every decision autonomously."
+description: "⚠️ EXPERIMENTAL — Full send autonomous pipeline. Precondition: Research complete + problem-statement.md exists. Runs the entire delivery workflow without user input: solutioning → tire-kicking → reasoning + recon → planning → pre-flight loop (min 2, max 4 cycles) → atomize → produce (subagent per phase) → review → triage → revise. The agent makes every decision autonomously."
 agent-invocation: user-invoked-only
 agent-reference: forbidden
 agent-note: "This skill can ONLY be invoked directly by the user (e.g., /leeroyyyyy). It must NEVER be invoked by reference from another skill or agent. Once invoked, the agent runs the full pipeline autonomously — do not pause for user input unless an ambiguity truly cannot be resolved without it."
@@ -12,11 +12,11 @@ agent-note: "This skill can ONLY be invoked directly by the user (e.g., /leeroyy
 
 ⚠️ **This skill can only be invoked directly by the user. It cannot be invoked by reference from another skill. Once invoked, the agent runs the entire pipeline autonomously without requesting user input.**
 
-This skill picks up where Understanding left off. The problem is known. The agent now drives everything — solutioning, decision-making, planning, validation, execution, and post-implementation review — to completion.
+This skill picks up where Research left off. The problem is known. The agent now drives everything — solutioning, decision-making, planning, validation, execution, and post-implementation review — to completion.
 
 ## Precondition
 
-Understanding must be complete and `problem-statement.md` must exist in `.claude/work/<slug>/` before invoking `/leeroyyyyy`. Understanding requires user dialogue and cannot be automated — it is the one stage leeroyyyyy does not own. If the problem is not yet well-defined, invoke `/understanding` first and return here when ready.
+Research must be complete and `problem-statement.md` must exist in `.claude/work/<slug>/` before invoking `/leeroyyyyy`. Research requires user dialogue and cannot be automated — it is the one stage leeroyyyyy does not own. If the problem is not yet well-defined, invoke `/understanding` first and return here when ready.
 
 ## Pipeline
 
@@ -73,7 +73,7 @@ Progress is reported in chat at each phase transition so the user can observe pi
 
 ### Artifact Handoff Map
 
-**Precondition:** `problem-statement.md` must exist in `.claude/work/<slug>/` before leeroyyyyy is invoked. Understanding requires user dialogue and cannot be automated — it is the one stage leeroyyyyy does not own.
+**Precondition:** `problem-statement.md` must exist in `.claude/work/<slug>/` before leeroyyyyy is invoked. Research requires user dialogue and cannot be automated — it is the one stage leeroyyyyy does not own.
 
 | Phase | Input artifacts | Output artifact | Subagent rule |
 |---|---|---|---|
@@ -296,7 +296,7 @@ Write `summary-statement.md` before reporting completion. Then report what was b
 
 Once `/leeroyyyyy` is invoked, the agent owns all decisions. The user↔agent back-and-forth that standalone skills expect is automated here — leeroyyyyy uses reasoning, recon, and subagents in place of user input.
 
-**Understanding is the one stage leeroyyyyy does not own.** It requires user dialogue and must be completed before invocation. `problem-statement.md` is the handoff artifact. Everything from Solutioning onward is fully autonomous.
+**Research is the one stage leeroyyyyy does not own.** It requires user dialogue and must be completed before invocation. `problem-statement.md` is the handoff artifact. Everything from Align onward is fully autonomous.
 
 What the agent decides without asking:
 - Producing candidate solutions and tire-kicking all of them
@@ -308,7 +308,7 @@ What the agent decides without asking:
 
 **The only exception:** If a genuine ambiguity exists that Recon cannot resolve and that would lead to meaningfully different implementations depending on the answer — stop, ask the single specific question, get the answer, then continue autonomously.
 
-Do not use this exception as a crutch. Most ambiguities can be resolved by examining the codebase, applying the constraints from Understanding, or making a reasonable documented assumption.
+Do not use this exception as a crutch. Most ambiguities can be resolved by examining the codebase, applying the constraints from Research, or making a reasonable documented assumption.
 
 Progress is narrated in chat throughout the pipeline so the user is never in the dark about pipeline state, even though no input is requested.
 

@@ -1,13 +1,13 @@
 ---
 name: pre-flight
-description: Review the implementation plan for gaps, contradictions, and opportunities before execution. Final check before Implementation phase begins.
+description: Review the implementation plan for gaps, contradictions, and opportunities before execution. Final check before the Implement stage begins.
 agent-invocation: user-invoked-only
 agent-note: "Agents may execute this skill ONLY when explicitly invoked by the user (e.g., /pre-flight). Agents must NEVER invoke this skill autonomously or on their own initiative."
 ---
 
 # Pre-Flight: Plan Validation and Optimization
 
-This skill performs a thorough review of the implementation plan to catch issues before they derail work during Implementation.
+This skill performs a thorough review of the implementation plan to catch issues before they derail work during the Implement stage.
 
 ## Goal
 
@@ -19,9 +19,9 @@ Validate the plan by identifying and surfacing:
 
 ## Your Role
 
-- Provide the finalized plan from Phase 3
+- Provide the finalized plan from the Plan stage
 - Review the findings
-- Decide on changes before moving to Implementation
+- Decide on changes before moving to Implement
 - Flag any items you want adjusted before proceeding
 
 ## Agent's Role
@@ -33,7 +33,7 @@ The agent conducting the pre-flight review should work systematically through th
 - Does every step have a clear outcome or deliverable?
 - Are all dependencies listed, or are there implicit ones?
 - Are there placeholders like "TBD" or "TK" that need resolution?
-- Does the plan address all requirements from the Understanding phase?
+- Does the plan address all requirements from the Research stage?
 - Is the success criteria for each step actually verifiable?
 - Are error cases or edge cases addressed?
 - Are there steps that depend on external factors (API responses, team decisions, etc.) that aren't called out?
@@ -42,7 +42,7 @@ The agent conducting the pre-flight review should work systematically through th
 
 - Do any steps conflict with each other?
 - Are there circular dependencies (A depends on B, B depends on A)?
-- Do any steps contradict the constraints identified in Understanding?
+- Do any steps contradict the constraints identified during Research?
 - Are there mutually exclusive decisions that both got included?
 - Do the gotchas mentioned actually align with how the solution is proposed?
 
@@ -87,18 +87,18 @@ Present your findings as:
 - Any clarifications needed on how the person wants issues resolved
 
 **Confidence Level:**
-- Provide an assessment: "Plan is ready to implement" vs. "Issues should be resolved before Implementation" vs. "Critical issues found, recommend returning to Planning"
+- Provide an assessment: "Plan is ready to implement" vs. "Issues should be resolved before the Implement stage" vs. "Critical issues found, recommend returning to the Plan stage"
 
 ## Handling Issues
 
 ### If critical issues are found:
-Recommend returning to the Planning phase to resolve them before proceeding. This prevents implementing based on a flawed plan.
+Recommend returning to the Plan stage to resolve them before proceeding. This prevents implementing based on a flawed plan.
 
 ### If minor issues are found:
 Flag them so the person can decide: proceed with the caveat in mind, or adjust the plan first.
 
 ### If no major issues are found:
-Confirm that the plan is solid and ready for Implementation.
+Confirm that the plan is solid and ready for the Implement stage.
 
 ## What Constitutes Different Severity Levels
 
@@ -136,7 +136,7 @@ Pre-flight is complete when:
 
 ## Notes
 
-- Pre-flight is a sanity check, not a redesign. If major rework is needed, that's a signal to go back to Planning.
-- The goal is to catch preventable problems before they cause delays in Implementation.
-- Small details can often be resolved during Implementation; pre-flight focuses on structural issues.
+- Pre-flight is a sanity check, not a redesign. If major rework is needed, that's a signal to go back to the Plan stage.
+- The goal is to catch preventable problems before they cause delays during Implement.
+- Small details can often be resolved during the Implement stage; pre-flight focuses on structural issues.
 - A simplified, well-sequenced plan is better than a correct-but-over-engineered one.

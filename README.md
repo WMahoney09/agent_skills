@@ -1,122 +1,78 @@
-# Agentic Delivery Skills
+# Agentic Skills
 
-This directory contains portable, tool-agnostic skills implementing a structured, multi-phase approach to software development. These skills work with Claude Code, Cursor, and any AI coding agent with basic file access.
+A library of composable skills for structured software delivery, organized around the **RAPID** workflow.
 
-```
-╔════════════════════════════════════════════════════════════════════════════════╗
-║                         AGENTIC DELIVERY WORKFLOW                              ║
-╠═══════════════════════════╦══════════════════════╦═════════════════════════════╣
-║   1. BUILD A SHARED       ║   2. PLAN THE WORK   ║   3. IMPLEMENT THE PLAN     ║
-║      UNDERSTANDING        ║                      ║                             ║
-╠═══════════════════════════╬══════════════════════╬═════════════════════════════╣
-║                           ║                      ║                             ║
-║  ┌─────────────────────┐  ║  ┌───────────────┐   ║  ┌───────────────────────┐  ║
-║  │    Understanding    │  ║  │   Planning    │   ║  │    Implementation     │  ║
-║  │   /understanding    │  ║  │   /planning   │   ║  │  /produce  /pair-on   │  ║
-║  └──────────┬──────────┘  ║  └──────┬────────┘   ║  └───────────┬───────────┘  ║
-║             │             ║         │            ║              │              ║
-║  ┌──────────▼──────────┐  ║  ┌──────▼────────┐   ║  ┌───────────▼───────────┐  ║
-║  │     Solutioning     │  ║  │  Pre-Flight   │   ║  │   Review & Revise     │  ║
-║  │    /solutioning     │  ║  │  /pre-flight  │   ║  │   /review   /triage   │  ║
-║  │    /tire-kicking    │  ║  │  /atomize     │   ║  │   /revise   /reply    │  ║
-║  └─────────────────────┘  ║  └───────────────┘   ║  └───────────────────────┘  ║
-║                           ║                      ║                             ║
-╚═══════════════════════════╩══════════════════════╩═════════════════════════════╝
+**RAPID flow:** `Research → Align → Plan → Implement → Deliver`
 
-  Use anytime:  /recon  /clarify  /reasoning  /estimate  /commit
-```
+> **Floating skills** (usable across stages): `/recon`, `/clarify`, `/reasoning`, `/estimate`, `/commit`
 
 ## Conventions
 
 Every skill directory contains a `SKILL.md` conforming to [`SKILL.spec.md`](./SKILL.spec.md). Skills that produce phase artifacts also contain an `ARTIFACT.md` conforming to [`ARTIFACT.spec.md`](./ARTIFACT.spec.md). These two root-level spec files are the authoritative references for skill file structure and artifact definition structure, respectively.
 
-## Agentic Delivery Phases & Skills
+## R — Research
 
-### Stage 1: Build A Shared Understanding
+> Build context, understand the problem, identify constraints.
 
-**Goal:** Arrive at a shared understanding of the problem *and* a high-level solution direction before any planning or implementation begins.
+- **`/understanding`** — Build shared understanding of a problem through discovery. Start here for new work.
+- **`/recon`** *(floating)* — Read-only investigation of code and documentation. Usable at any stage.
 
-**Step 1 - Understanding:** `/understanding` → `understanding/SKILL.md`
-- Build shared understanding of the problem
-- Clarify constraints, context, and success criteria
-- No solutions proposed in this phase
+---
 
-**Step 2 - Solutioning:** `/solutioning` → `solutioning/SKILL.md`
-- Explore 2-3 distinct architectural approaches
-- Reason through tradeoffs of each
-- Align on the direction that best fits your constraints
-- High-level architecture only, not implementation
+## A — Align
 
-### Stage 2: Plan The Work
+> Converge on a solution direction through exploration and stress-testing.
 
-**Goal:** Produce a documented list of discrete code changes needed to achieve the solution.
+- **`/solutioning`** — Co-architect solutions by exploring multiple approaches and their tradeoffs.
+- **`/tire-kicking`** — Stress-test a proposed design against scenarios (edge cases, lifecycle, multi-actor, data change).
+- **`/reasoning`** *(floating)* — Reason through a problem to extract truths and directional clarity. Usable at any stage.
 
-**Step 1 - Planning:** `/planning` → `planning/SKILL.md`
-- Interactive Q&A to gather full context
-- Design step-by-step implementation plan
-- Identify phases, steps, tasks, dependencies, and risks
-- Generate initial plan document
+---
 
-**Step 2 - Pre-Flight Validation:** `/pre-flight` → `pre-flight/SKILL.md`
-- Interactive review and refinement of the plan
-- Identify gaps, contradictions, and opportunities
-- Validate plan readiness before implementation
-- Recommend simplification
-- Estimate LOE per phase as an observation (decomposition is out of scope)
+## P — Plan
 
-**Step 3 - Atomize:** `/atomize` → `atomize/SKILL.md`
-- Estimate every phase using `/estimate`
-- Decompose any phase with LOE > 2 into subphases
-- Iterate until all phases score ≤ 2
-- Runs after pre-flight: first make it right, then make it atomic
+> Lock the implementation approach with a validated, right-sized plan.
 
-### Stage 3: Implement The Plan
+- **`/planning`** — Design and document the implementation approach as a detailed step-by-step plan.
+- **`/pre-flight`** — Review the plan for gaps, contradictions, and opportunities before execution.
+- **`/atomize`** — Right-size a plan by decomposing any phase with LOE > 2 into subphases.
 
-**Goal:** Execute the discrete changes documented in the plan, then verify the result.
+---
 
-**Step 1 - Implementation:**
+## I — Implement
 
-Two distinct approaches depending on your workflow:
+> Build, review, and revise until the work is complete.
 
-**Option A:** `/pair-on` → `pair-on/SKILL.md`
-- Pair program with the agent through implementation
-- Choose your review boundary: Phase, Step, or Task level
-- Pause after each unit for your review and commit
-- Agent executes, you manage git history and gate progress
+- **`/produce`** — Execute the implementation plan autonomously with intelligent atomic commits.
+- **`/pair-on`** — Pair program through the plan with user-controlled review boundaries and commits.
+- **`/review`** — Technical peer review of code changes with severity-graded report and go/no-go recommendation.
+- **`/triage`** — Ingest feedback, group related items into unified revisions, and prioritize by severity.
+- **`/revise`** — Address a discrete revision with a lightweight alignment check and holistic implementation.
+- **`/reply`** — Close the feedback loop on a PR by replying to each reviewer comment with the addressing commit.
 
-**Option B:** `/produce` → `produce/SKILL.md`
-- Autonomous execution with intelligent atomic commits
-- Agent chooses work order and commit strategy
-- Agent manages git history with semantically coherent commits
-- Minimal intervention needed—commits are the deliverable
+---
 
-**Step 2 - Review & Revise:**
+## D — Deliver
 
-**`/review`** → `review/SKILL.md`
-- Technical peer review of local changes or a pull request
-- Covers security, architecture, correctness, tests, and accessibility
-- Produces a severity-graded report (Critical / Major / Minor / Gaps / Opportunities)
-- Delivers an explicit go/no-go merge recommendation
-- Works locally (post-produce, pre-PR) or against any PR number
+> Ship the work, gather feedback, confirm acceptance.
 
-**`/triage`** → `triage/SKILL.md`
-- Ingest feedback from a PR, review output, or a conversational list
-- Group related items into unified revisions with explicit source linkage
-- Prioritize by severity: Critical, Major, Minor
-- Produce a structured report ready for action with `/revise`
+This stage is currently manual. Activities include:
 
-**`/revise`** → `revise/SKILL.md`
-- Address one revision at a time: align, implement, confirm, commit
-- Lightweight alignment check before any code changes — agent states its understanding, you confirm
-- Holistic implementation — if the issue is a pattern across files, all instances are fixed together
-- User-gated commit — no change is committed until you explicitly confirm the issue is resolved
-- Commit messages include revision ID and PR comment IDs for traceability with `/reply`
+- **Pull request creation** — Open a PR with a clear summary and test plan
+- **Deployment** — Deploy to the target environment
+- **Demonstration** — Demo the changes to stakeholders
+- **Feedback gathering** — Collect and incorporate feedback
+- **Acceptance confirmation** — Confirm the work meets success criteria
 
-**`/reply`** → `reply/SKILL.md`
-- Close the feedback loop by replying to each PR comment with the commit hash that addresses it
-- Reads `Addresses:` trailers from `/revise` commits to build the mapping automatically
-- Presents the full comment-to-commit mapping for confirmation before posting anything
-- Flags any comments that have no associated commit so nothing slips through
+## Floating Skills
+
+These skills are valuable across multiple stages:
+
+- **`/recon`** — Read-only investigation of code and documentation. Often used during Research, but useful at any stage.
+- **`/clarify`** — Ask clarifying questions to sharpen understanding. Most common during Research and Align.
+- **`/reasoning`** — Reason through complexity to extract truths and directional clarity. Core to Research and Align, useful everywhere.
+- **`/estimate`** — Produce LOE scores (1–5). Used during Plan, but available anytime.
+- **`/commit`** — Stage and commit with typed convention. Used throughout Implement, available anytime.
 
 ## Orchestration Philosophy
 
@@ -146,81 +102,13 @@ Concurrent tool calls within a single agent response (e.g., reading multiple fil
 - Referenced by `solutioning` and usable standalone to calibrate scope
 - **Note:** This is a shared scoring skill — invokable directly but also referenced internally by other skills
 
-## Supporting Skills
-
-These skills can be used at any point in the workflow to deepen understanding, validate decisions, or gather context. The typical usage patterns below are recommendations, not strict requirements.
-
-**Skill:** `/commit` → `commit/SKILL.md`
-- Stage and commit current working changes using the typed commit convention
-- Inspects `git status` and `git diff`, groups unrelated concerns into separate commits
-- **Typical usage:** After completing any unit of work — phase, step, or ad-hoc change
-
-**Skill:** `/recon` → `recon/SKILL.md`
-- Read-only investigation of code and documentation
-- Explore existing systems, architecture, and patterns
-- Gather context through file exploration and documentation
-- **Typical usage:** Before or during Understanding phase, or as standalone research
-
-**Skill:** `/clarify` → `clarify/SKILL.md`
-- Ask clarifying questions to sharpen and deepen shared understanding
-- Surface hidden assumptions, contradictions, and constraints
-- Test ideas and mental models through strategic questioning
-- **Typical usage:** During Understanding or Reasoning phases to clarify ambiguities
-
-**Skill:** `/reasoning` → `reasoning/SKILL.md`
-- Reason through problems to extract truths, conditionals, and directional vectors
-- Validate the problem and derive guiding principles
-- Develop directional clarity before proposing solutions
-- **Typical usage:** After Understanding, before Solutioning to establish direction
-
-**Skill:** `/estimate` → `estimate/SKILL.md`
-- Produce a Level of Effort (LOE) score for a proposed change
-- Evaluate Complexity and Impact independently, then synthesize to a 1–5 score
-- **Typical usage:** During Solutioning or Reasoning to calibrate scope and prioritize work
-
-**Skill:** `/atomize` → `atomize/SKILL.md`
-- Right-size a plan by estimating each phase and decomposing any phase with LOE > 2 into subphases
-- Iterates estimate → decompose until every phase scores ≤ 2
-- Produces a decomposition log and an updated plan ready for execution
-- **Typical usage:** After `/pre-flight` — once the plan is coherent and correct, atomize ensures each phase is bounded before implementation begins
-
-**Skill:** `/tire-kicking` → `tire-kicking/SKILL.md`
-- Stress-test proposed designs against concrete scenarios
-- Identify where designs hold, bend, or leak before implementation
-- Validate approaches against edge cases, lifecycle events, and data changes
-- **Typical usage:** After Solutioning, before or alongside Planning to validate designs
-
-**Skill:** `/review` → `review/SKILL.md`
-- Technical peer review of code changes — local diff or a specific pull request
-- Covers security, architecture, correctness, tests, and accessibility (for UI-producing files)
-- Produces a severity-graded report with an explicit go/no-go recommendation
-- **Typical usage:** After `/produce` to verify local changes before opening a PR, or to review a collaborator's PR
-
-**Skill:** `/triage` → `triage/SKILL.md`
-- Ingest feedback from a PR, `/review` output, or a conversational list
-- Group related items into unified revisions with quoted source linkage
-- Prioritize by severity: Critical, Major, Minor
-- **Typical usage:** After `/review` or when addressing PR comments — produces a prioritized revision list ready for `/revise`
-
-**Skill:** `/revise` → `revise/SKILL.md`
-- Address one revision at a time with a user-gated commit
-- Align on the issue before touching code, implement holistically, confirm before committing
-- Commit messages include revision ID and PR comment IDs for traceability with `/reply`
-- **Typical usage:** After `/triage` to work through revisions one by one, or standalone for a direct fix
-
-**Skill:** `/reply` → `reply/SKILL.md`
-- Close the PR feedback loop by replying to each reviewer comment with the commit hash that addresses it
-- Reads `Addresses:` trailers from `/revise` commits to build the mapping automatically
-- Confirms the full comment-to-commit mapping before posting anything
-- **Typical usage:** After all `/revise` work is complete — the final step before requesting re-review
-
 ## Danger Zone
 
 > ⚠️ **Experimental skills live here. These push the boundaries of autonomous agent behavior. Use them when you're ready to hand the wheel over entirely and see what happens.**
 
 **Skill:** `/leeroyyyyy` → `leeroyyyyy/SKILL.md`
 
-The full send. **Precondition:** Understanding must be complete and `problem-statement.md` must exist in the workstream directory before invocation. Leeroyyyyy runs the entire delivery pipeline autonomously, dispatching every phase to a subagent with artifact file handoffs (not conversation context).
+The full send. **Precondition:** Research must be complete and `problem-statement.md` must exist in the workstream directory before invocation. Leeroyyyyy runs the entire delivery pipeline autonomously, dispatching every phase to a subagent with artifact file handoffs (not conversation context).
 
 What Leeroyyyyy does autonomously:
 - Explores 2–3 candidate solutions and stress-tests all of them

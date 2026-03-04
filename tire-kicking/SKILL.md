@@ -5,7 +5,7 @@ description: Stress-test a proposed design or approach against scenarios (edge c
 
 # Tire-Kicking: Scenario Evaluation of a Proposed Design
 
-This skill guides stress-testing a proposed design (or 2–3 options) against concrete scenarios to see where each **holds**, **bends**, or **leaks**. It sits after Solutioning (we have a direction) and before or alongside Planning (we lock the plan). The goal is to find gaps, over-constraints, or invalid assumptions before implementation.
+This skill guides stress-testing a proposed design (or 2–3 options) against concrete scenarios to see where each **holds**, **bends**, or **leaks**. It sits after Align (we have a direction) and before or alongside Plan (we lock the plan). The goal is to find gaps, over-constraints, or invalid assumptions before implementation.
 
 ## Goal
 
@@ -72,9 +72,9 @@ Present in a table (scenario | result | notes) or per-scenario blocks. Keep note
 
 ## What Tire-Kicking Is Not
 
-- **Not Understanding** — We are not discovering the problem; we are testing a proposed solution.
-- **Not Solutioning** — We are not generating new approaches; we are evaluating one (or a few) that are already on the table.
-- **Not Implementation** — We are not writing code or migrations; we are finding where the design would break or need rules.
+- **Not Research** — We are not discovering the problem; we are testing a proposed solution.
+- **Not Align** — We are not generating new approaches; we are evaluating one (or a few) that are already on the table.
+- **Not Implement** — We are not writing code or migrations; we are finding where the design would break or need rules.
 
 ## Example Artifacts
 
@@ -98,4 +98,4 @@ Tire-kicking is done when:
 - [ ] Bends have been listed for inclusion in the plan or design doc.
 - [ ] Optionally: a path-forward or decision summary is written.
 
-Then you can lock the plan or move to implementation with fewer surprises.
+Then you can lock the plan or move to the Implement stage with fewer surprises.
