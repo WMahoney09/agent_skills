@@ -175,6 +175,10 @@ Each revision receives a stable ID based on its severity tier and position:
 
 These IDs are used by `/revise` in commit messages to maintain traceability between revisions and the source feedback they address.
 
+## Artifact
+
+Produces `triage-report.md` in `.claude/work/<work-item>/`. See `ARTIFACT.md` for the full template. Generated when triage groupings are finalized.
+
 ## Closure Criteria
 
 Triage is complete when:

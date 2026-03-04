@@ -120,6 +120,10 @@ Reasoning should stay grounded. When helpful:
 
 Abstract reasoning disconnected from the codebase tends to drift. Keep pulling back to what's actually true in the system.
 
+## Artifact
+
+Produces `truth-and-vector.md` in `.claude/work/<work-item>/`. See `ARTIFACT.md` for the full template. Generated when the reasoning pass is complete and a direction has been established.
+
 ## Closure Criteria
 
 You're ready to move to Solutioning when:

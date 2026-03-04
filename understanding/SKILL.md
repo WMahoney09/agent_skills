@@ -58,6 +58,10 @@ If solutions come up naturally in conversation, acknowledge them but do not deve
 - What can we compromise on?
 - Are there hidden tradeoffs we should discuss?
 
+## Artifact
+
+Produces `problem-statement.md` in `.claude/work/<slug>/`. See `ARTIFACT.md` for the full template. Generated when understanding closes and mutual alignment is confirmed.
+
 ## Closure Criteria
 
 You're ready to move to the next phase when:

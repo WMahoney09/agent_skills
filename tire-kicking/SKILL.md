@@ -85,6 +85,10 @@ For a full example of scenario evaluation and path-forward, see:
 
 Use these as templates for structure and level of detail; adapt scenario list and depth to the design at hand.
 
+## Artifact
+
+Produces `tire-kicking-report.md` in `.claude/work/<work-item>/`. See `ARTIFACT.md` for the full template. Generated when all candidates have been stress-tested and the report is complete.
+
 ## Closure
 
 Tire-kicking is done when:

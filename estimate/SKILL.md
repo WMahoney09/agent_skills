@@ -92,6 +92,10 @@ Complexity: High | Impact: Low
 Isolated to a single algorithm in a rarely-touched module, but the logic is subtle and easy to break — requires careful reasoning through edge cases.
 ```
 
+## Artifact
+
+Produces inline LOE output (not saved to a file). See `ARTIFACT.md` for the canonical output format. Generated whenever an estimate is requested.
+
 ## Notes
 
 - The LOE number is the answer to "should I do this now or later?" — optimize for that signal

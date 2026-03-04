@@ -80,6 +80,10 @@ Help the person evaluate by asking:
 - If we picked the "wrong" one, what would tell us that?
 - Which approach would you feel most confident shipping?
 
+## Artifact
+
+Produces `solution-statement.md` in `.claude/work/<work-item>/`. See `ARTIFACT.md` for the full template. Generated when a solution is confirmed and the phase closes.
+
 ## Closure Criteria
 
 You're ready to move to Planning when:

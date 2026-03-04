@@ -119,6 +119,10 @@ Confirm that the plan is solid and ready for Implementation.
 - Steps that could be clearer
 - Non-blocking clarifications needed
 
+## Artifact
+
+Produces inline findings (not saved to a file). See `ARTIFACT.md` for the canonical output format. Generated at the end of each pre-flight cycle.
+
 ## Closure Criteria
 
 Pre-flight is complete when:

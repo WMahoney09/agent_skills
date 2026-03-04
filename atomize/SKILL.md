@@ -56,6 +56,10 @@ Present results in three parts:
 
 If any phase cannot reach ≤ 2 without restructuring the plan's goals, flag it explicitly rather than forcing an artificial split.
 
+## Artifact
+
+Updates `<work-item>.plan.md` in-place (oversized phases replaced by subphases). Decomposition log is inline only. See `ARTIFACT.md` for the full format. Generated when all plan phases score ≤ 2.
+
 ## Closure Criteria
 
 - [ ] Every phase has been estimated
