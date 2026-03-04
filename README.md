@@ -1,30 +1,10 @@
-# Agentic Delivery Skills
+# Agentic Skills
 
-This directory contains portable, tool-agnostic skills implementing a structured, multi-phase approach to software development. These skills work with Claude Code, Cursor, and any AI coding agent with basic file access.
+A library of composable skills for structured software delivery, organized around the **RAPID** workflow.
 
-```
-╔════════════════════════════════════════════════════════════════════════════════╗
-║                         AGENTIC DELIVERY WORKFLOW                              ║
-╠═══════════════════════════╦══════════════════════╦═════════════════════════════╣
-║   1. BUILD A SHARED       ║   2. PLAN THE WORK   ║   3. IMPLEMENT THE PLAN     ║
-║      UNDERSTANDING        ║                      ║                             ║
-╠═══════════════════════════╬══════════════════════╬═════════════════════════════╣
-║                           ║                      ║                             ║
-║  ┌─────────────────────┐  ║  ┌───────────────┐   ║  ┌───────────────────────┐  ║
-║  │    Understanding    │  ║  │   Planning    │   ║  │    Implementation     │  ║
-║  │   /understanding    │  ║  │   /planning   │   ║  │  /produce  /pair-on   │  ║
-║  └──────────┬──────────┘  ║  └──────┬────────┘   ║  └───────────┬───────────┘  ║
-║             │             ║         │            ║              │              ║
-║  ┌──────────▼──────────┐  ║  ┌──────▼────────┐   ║  ┌───────────▼───────────┐  ║
-║  │     Solutioning     │  ║  │  Pre-Flight   │   ║  │   Review & Revise     │  ║
-║  │    /solutioning     │  ║  │  /pre-flight  │   ║  │   /review   /triage   │  ║
-║  │    /tire-kicking    │  ║  │  /atomize     │   ║  │   /revise   /reply    │  ║
-║  └─────────────────────┘  ║  └───────────────┘   ║  └───────────────────────┘  ║
-║                           ║                      ║                             ║
-╚═══════════════════════════╩══════════════════════╩═════════════════════════════╝
+**RAPID flow:** `Research → Align → Plan → Implement → Deliver`
 
-  Use anytime:  /recon  /clarify  /reasoning  /estimate  /commit
-```
+> **Floating skills** (usable across stages): `/recon`, `/clarify`, `/reasoning`, `/estimate`, `/commit`
 
 ## Conventions
 
