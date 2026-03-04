@@ -26,6 +26,10 @@ This directory contains portable, tool-agnostic skills implementing a structured
   Use anytime:  /recon  /clarify  /reasoning  /estimate  /commit
 ```
 
+## Conventions
+
+Every skill directory contains a `SKILL.md` conforming to [`SKILL.spec.md`](./SKILL.spec.md). Skills that produce phase artifacts also contain an `ARTIFACT.md` conforming to [`ARTIFACT.spec.md`](./ARTIFACT.spec.md). These two root-level spec files are the authoritative references for skill file structure and artifact definition structure, respectively.
+
 ## Agentic Delivery Phases & Skills
 
 ### Stage 1: Build A Shared Understanding
@@ -142,12 +146,6 @@ Concurrent tool calls within a single agent response (e.g., reading multiple fil
 - Referenced by `solutioning` and usable standalone to calibrate scope
 - **Note:** This is a shared scoring skill — invokable directly but also referenced internally by other skills
 
-**Skill:** `/artifactor` → `artifactor/SKILL.md`
-- Guidance for skill authors on artifact placement principles
-- Ensures all agent-generated artifacts are project-local (not in home directories)
-- Provides checklists and validation criteria for skills that generate artifacts
-- **Note:** This is meta-guidance for skill development, not a workflow skill for users
-
 ## Supporting Skills
 
 These skills can be used at any point in the workflow to deepen understanding, validate decisions, or gather context. The typical usage patterns below are recommendations, not strict requirements.
@@ -222,16 +220,17 @@ These skills can be used at any point in the workflow to deepen understanding, v
 
 **Skill:** `/leeroyyyyy` → `leeroyyyyy/SKILL.md`
 
-The full send. Invoked once after Understanding is complete — Leeroyyyyy runs the entire delivery pipeline from solutioning through implementation and self-review without stopping for input. It embodies the spirit of: *I know what needs to be done, just do it.*
+The full send. **Precondition:** Understanding must be complete and `problem-statement.md` must exist in the workstream directory before invocation. Leeroyyyyy runs the entire delivery pipeline autonomously, dispatching every phase to a subagent with artifact file handoffs (not conversation context).
 
 What Leeroyyyyy does autonomously:
 - Explores 2–3 candidate solutions and stress-tests all of them
 - Picks the best solution using evidence and codebase conventions
 - Builds a detailed implementation plan and validates it in a pre-flight + reasoning loop (min 2, max 4 cycles)
-- Executes the plan with semantically coherent atomic commits
+- Atomizes the plan so every phase scores ≤ LOE 2
+- Executes the plan with semantically coherent atomic commits, dispatching each phase to a subagent
 - Runs a local technical review of its own output
 - Triages the review findings and addresses all Critical and Major revisions
-- Surfaces anything it genuinely could not resolve without your input
+- Produces a `summary-statement.md` at completion
 
 The only time Leeroyyyyy stops is when it hits an ambiguity that Recon cannot resolve and that would lead to meaningfully different implementations — or when unresolvable Critical/Major issues remain after the review cycle. Everything else, it decides.
 
