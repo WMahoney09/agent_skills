@@ -1,6 +1,6 @@
 ---
 name: leeroyyyyy
-description: "⚠️ EXPERIMENTAL — Full send autonomous pipeline. Invoked directly by the user after Understanding is complete. Runs the entire delivery workflow without user input: solutioning → tire-kicking → reasoning + recon → planning → pre-flight loop (min 2, max 4 cycles) → produce → review → triage → revise. The agent makes every decision autonomously."
+description: "⚠️ EXPERIMENTAL — Full send autonomous pipeline. Precondition: Understanding complete + problem-statement.md exists. Runs the entire delivery workflow without user input: solutioning → tire-kicking → reasoning + recon → planning → pre-flight loop (min 2, max 4 cycles) → atomize → produce (subagent per phase) → review → triage → revise. The agent makes every decision autonomously."
 agent-invocation: user-invoked-only
 agent-reference: forbidden
 agent-note: "This skill can ONLY be invoked directly by the user (e.g., /leeroyyyyy). It must NEVER be invoked by reference from another skill or agent. Once invoked, the agent runs the full pipeline autonomously — do not pause for user input unless an ambiguity truly cannot be resolved without it."
@@ -272,6 +272,10 @@ If a Critical or Major revision requires a design decision that the agent genuin
 
 ---
 
+## Artifact
+
+Produces `summary-statement.md` in `.claude/work/<work-item>/`. See `ARTIFACT.md` for the full template. Generated when the pipeline completes (clean or aborted).
+
 ## Completion
 
 Leroy is complete when:
@@ -282,24 +286,31 @@ Leroy is complete when:
 - [ ] Triage has grouped and prioritized review findings
 - [ ] All Critical and Major revisions have been addressed and committed
 - [ ] Any unresolvable revisions have been surfaced to the user
+- [ ] `summary-statement.md` has been written per `leeroyyyyy/ARTIFACT.md`
 
-**Final summary:** Report what was built, what the review found, what was revised, and anything that needs user attention before opening a PR.
+Write `summary-statement.md` before reporting completion. Then report what was built, what the review found, what was revised, and anything that needs user attention before opening a PR.
 
 ---
 
 ## Autonomy Principle
 
-Once `/leeroyyyyy` is invoked, the agent owns all decisions. This means:
+Once `/leeroyyyyy` is invoked, the agent owns all decisions. The user↔agent back-and-forth that standalone skills expect is automated here — leeroyyyyy uses reasoning, recon, and subagents in place of user input.
+
+**Understanding is the one stage leeroyyyyy does not own.** It requires user dialogue and must be completed before invocation. `problem-statement.md` is the handoff artifact. Everything from Solutioning onward is fully autonomous.
+
+What the agent decides without asking:
 - Producing candidate solutions and tire-kicking all of them
 - Picking the best solution using evidence and codebase conventions
 - Making planning decisions based on Recon rather than asking for context
 - Deciding which pre-flight issues to fix and how
 - Reducing ambiguity through reasoning rather than asking the user
-- Determining when the loop has run enough to advance
+- Determining when the pre-flight loop has run enough to advance
 
 **The only exception:** If a genuine ambiguity exists that Recon cannot resolve and that would lead to meaningfully different implementations depending on the answer — stop, ask the single specific question, get the answer, then continue autonomously.
 
 Do not use this exception as a crutch. Most ambiguities can be resolved by examining the codebase, applying the constraints from Understanding, or making a reasonable documented assumption.
+
+Progress is narrated in chat throughout the pipeline so the user is never in the dark about pipeline state, even though no input is requested.
 
 ## Sub-Skill Invocation Note
 
