@@ -29,7 +29,7 @@ As the agent running this skill:
 
 **This is an architectural alignment phase, not an implementation phase.** The goal is to choose a direction, not build it.
 
-Concise examples of patterns, pseudocode, or small code snippets are permissible to illustrate the core idea of an approach. However, do not propose large-volume changes, detailed implementation plans, or begin developing the actual implementation. Those belong in the Planning and Implementation phases.
+Concise examples of patterns, pseudocode, or small code snippets are permissible to illustrate the core idea of an approach. However, do not propose large-volume changes, detailed implementation plans, or begin developing the actual implementation. Those belong in the Plan and Implement stages.
 
 Keep the focus on:
 - What's the high-level approach?
@@ -61,7 +61,7 @@ For each solution you propose, cover:
 - Performance, maintainability, flexibility implications?
 
 **Constraints:**
-- Does it hit any of the constraints from the Understanding phase?
+- Does it hit any of the constraints from the Research stage?
 - Are there technical or organizational blockers?
 
 **LOE:** Produce a Level of Effort score using the `estimate` skill. This gives a concrete, comparable cost signal alongside the qualitative tradeoffs.
@@ -86,7 +86,7 @@ Produces `solution-statement.md` in `.claude/work/<work-item>/`. See `ARTIFACT.m
 
 ## Closure Criteria
 
-You're ready to move to Planning when:
+You're ready to move to the Plan stage when:
 
 - [ ] You've proposed at least 2-3 distinct approaches
 - [ ] Each approach has been explained with clear tradeoffs
@@ -98,7 +98,7 @@ You're ready to move to Planning when:
 
 Summarize and confirm:
 
-**"It sounds like [Approach X] is the direction that resonates most because [their reasoning]. It handles [constraint], aligns with [priority], and we'd mitigate [concern] by [brief mitigation]. Does that capture it? Ready to move to planning?"**
+**"It sounds like [Approach X] is the direction that resonates most because [their reasoning]. It handles [constraint], aligns with [priority], and we'd mitigate [concern] by [brief mitigation]. Does that capture it? Ready to move to the Plan stage?"**
 
 If they're torn between two approaches, explore what would tip the scales. Don't force consensus—help them make the decision.
 
@@ -108,4 +108,4 @@ If they're torn between two approaches, explore what would tip the scales. Don't
 - 2-3 approaches is the sweet spot—more becomes analysis paralysis, fewer might miss a good option
 - Spend time on tradeoffs; that's where the real insight happens
 - Your job is to be a good thinking partner, not to sell them on your favorite approach
-- Once they've picked, move to Planning phase with confidence in the direction
+- Once they've picked, move to the Plan stage with confidence in the direction

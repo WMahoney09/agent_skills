@@ -5,7 +5,7 @@ description: Design and document the implementation approach. Use after aligning
 
 # Planning: Plan Phase Skill
 
-This skill guides you through creating a detailed implementation plan based on the solution direction chosen during Solutioning.
+This skill guides you through creating a detailed implementation plan based on the solution direction chosen during the Align stage.
 
 ## Goal
 
@@ -136,7 +136,7 @@ After pre-flight validation, run `/atomize` to ensure all plan phases score ≤ 
 
 ## Closure Criteria
 
-You're ready to move to Implementation when:
+You're ready to move to the Implement stage when:
 
 - [ ] The plan is written and clear
 - [ ] You understand each phase and why it's structured that way
@@ -150,7 +150,7 @@ You're ready to move to Implementation when:
 
 When the plan is solid, confirm:
 
-**"Here's the plan I've drafted based on what we discussed: [brief summary]. Does this match what you're thinking? Are there any changes or clarifications needed before we move to implementation?"**
+**"Here's the plan I've drafted based on what we discussed: [brief summary]. Does this match what you're thinking? Are there any changes or clarifications needed before we move to the Implement stage?"**
 
 Iterate on feedback until the plan feels right. Once approved, you're ready for Implementation.
 
@@ -158,6 +158,6 @@ Iterate on feedback until the plan feels right. Once approved, you're ready for 
 
 - Quality planning prevents rework during implementation
 - A thorough plan means fewer surprises mid-stream
-- If during Q&A the agent realizes something important changes, go back to Solutioning
+- If during Q&A the agent realizes something important changes, go back to Align (solutioning)
 - The plan should be detailed enough to execute but not so detailed that it becomes implementation
 - Good plans call out what they don't cover, so expectations are clear
