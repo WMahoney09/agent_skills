@@ -42,7 +42,7 @@ Repeat the estimate → decompose cycle until every phase scores ≤ 2. A single
 
 - **Split at natural seams.** Find the boundary where the work meaningfully changes — different files, different systems, different concerns. That's where to cut.
 - **Preserve the original goal.** Subphases together must accomplish exactly what the parent phase intended. Do not silently drop scope during decomposition.
-- **Favor independent subphases.** If two subphases can run in parallel, say so explicitly. If they cannot, document the dependency.
+- **Favor independent subphases.** If subphases are independent, note the ordering flexibility explicitly. If they are dependent, document the dependency.
 - **Stop at 2.** LOE 1 and LOE 2 are both acceptable outcomes. There is no value in decomposing below 2.
 - **Decomposition is not redesign.** If a phase needs to be restructured rather than split, surface it as a finding rather than making the change silently.
 

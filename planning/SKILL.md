@@ -77,7 +77,7 @@ Generate a written plan document that includes:
 
 - **Information comes first** - Don't guess about your constraints or environment. Ask until you understand.
 - **No implementation yet** - This is the blueprint, not the build. Describe *what* will happen and *why*, not yet *how in detail*.
-- **Identify critical paths** - Make clear what must be done in sequence vs. what can be parallelized.
+- **Identify critical paths** - Make clear what must be done in sequence and what ordering dependencies exist.
 - **Surface assumptions** - Call out any assumptions the agent is making so they can be validated.
 - **Scope clarity** - Be explicit about what's included in this plan and what's not (e.g., "We'll update the API, but not the frontend" or "This assumes Redis is already set up").
 - **Artifacts are project-local** - All generated artifacts (plans, notes, configurations) must be saved to the project, never to home directory conventions like `~/.claude/*`, `~/.cursor/*`, or `~/.vscode/*`. See the [Artifactor skill](./artifactor.md) for full guidance on this principle.

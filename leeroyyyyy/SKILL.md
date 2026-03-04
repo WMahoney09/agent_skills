@@ -126,7 +126,7 @@ Update the plan file before the next cycle. Do not ask the user which issues to 
 
 **Invoke by reference:** `produce` skill
 
-Execute the plan autonomously. The agent manages work order, parallelization strategy, and git history. Semantically coherent atomic commits are the deliverable.
+Execute the plan autonomously. The agent manages work order and git history. Semantically coherent atomic commits are the deliverable.
 
 ---
 
