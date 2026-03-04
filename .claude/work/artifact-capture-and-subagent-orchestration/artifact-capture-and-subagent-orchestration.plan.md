@@ -124,21 +124,37 @@ Content to include:
   as the template for skills whose output modifies an existing file in-place rather than creating a
   new one
 
-### Step 1.3: Update README to reference canonical spec files
+### Step 1.3: Update README — single combined pass
 
-Add a **Conventions** section to README that:
-- Points to `SKILL.spec.md` at the project root as the canonical skill file specification
-- Points to `ARTIFACT.spec.md` at the project root as the canonical artifact definition specification
-- One-paragraph explanation of the convention: every skill directory contains a `SKILL.md`
-  conforming to `SKILL.spec.md`; skills that produce phase artifacts also contain an `ARTIFACT.md`
-  conforming to `ARTIFACT.spec.md`
+**This step absorbs Step 5.2 entirely. Step 5.2 requires no separate execution.**
+
+Do all README changes in one edit:
+
+**Conventions section (new):**
+- Add a **Conventions** section pointing to `SKILL.spec.md` at the project root as the canonical
+  skill file specification
+- Point to `ARTIFACT.spec.md` at the project root as the canonical artifact definition specification
+- One-paragraph explanation: every skill directory contains a `SKILL.md` conforming to
+  `SKILL.spec.md`; skills that produce phase artifacts also contain an `ARTIFACT.md` conforming
+  to `ARTIFACT.spec.md`
+
+**Artifactor retirement:**
+- Remove `artifactor` from the diagram (Use anytime section)
+- Remove `artifactor` from the Meta section
+- Remove `artifactor` from the Supporting Skills section
+- Update `planning` skill description to remove reference to artifactor
+
+**Leeroyyyyy update:**
+- Update `leeroyyyyy` description to reflect subagent orchestration, Atomize as a pipeline step,
+  and Understanding as a Precondition (not a pipeline phase)
 
 ---
 
 ## Phase 2: Create all per-skill ARTIFACT.md files
 
 Depends on Phase 1 (`ARTIFACT.spec.md` defines the required structure).
-Each file is independent — all can be created in parallel.
+Phases 2 and 3 are independent of each other and can both run in parallel once Phase 1 completes.
+Each file within this phase is independent — all can be created in parallel.
 
 Every `ARTIFACT.md` must include the meta-instruction block at the top (per `ARTIFACT.spec.md`).
 
@@ -226,9 +242,9 @@ Progress section is updated by `produce` at phase boundaries (not by planning it
 
 ### Step 2.6: pre-flight/ARTIFACT.md
 
-**Output file:** `pre-flight-issues.md`
+**Output file:** Inline — pre-flight findings are produced in-context (not saved to a file).
 
-Template sections:
+The ARTIFACT.md defines the canonical output format:
 - Issues found (each with: What / Where / Impact / Suggestion)
   - Critical issues
   - Major issues
@@ -236,10 +252,11 @@ Template sections:
 - Opportunities identified
 - Confidence level: Ready / Issues to resolve / Return to Planning
 
-**Trigger:** At the end of each pre-flight cycle. File is overwritten each cycle (latest state wins).
+**Trigger:** At the end of each pre-flight cycle. Output is always inline.
 
-**Note:** `pre-flight-issues.md` is transient scratch — not committed by leeroyyyyy between
-cycles. Only the updated plan file is committed (as a `[plan]` commit) after each reasoning pass.
+**Note:** Pre-flight's committed artifact is the updated plan file — produced by the reasoning
+pass that follows and committed as `[plan]`. Pre-flight findings are consumed in-context by the
+reasoning subagent; no file is written and the working index stays clean.
 
 ### Step 2.7: review/ARTIFACT.md
 
@@ -322,12 +339,12 @@ or after aborting with unresolvable issues — document the abort reason in the 
 ## Phase 3: Update SKILL.md files
 
 Depends on Phase 1 (`SKILL.spec.md` defines canonical structure and `## Artifact` placement).
+Phases 2 and 3 are independent of each other and can both run in parallel once Phase 1 completes.
 Steps within this phase are independent and can be parallelized.
-Step 5.2 (README update) can also run in parallel with this phase — no blocking dependency.
 
 ### Step 3.1: Add `## Artifact` section to each skill with an ARTIFACT.md
 
-For each of the following 10 skills (understanding, solutioning, tire-kicking, reasoning, planning,
+For each of the following 9 skills (understanding, solutioning, tire-kicking, reasoning,
 pre-flight, review, triage, estimate, atomize):
 
 Add a brief `## Artifact` section **immediately before `## Closure Criteria`** in `SKILL.md`:
@@ -377,12 +394,15 @@ Skip `leeroyyyyy/SKILL.md` — the Phase 4 rewrite produces a clean file with no
 references. `planning/SKILL.md` is already handled in Step 3.2 — skip it here.
 Check all remaining SKILL.md files for stray references.
 
+**Note:** If Steps 3.2 and Phase 4 are complete, this step may find nothing to change — that is
+the expected outcome. Run it as a verification scan regardless.
+
 ---
 
 ## Phase 4: Rewrite leeroyyyyy/SKILL.md
 
 Depends on Phase 2 (needs to know what artifacts each phase produces).
-Can be written in parallel with Phase 3.
+Can be written in parallel with Phase 3 — but not until Phase 2 is complete.
 
 ### Step 4.1: Establish the Context Management and Subagent Dispatch Principle
 
@@ -422,8 +442,8 @@ automatically; until then the user runs `/understanding` manually before invokin
 | Tire-kicking | problem-statement.md, solution-statement.md (all candidates) | tire-kicking-report.md | mandatory |
 | Reasoning | tire-kicking-report.md | truth-and-vector.md | mandatory |
 | Planning | solution-statement.md, truth-and-vector.md | *.plan.md | mandatory |
-| Pre-flight | *.plan.md, solution-statement.md | pre-flight-issues.md | mandatory |
-| Atomize | *.plan.md, pre-flight-issues.md | *.plan.md (all plan phases ≤ LOE 2) | mandatory |
+| Pre-flight | *.plan.md, solution-statement.md | inline findings → `[plan]` *.plan.md commit (via reasoning pass) | mandatory |
+| Atomize | *.plan.md | *.plan.md (all plan phases ≤ LOE 2) | mandatory |
 | Produce (per phase) | *.plan.md only | progress update in plan file | mandatory |
 | Review | local diff | review-issues.md | mandatory |
 | Triage | review-issues.md | triage-report.md | mandatory |
@@ -457,6 +477,8 @@ Rewrite each phase's prose in leeroyyyyy to:
   - Produce (each phase) → `[code]` commit(s) then `[plan]` commit marking phase complete
 - Add Atomize as a pipeline step after the pre-flight loop completes, before produce begins —
   atomize runs once on the stable plan
+- Update the Completion section to reference `summary-statement.md` as the closure artifact —
+  agent writes this file per `leeroyyyyy/ARTIFACT.md` before reporting completion
 
 **Pre-flight loop behavior** (update the Pre-Flight + Reasoning Loop section):
 
@@ -489,31 +511,20 @@ Rewrite the Autonomy Principle section to make clear:
 
 ---
 
-## Phase 5: Retire artifactor + update README
+## Phase 5: Retire artifactor
 
 Step 5.1 depends on Phase 3 (Step 3.4 must complete before artifactor directory is deleted).
-Step 5.2 is independent and can run in parallel with Phase 3.
+Step 5.2 is complete — absorbed into Step 1.3.
 
 ### Step 5.1: Remove artifactor skill directory
 
 Delete `/Users/will/agentic/skills/artifactor/` and its contents.
 **Prerequisite:** Step 3.4 must be complete (no SKILL.md files may still reference artifactor).
 
-### Step 5.2: Update README for artifactor retirement and leeroyyyyy changes
+### Step 5.2: Update README ✓ Complete
 
-Can run in parallel with Phase 3 (no dependency on SKILL.md changes):
-
-- Remove `artifactor` from the diagram (Use anytime section)
-- Remove `artifactor` from the Meta section
-- Remove `artifactor` from the Supporting Skills section
-- Update `planning` skill description to remove reference to artifactor
-- Update `leeroyyyyy` description to reflect subagent orchestration, Atomize as a pipeline step,
-  and Understanding as a Precondition (not a pipeline phase)
-
-**Note:** The Conventions section pointing to `SKILL.spec.md` and `ARTIFACT.spec.md` is added
-in Phase 1 Step 1.3 — do not duplicate it here. **Preferred approach:** batch Step 5.2 with
-Step 1.3 into a single README pass — read Step 1.3's output first, then apply Step 5.2's
-changes in the same edit to avoid touching README.md twice.
+**Done as part of Step 1.3.** All README changes (Conventions section, artifactor retirement,
+leeroyyyyy update) are executed as a single pass in Step 1.3. No separate execution needed.
 
 ---
 
@@ -585,6 +596,7 @@ changes in the same edit to avoid touching README.md twice.
 - [ ] `ARTIFACT.spec.md` exists at project root with canonical meta-instruction block and template structure
 - [ ] README has a Conventions section pointing to both root spec files
 - [ ] Every skill with an artifact has a co-located `ARTIFACT.md` with template, naming, and trigger
+- [ ] `leeroyyyyy/ARTIFACT.md` exists with `summary-statement.md` template
 - [ ] Every per-skill `ARTIFACT.md` includes the meta-instruction block at the top
 - [ ] `planning/SKILL.md` documents the `*.plan.md` format, progress tracking section, and
   reference to `/atomize` for plan-phase decomposition
