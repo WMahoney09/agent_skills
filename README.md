@@ -2,9 +2,17 @@
 
 A library of composable skills for structured software delivery, organized around the **RAPID** workflow.
 
-**RAPID flow:** `Research → Align → Plan → Implement → Deliver`
+| R | A | P | I | D |
+|---|---|---|---|---|
+| **Research** | **Align** | **Plan** | **Implement** | **Deliver** |
+| `/understanding` | `/solutioning` | `/planning` | `/produce` | *coming soon* |
+| `/recon` | `/tire-kicking` | `/pre-flight` | `/pair-on` | |
+| | `/reasoning` | `/atomize` | `/review` | |
+| | | | `/triage` | |
+| | | | `/revise` | |
+| | | | `/reply` | |
 
-> **Floating skills** (usable across stages): `/recon`, `/clarify`, `/reasoning`, `/estimate`, `/commit`
+> **Floating skills** (usable at any stage): `/recon` · `/clarify` · `/reasoning` · `/estimate` · `/commit`
 
 ## Conventions
 
