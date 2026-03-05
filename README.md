@@ -1,6 +1,8 @@
-# Agentic Skills
+# RAPID Workflow
 
-A library of composable skills for structured software delivery, organized around the **RAPID** workflow.
+A library of composable skills for structured agentic software delivery.
+
+_These are mostly modular and can be used outside of RAPID if needed._
 
 | R | A | P | I | D |
 |---|---|---|---|---|
