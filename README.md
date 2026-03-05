@@ -8,13 +8,11 @@ _These are mostly modular and can be used outside of RAPID if needed._
 |---|---|---|---|---|
 | **Research** | **Align** | **Plan** | **Implement** | **Deliver** |
 | `/understanding` | `/solutioning` | `/planning` | `/produce` | `/pull-request` |
-| `/recon` | `/tire-kicking` | `/pre-flight` | `/pair-on` | |
-| | `/reasoning` | `/atomize` | `/review` | |
-| | | | `/triage` | |
-| | | | `/revise` | |
-| | | | `/reply` | |
+| `/recon` | `/tire-kicking` | `/pre-flight` | `/pair-on` | `/triage` |
+| | `/reasoning` | `/atomize` | | `/revise` |
+| | | | | `/reply` |
 
-> **Floating skills** (usable at any stage): `/recon` · `/clarify` · `/reasoning` · `/estimate` · `/commit`
+> **Floating skills** (usable at any stage): `/recon` · `/clarify` · `/reasoning` · `/estimate` · `/commit` · `/review`
 
 ## Conventions
 
@@ -51,22 +49,21 @@ Every skill directory contains a `SKILL.md` conforming to [`SKILL.spec.md`](./SK
 
 ## I — Implement
 
-> Build, review, and revise until the work is complete.
+> Build the work.
 
 - **`/produce`** — Execute the implementation plan autonomously with intelligent atomic commits.
 - **`/pair-on`** — Pair program through the plan with user-controlled review boundaries and commits.
-- **`/review`** — Technical peer review of code changes with severity-graded report and go/no-go recommendation.
-- **`/triage`** — Ingest feedback, group related items into unified revisions, and prioritize by severity.
-- **`/revise`** — Address a discrete revision with a lightweight alignment check and holistic implementation.
-- **`/reply`** — Close the feedback loop on a PR by replying to each reviewer comment with the addressing commit.
 
 ---
 
 ## D — Deliver
 
-> Ship the work, gather feedback, confirm acceptance.
+> Ship the work, gather feedback, and revise until accepted.
 
 - **`/pull-request`** — Open a pull request for local changes with a structured description, issue links, and artifact references.
+- **`/triage`** — Ingest feedback, group related items into unified revisions, and prioritize by severity.
+- **`/revise`** — Address a discrete revision with a lightweight alignment check and holistic implementation.
+- **`/reply`** — Close the feedback loop on a PR by replying to each reviewer comment with the addressing commit.
 
 ## Floating Skills
 
@@ -77,6 +74,7 @@ These skills are valuable across multiple stages:
 - **`/reasoning`** — Reason through complexity to extract truths and directional clarity. Core to Research and Align, useful everywhere.
 - **`/estimate`** — Produce LOE scores (1–5). Used during Plan, but available anytime.
 - **`/commit`** — Stage and commit with typed convention. Used throughout Implement, available anytime.
+- **`/review`** — Technical peer review of code changes with severity-graded report and go/no-go recommendation. Core to Deliver, useful anytime.
 
 ## Orchestration Philosophy
 
