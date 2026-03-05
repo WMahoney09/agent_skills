@@ -5,7 +5,7 @@ A library of composable skills for structured software delivery, organized aroun
 | R | A | P | I | D |
 |---|---|---|---|---|
 | **Research** | **Align** | **Plan** | **Implement** | **Deliver** |
-| `/understanding` | `/solutioning` | `/planning` | `/produce` | *coming soon* |
+| `/understanding` | `/solutioning` | `/planning` | `/produce` | `/pull-request` |
 | `/recon` | `/tire-kicking` | `/pre-flight` | `/pair-on` | |
 | | `/reasoning` | `/atomize` | `/review` | |
 | | | | `/triage` | |
@@ -64,13 +64,7 @@ Every skill directory contains a `SKILL.md` conforming to [`SKILL.spec.md`](./SK
 
 > Ship the work, gather feedback, confirm acceptance.
 
-This stage is currently manual. Activities include:
-
-- **Pull request creation** — Open a PR with a clear summary and test plan
-- **Deployment** — Deploy to the target environment
-- **Demonstration** — Demo the changes to stakeholders
-- **Feedback gathering** — Collect and incorporate feedback
-- **Acceptance confirmation** — Confirm the work meets success criteria
+- **`/pull-request`** — Open a pull request for local changes with a structured description, issue links, and artifact references.
 
 ## Floating Skills
 
