@@ -9,23 +9,24 @@
 ```markdown
 # Solution Statement
 
-## Chosen Approach
-<!-- Name + 1–2 sentence description of the selected solution -->
+## Candidates
 
-## Why This Approach
-<!-- Key evidence from tire-kicking and reasoning that led to this choice -->
+### Candidate 1: <name>
+<!-- Description, tradeoffs, constraints. Include an LOE estimate (1–5) for this candidate. -->
 
-## Tradeoffs Accepted
-<!-- What we're giving up or accepting with this approach -->
+### Candidate 2: <name>
+<!-- Description, tradeoffs, constraints. Include an LOE estimate (1–5) for this candidate. -->
 
-## Approaches Considered and Rejected
-<!-- Brief — name + one-liner reason for rejection -->
+<!-- Additional candidates as needed. A single candidate is valid for prescriptive problems. -->
 
-## LOE Score
-<!-- Level of Effort score from /estimate -->
+## Next Step
+Recommendation: <reasoning | Plan>
+Confidence: <high | medium | low>
+Rationale: <one sentence>
 ```
 
 ## Notes
 
-- The solution statement captures the decision, not the exploration — solutioning's dialogue produces the reasoning; this artifact records the outcome
+- The solution statement captures the candidates, not the decision — the reasoning skill's `truth-and-vector.md` handles the decision and its justification
+- The `## Candidates` section may contain a single candidate when the short-circuit path is taken; this is intentional, not an error or incomplete artifact
 - Referenced by the planning skill as input for building the implementation plan

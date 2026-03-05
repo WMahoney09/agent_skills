@@ -13,7 +13,13 @@
 <!-- 1–8 sentences: what was built, what changed, overall outcome -->
 
 ## Phases Executed
-<!-- Bulleted list, one line each -->
+<!-- Bulleted list, one line each.
+     The Align stage has variable phases depending on nudge routing.
+     Reflect which phases actually ran, e.g.:
+       - Solutioning -> Reasoning -> Planning  (tire-kicking skipped)
+       - Solutioning -> Plan  (short-circuit: prescriptive problem)
+       - Solutioning -> Reasoning -> Tire-Kicking -> Reasoning -> Planning  (full sequence)
+-->
 
 ## Out-of-Scope Items
 <!-- As noted in the plan file -->

@@ -8,8 +8,8 @@ _These are mostly modular and can be used outside of RAPID if needed._
 |---|---|---|---|---|
 | **Research** | **Align** | **Plan** | **Implement** | **Deliver** |
 | `/understanding` | `/solutioning` | `/planning` | `/produce` | `/pull-request` |
-| `/recon` | `/tire-kicking` | `/pre-flight` | `/pair-on` | `/triage` |
-| | `/reasoning` | `/atomize` | | `/revise` |
+| `/recon` | `/reasoning` | `/pre-flight` | `/pair-on` | `/triage` |
+| | `/tire-kicking` | `/atomize` | | `/revise` |
 | | | | | `/reply` |
 
 > **Floating skills** (usable at any stage): `/recon` · `/clarify` · `/reasoning` · `/estimate` · `/commit` · `/review`
@@ -31,9 +31,9 @@ Every skill directory contains a `SKILL.md` conforming to [`SKILL.spec.md`](./SK
 
 > Converge on a solution direction through exploration and stress-testing.
 
-- **`/solutioning`** — Co-architect solutions by exploring multiple approaches and their tradeoffs.
-- **`/tire-kicking`** — Stress-test a proposed design against scenarios (edge cases, lifecycle, multi-actor, data change).
-- **`/reasoning`** *(floating)* — Reason through a problem to extract truths and directional clarity. Usable at any stage.
+- **`/solutioning`** — Co-architect solutions by exploring multiple approaches and their tradeoffs. For prescriptive problems with only one viable direction, solutioning short-circuits to a single candidate and nudges directly to Plan.
+- **`/reasoning`** *(floating)* — Reason through a problem to extract truths and directional clarity. Within the Align stage, reasoning is the default step after solutioning: it synthesizes solution candidates and determines whether tire-kicking is needed. Usable at any stage.
+- **`/tire-kicking`** — Stress-test solution candidates against scenarios (edge cases, lifecycle, multi-actor, data change). Conditionally invoked when reasoning flags genuine ambiguity between candidates that cannot be resolved through reasoning alone.
 
 ---
 
@@ -113,8 +113,8 @@ Concurrent tool calls within a single agent response (e.g., reading multiple fil
 The full send. **Precondition:** Research must be complete and `problem-statement.md` must exist in the workstream directory before invocation. Leeroyyyyy runs the entire delivery pipeline autonomously, dispatching every phase to a subagent with artifact file handoffs (not conversation context).
 
 What Leeroyyyyy does autonomously:
-- Explores 2–3 candidate solutions and stress-tests all of them
-- Picks the best solution using evidence and codebase conventions
+- Explores candidate solutions and routes based on skill nudges — conditionally stress-testing when reasoning flags genuine ambiguity
+- Picks the best solution using reasoning synthesis, evidence, and codebase conventions
 - Builds a detailed implementation plan and validates it in a pre-flight + reasoning loop (min 2, max 4 cycles)
 - Atomizes the plan so every phase scores ≤ LOE 2
 - Executes the plan with semantically coherent atomic commits, dispatching each phase to a subagent

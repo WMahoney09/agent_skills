@@ -49,3 +49,25 @@ See `atomize/ARTIFACT.md` as the canonical example of this pattern.
 All artifacts live in `.claude/work/<work-item>/` at the nearest project root. The `<work-item>` slug is established by the `understanding` skill when it creates the workstream directory.
 
 Artifacts must be project-local — never saved to home directory conventions like `~/.claude/*`, `~/.cursor/*`, or similar paths.
+
+## Next Step Block Convention
+
+Artifact templates may include an optional `## Next Step` block as their **last section** (after all other content). This block provides a structured routing signal that an orchestrator (or human) can use to determine what should happen next.
+
+```
+## Next Step
+Recommendation: <skill-slug or stage-name>
+Confidence: high | medium | low
+Rationale: <one sentence explaining why>
+```
+
+### Convention details
+
+- **Optional.** Only skills participating in conditional routing include this block. Skills outside nudge-driven stages are not expected to adopt it.
+- **Always last.** When present, `## Next Step` must be the final section in the artifact template, after all other content sections.
+- **Recommendation values** use this convention:
+  - **Skill slugs** (lowercase, e.g., `reasoning`, `tire-kicking`) for within-stage routing — dispatching another skill in the same RAPID stage.
+  - **Stage names** (capitalized, e.g., `Plan`) for stage advancement — signaling that the current stage is complete and the next RAPID stage should begin.
+- **Confidence** indicates how strongly the skill believes this is the right next step. When confidence is `low`, the orchestrator (or user) should consider alternatives before proceeding.
+- **Backward routing.** A recommendation that points to an earlier RAPID stage (e.g., `understanding` from within Align) is a backward-routing nudge. These use the skill slug convention (lowercase) because they name a specific skill, but the orchestrator must treat them as abort conditions when it cannot run the target stage. In leeroyyyyy, `understanding` triggers a halt-and-alert-user pattern because Research requires user dialogue.
+- **Dual-readable.** The block is both human-readable (for manual workflows) and machine-parseable (for orchestrators like leeroyyyyy).

@@ -58,7 +58,7 @@ description: ...
 
 These sections may appear within the skill-specific content area (between Agent's Role and Artifact):
 
-- `## Closing the Phase` — guidance on how to wrap up and transition
+- `## Closing the Phase` — guidance on how to wrap up and transition. Conditional closing prompts are a valid pattern: a skill's `## Closing the Phase` section may contain branching logic that emits different closing prompts based on the skill's output (e.g., different nudges depending on whether the result is clear or ambiguous). This is expected for skills participating in nudge-driven routing.
 - `## Invocation` — how the skill is invoked (useful for skills with multiple invocation patterns)
 - `## Precondition` — what must be true before the skill can run
 

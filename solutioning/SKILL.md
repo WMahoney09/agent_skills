@@ -9,7 +9,14 @@ This skill guides you through exploring multiple solution approaches before comm
 
 ## Goal
 
-Co-architect solutions by:
+First, assess whether the problem statement is prescriptive enough that a single-candidate solution is appropriate. Indicators of a prescriptive problem:
+- The problem statement specifies the approach or strongly constrains it
+- There is only one viable technical direction given the constraints
+- The constraints eliminate all but one class of solution
+
+When the problem is prescriptive, produce a single-candidate solution statement and note why alternatives were not explored.
+
+Otherwise, co-architect solutions by:
 - Proposing 2-3 meaningfully different approaches
 - Explaining the tradeoffs of each
 - Reasoning through which approach fits best
@@ -86,21 +93,40 @@ Produces `solution-statement.md` in `.claude/work/<work-item>/`. See `ARTIFACT.m
 
 ## Closure Criteria
 
-You're ready to move to the Plan stage when:
+**Multi-candidate path** — you're ready to close when:
 
 - [ ] You've proposed at least 2-3 distinct approaches
 - [ ] Each approach has been explained with clear tradeoffs
-- [ ] The person has reacted to each—what appeals, what concerns them
+- [ ] The person has reacted to each — what appeals, what concerns them
 - [ ] There's a clear sense of which direction feels right
 - [ ] You understand *why* that direction appeals (constraints, values, risk tolerance)
 
+**Short-circuit path** — you're ready to close when:
+
+- [ ] You've identified that the problem is prescriptive (see Goal section)
+- [ ] A single candidate has been produced with clear rationale
+- [ ] You've explained why alternatives were not explored (not an oversight — the constraints make them irrelevant)
+
 ## Closing the Phase
 
-Summarize and confirm:
+The closing prompt is conditional based on the outcome:
 
-**"It sounds like [Approach X] is the direction that resonates most because [their reasoning]. It handles [constraint], aligns with [priority], and we'd mitigate [concern] by [brief mitigation]. Does that capture it? Ready to move to the Plan stage?"**
+**If single candidate (short-circuit):**
+"The problem is prescriptive enough that [Approach X] is the only viable direction — [rationale for why alternatives add no value]. Ready to move directly to the Plan stage?"
 
-If they're torn between two approaches, explore what would tip the scales. Don't force consensus—help them make the decision.
+Nudge: advance to `Plan`. There is nothing to reason between or stress-test.
+
+**If multiple candidates with one clear winner:**
+"It sounds like [Approach X] is the direction that resonates most because [their reasoning]. It handles [constraint], aligns with [priority], and we'd mitigate [concern] by [brief mitigation]. Let's move to reasoning to confirm this choice."
+
+Nudge: proceed to `reasoning` for lightweight confirmation.
+
+**If multiple candidates with genuine ambiguity:**
+"There's genuine tension between [Approach X] and [Approach Y] — [brief description of the tension]. Let's move to reasoning to develop directional clarity."
+
+Nudge: proceed to `reasoning` to determine whether tire-kicking is needed.
+
+If they're torn between two approaches, explore what would tip the scales. Don't force consensus — help them make the decision.
 
 ## Notes
 

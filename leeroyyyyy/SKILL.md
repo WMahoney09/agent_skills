@@ -1,6 +1,6 @@
 ---
 name: leeroyyyyy
-description: "⚠️ EXPERIMENTAL — Full send autonomous pipeline. Precondition: Research complete + problem-statement.md exists. Runs the entire delivery workflow without user input: solutioning → tire-kicking → reasoning + recon → planning → pre-flight loop (min 2, max 4 cycles) → atomize → produce (subagent per phase) → review → triage → revise. The agent makes every decision autonomously."
+description: "⚠️ EXPERIMENTAL — Full send autonomous pipeline. Precondition: Research complete + problem-statement.md exists. Runs the entire delivery workflow without user input: solutioning → reasoning (+ recon) → [tire-kicking if ambiguous] → planning → pre-flight loop (min 2, max 4 cycles) → atomize → produce (subagent per phase) → review → triage → revise. Align-stage routing is nudge-driven — each skill emits a Next Step recommendation that determines the next dispatch. The agent makes every decision autonomously."
 agent-invocation: user-invoked-only
 agent-reference: forbidden
 agent-note: "This skill can ONLY be invoked directly by the user (e.g., /leeroyyyyy). It must NEVER be invoked by reference from another skill or agent. Once invoked, the agent runs the full pipeline autonomously — do not pause for user input unless an ambiguity truly cannot be resolved without it."
@@ -20,26 +20,41 @@ Research must be complete and `problem-statement.md` must exist in `.claude/work
 
 ## Pipeline
 
+The Align stage uses nudge-driven routing: each skill emits a `## Next Step` block in its artifact that tells leeroyyyyy what to dispatch next. The rest of the pipeline (Plan through Deliver) is fixed.
+
 ```
-Solutioning  ← produce 2–3 candidate solutions
-    ↓
-Tire-Kicking  ← stress-test all candidates
-    ↓
-Reasoning + Recon  ← synthesize findings, check conventions, pick a solution
-    ↓
+Solutioning  <- produce candidates, emit Next Step
+    |
+    v (read Next Step from solution-statement.md)
+    |
+    +--[Plan]-------> Planning  (short-circuit: prescriptive problem)
+    |
+    +--[reasoning]--> Reasoning + Recon  <- synthesize candidates, emit Next Step
+                        |
+                        v (read Next Step from truth-and-vector.md)
+                        |
+                        +--[Plan]------------> Planning  (clear conviction)
+                        |
+                        +--[tire-kicking]----> Tire-Kicking  <- stress-test, emit Next Step
+                        |
+                        +--[understanding]---> HALT  (problem shifted; needs user-driven Research)
+                                                |
+                                                v (always)
+                                                Reasoning (2nd pass) -> Planning
+
 Planning
-    ↓
-Pre-Flight → Reasoning → update plan  (min 2, max 4 cycles)
-    ↓
-Atomize  ← ensure all plan phases ≤ LOE 2
-    ↓
-Produce  ← dispatch each plan phase to a subagent
-    ↓
-Review  ← local technical review of the produced changes
-    ↓
-Triage  ← group and prioritize review findings into revisions
-    ↓
-Revise  ← address all Critical and Major revisions autonomously
+    |
+Pre-Flight -> Reasoning -> update plan  (min 2, max 4 cycles)
+    |
+Atomize  <- ensure all plan phases <= LOE 2
+    |
+Produce  <- dispatch each plan phase to a subagent
+    |
+Review  <- local technical review of the produced changes
+    |
+Triage  <- group and prioritize review findings into revisions
+    |
+Revise  <- address all Critical and Major revisions autonomously
 ```
 
 ---
@@ -50,18 +65,19 @@ Context is a finite resource — treat it as such.
 
 Every phase handoff is a context boundary: pass artifact files, not conversation history. **Commits are the handoff mechanism** — every artifact is committed before the next stage begins; subagents read committed files, never conversation history.
 
-The full run produces a readable git log:
+The full run produces a readable git log. The Align-stage artifacts vary depending on routing — tire-kicking-report.md only appears if reasoning flagged ambiguity, and a second truth-and-vector.md commit appears after tire-kicking:
 ```
-[docs]  solution-statement.md       ← solutioning
-[docs]  tire-kicking-report.md      ← tire-kicking
-[docs]  truth-and-vector.md         ← reasoning
-[plan]  *.plan.md                   ← planning (initial)
-[plan]  *.plan.md                   ← pre-flight adjustments (one per cycle)
-[plan]  *.plan.md                   ← atomize resizing
-[code]  <implementation>            ← produce (phase N)
-[plan]  *.plan.md                   ← phase N marked complete
-[code]  <implementation>            ← produce (phase N+1)
-[plan]  *.plan.md                   ← phase N+1 marked complete
+[docs]  solution-statement.md       <- solutioning
+[docs]  truth-and-vector.md         <- reasoning (first pass)
+[docs]  tire-kicking-report.md      <- tire-kicking (only if reasoning flagged ambiguity)
+[docs]  truth-and-vector.md         <- reasoning (second pass, only after tire-kicking)
+[plan]  *.plan.md                   <- planning (initial)
+[plan]  *.plan.md                   <- pre-flight adjustments (one per cycle)
+[plan]  *.plan.md                   <- atomize resizing
+[code]  <implementation>            <- produce (phase N)
+[plan]  *.plan.md                   <- phase N marked complete
+[code]  <implementation>            <- produce (phase N+1)
+[plan]  *.plan.md                   <- phase N+1 marked complete
 ...
 ```
 
@@ -75,20 +91,34 @@ Progress is reported in chat at each phase transition so the user can observe pi
 
 **Precondition:** `problem-statement.md` must exist in `.claude/work/<slug>/` before leeroyyyyy is invoked. Research requires user dialogue and cannot be automated — it is the one stage leeroyyyyy does not own.
 
-| Phase | Input artifacts | Output artifact | Subagent rule |
-|---|---|---|---|
-| Solutioning | problem-statement.md | solution-statement.md | mandatory |
-| Tire-kicking | problem-statement.md, solution-statement.md (all candidates) | tire-kicking-report.md | mandatory |
-| Reasoning | tire-kicking-report.md | truth-and-vector.md | mandatory |
-| Planning | solution-statement.md, truth-and-vector.md | *.plan.md | mandatory |
-| Pre-flight | *.plan.md, solution-statement.md | inline findings → `[plan]` *.plan.md commit (via reasoning pass) | mandatory |
-| Atomize | *.plan.md | *.plan.md (all phases ≤ LOE 2) | mandatory |
-| Produce (per phase) | *.plan.md only | progress update in plan file | mandatory |
-| Review | local diff | review-issues.md | mandatory |
-| Triage | review-issues.md | triage-report.md | mandatory |
-| Revise | triage-report.md, *.plan.md | commits | mandatory |
+| Phase | Input artifacts | Output artifact | Subagent rule | Condition |
+|---|---|---|---|---|
+| Solutioning | problem-statement.md | solution-statement.md (with Next Step) | mandatory | always |
+| Reasoning | solution-statement.md (+ problem-statement.md) | truth-and-vector.md (with Next Step) | mandatory | when solutioning nudges `reasoning` |
+| Tire-kicking | problem-statement.md, solution-statement.md | tire-kicking-report.md (with Next Step) | mandatory | when reasoning nudges `tire-kicking` |
+| Reasoning (2nd pass) | tire-kicking-report.md, solution-statement.md | truth-and-vector.md (with Next Step) | mandatory | always after tire-kicking |
+| Planning | solution-statement.md, truth-and-vector.md | *.plan.md | mandatory | always |
+| Pre-flight | *.plan.md, solution-statement.md | inline findings -> `[plan]` *.plan.md commit (via reasoning pass) | mandatory | always |
+| Atomize | *.plan.md | *.plan.md (all phases <= LOE 2) | mandatory | always |
+| Produce (per phase) | *.plan.md only | progress update in plan file | mandatory | always |
+| Review | local diff | review-issues.md | mandatory | always |
+| Triage | review-issues.md | triage-report.md | mandatory | always |
+| Revise | triage-report.md, *.plan.md | commits | mandatory | always |
 
 **Note on Reasoning:** The reasoning subagent executes its own recon pass — no committed recon artifact is produced or passed by leeroyyyyy. Recon findings are internal to the reasoning subagent's context. This is the one sanctioned exception to the commits-as-handoff principle, because recon is read-only investigation with no canonical output.
+
+---
+
+## Nudge-Reading Mechanism
+
+After each Align-stage subagent commits its artifact, leeroyyyyy reads the artifact file to determine what to dispatch next:
+
+1. Open the committed artifact (e.g., `solution-statement.md` or `truth-and-vector.md`)
+2. Find the `## Next Step` section
+3. Parse the `Recommendation:` line to extract the routing value
+4. Dispatch based on the value: a **skill slug** (e.g., `reasoning`, `tire-kicking`) dispatches the named skill within the Align stage; a **stage name** (e.g., `Plan`) advances to the next RAPID stage
+
+**Fallback:** If the `## Next Step` block is missing, malformed, or contains an unrecognized value, leeroyyyyy falls back to the default sequence: solutioning -> reasoning -> planning. The fallback intentionally skips tire-kicking to avoid processing loops — tire-kicking only runs when reasoning explicitly nudges toward it. This prevents a broken or incomplete artifact from halting the pipeline.
 
 ---
 
@@ -97,49 +127,62 @@ Progress is reported in chat at each phase transition so the user can observe pi
 **Dispatch:** subagent with `problem-statement.md`
 **Invoke by reference:** `solutioning` skill
 
-Explore 2–3 meaningfully distinct approaches to the problem. For each, surface tradeoffs, constraints, and an LOE estimate. The goal of this phase is to produce a set of candidates — do not pick a solution yet. All viable candidates carry forward into tire-kicking.
+Explore candidate approaches to the problem. For each, surface tradeoffs, constraints, and an LOE estimate. The goal of this phase is to produce a set of candidates — do not pick a solution yet. For prescriptive problems where only one viable approach exists, a single candidate is valid.
 
 **Commit:** `[docs]` commit of `solution-statement.md` before advancing.
 
-Report in chat: "Solutioning complete — N candidates identified. Advancing to Tire-Kicking."
+**Nudge routing:** Read `## Next Step` from `solution-statement.md`:
+- `Recommendation: Plan` -> skip to Phase 4 (Planning). This is the short-circuit path for prescriptive problems where a single candidate makes reasoning and tire-kicking unnecessary.
+- `Recommendation: reasoning` -> proceed to Phase 2 (Reasoning). This is the standard path for multi-candidate solutions.
+
+Report in chat: "Solutioning complete — N candidate(s) identified. Next Step: [routing decision]."
 
 ---
 
-## Phase 2: Tire-Kicking
+## Phase 2: Reasoning
+
+**Dispatch:** subagent with `solution-statement.md`, `problem-statement.md`
+**Invoke by reference:** `reasoning` skill, `recon` skill
+
+Synthesize the solution candidates and the codebase's existing patterns to evaluate and choose a direction.
+
+**Recon pass:** Before or alongside reasoning, use Recon to identify how similar problems are solved in the codebase — naming conventions, structural patterns, data flow patterns, and existing abstractions. Establishing this context is not optional: new patterns are acceptable when there is a clear reason for them, but consistency with existing solutions for similar problems is the default.
+
+**Reasoning pass:** With solution candidates and codebase conventions in hand, reason through:
+- Which candidates best fit the problem constraints?
+- Which approach best aligns with existing codebase conventions?
+- Is there clear conviction toward one candidate, or genuine ambiguity between them?
+- If a new pattern is warranted, what is the clear justification?
+
+**Output:** A directional choice with the evidence documented — candidate evaluation, convention alignment, and any justified departures from existing patterns. The agent proceeds without user confirmation unless the reasoning genuinely cannot resolve between approaches.
+
+**Commit:** `[docs]` commit of `truth-and-vector.md` before advancing.
+
+**Nudge routing:** Read `## Next Step` from `truth-and-vector.md`:
+- `Recommendation: Plan` -> skip to Phase 4 (Planning). Reasoning reached clear conviction; tire-kicking would add cost without value.
+- `Recommendation: tire-kicking` -> proceed to Phase 3 (Tire-Kicking). Genuine ambiguity between candidates requires stress-testing to differentiate.
+- `Recommendation: understanding` -> **halt the pipeline**. Reasoning determined the problem space has shifted and needs revisiting. Since leeroyyyyy cannot run Research (it requires user dialogue), this is an abort condition. Write `summary-statement.md` noting the abort reason, alert the user that the problem needs revisiting via `/understanding`, and stop.
+
+Report in chat: "Reasoning complete. Next Step: [routing decision]."
+
+---
+
+## Phase 3: Tire-Kicking (conditional)
+
+**This phase only runs if reasoning's Next Step nudge recommends `tire-kicking`.** It does not run in every pipeline execution.
 
 **Dispatch:** subagent with `problem-statement.md`, `solution-statement.md`
 **Invoke by reference:** `tire-kicking` skill
 
-Stress-test all candidates from Solutioning against concrete scenarios: edge cases, lifecycle events, multi-actor interactions, and data changes. Classify each scenario for each candidate as **holds**, **bends**, or **leaks**. The goal is a comparative picture across candidates, not a verdict on any single one.
-
-Document all bends and leaks per approach. This record becomes the primary input to Phase 3.
+Stress-test the ambiguous candidates against concrete scenarios: edge cases, lifecycle events, multi-actor interactions, and data changes. Classify each scenario for each candidate as **holds**, **bends**, or **leaks**. The goal is a comparative picture across candidates that reasoning could not resolve through analysis alone.
 
 **Commit:** `[docs]` commit of `tire-kicking-report.md` before advancing.
 
-Report in chat: "Tire-Kicking complete. Advancing to Reasoning."
+**Second reasoning pass:** After tire-kicking commits, dispatch a second reasoning subagent with `tire-kicking-report.md` and `solution-statement.md`. This pass consumes the stress-test evidence and makes the final solution choice. The reasoning skill detects this is a second pass by the presence of `tire-kicking-report.md` in the workstream directory and always nudges toward `Plan` — it must not nudge back to `tire-kicking`, which would create an infinite loop.
 
----
+**Commit:** `[docs]` commit of updated `truth-and-vector.md` before advancing to Phase 4.
 
-## Phase 3: Reasoning — Pick a Solution
-
-**Dispatch:** subagent with `tire-kicking-report.md`
-**Invoke by reference:** `reasoning` skill, `recon` skill
-
-Synthesize the tire-kicking report and the codebase's existing patterns to make a decisive solution choice.
-
-**Recon pass:** Before or alongside reasoning, use Recon to identify how similar problems are solved in the codebase — naming conventions, structural patterns, data flow patterns, and existing abstractions. Establishing this context is not optional: new patterns are acceptable when there is a clear reason for them, but consistency with existing solutions for similar problems is the default.
-
-**Reasoning pass:** With tire-kicking results and codebase conventions in hand, reason through:
-- Which candidates held up best across scenarios?
-- Which leaks were closeable at low cost, and which indicate a structural weakness?
-- Which approach best aligns with existing codebase conventions?
-- If a new pattern is warranted, what is the clear justification?
-
-**Output:** A chosen solution with the evidence documented — tire-kicking scores, convention alignment, and any justified departures from existing patterns. The agent proceeds without user confirmation unless the reasoning genuinely cannot resolve between approaches.
-
-**Commit:** `[docs]` commit of `truth-and-vector.md` before advancing.
-
-Report in chat: "Reasoning complete — solution chosen. Advancing to Planning."
+Report in chat: "Tire-Kicking complete. Running second reasoning pass..." then "Reasoning complete — solution chosen. Advancing to Planning."
 
 ---
 
@@ -299,8 +342,9 @@ Once `/leeroyyyyy` is invoked, the agent owns all decisions. The user↔agent ba
 **Research is the one stage leeroyyyyy does not own.** It requires user dialogue and must be completed before invocation. `problem-statement.md` is the handoff artifact. Everything from Align onward is fully autonomous.
 
 What the agent decides without asking:
-- Producing candidate solutions and tire-kicking all of them
-- Picking the best solution using evidence and codebase conventions
+- Producing candidate solutions and routing based on solution nudges
+- Conditionally stress-testing candidates when reasoning flags genuine ambiguity
+- Picking the best solution using reasoning synthesis, evidence, and codebase conventions
 - Making planning decisions based on Recon rather than asking for context
 - Deciding which pre-flight issues to fix and how
 - Reducing ambiguity through reasoning rather than asking the user
@@ -314,6 +358,6 @@ Progress is narrated in chat throughout the pipeline so the user is never in the
 
 ## Sub-Skill Invocation Note
 
-The skills invoked during this pipeline (`solutioning`, `tire-kicking`, `reasoning`, `recon`, `planning`, `pre-flight`, `produce`, `review`, `triage`, `revise`) are being invoked **by reference** under leroy's orchestration. This is a sanctioned exception to their `user-invoked-only` constraints — leroy, as a user-invoked orchestrator, grants them permission to run within this pipeline.
+The skills invoked during this pipeline (`solutioning`, `reasoning`, `tire-kicking` (conditional), `recon`, `planning`, `pre-flight`, `produce`, `review`, `triage`, `revise`) are being invoked **by reference** under leroy's orchestration. This is a sanctioned exception to their `user-invoked-only` constraints — leroy, as a user-invoked orchestrator, grants them permission to run within this pipeline. Note: `tire-kicking` is only dispatched when reasoning's Next Step nudge recommends it — it does not run in every pipeline execution.
 
 The `revise` skill's user-gated commit constraint is similarly superseded within leroy — the agent acts as the confirmation authority on behalf of the user who invoked leroy.

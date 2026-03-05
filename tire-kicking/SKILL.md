@@ -5,7 +5,9 @@ description: Stress-test a proposed design or approach against scenarios (edge c
 
 # Tire-Kicking: Scenario Evaluation of a Proposed Design
 
-This skill guides stress-testing a proposed design (or 2–3 options) against concrete scenarios to see where each **holds**, **bends**, or **leaks**. It sits after Align (we have a direction) and before or alongside Plan (we lock the plan). The goal is to find gaps, over-constraints, or invalid assumptions before implementation.
+This skill guides stress-testing a proposed design (or 2–3 options) against concrete scenarios to see where each **holds**, **bends**, or **leaks**. It sits within the Align stage (we have candidates but need to differentiate them) before Plan (we lock the plan). The goal is to find gaps, over-constraints, or invalid assumptions before implementation.
+
+> **Conditional invocation.** Within the Align stage, tire-kicking is invoked conditionally — only when reasoning flags genuine ambiguity between solution candidates that cannot be resolved through reasoning alone. When the pipeline reaches tire-kicking, it means the candidates are close enough that concrete scenario stress-testing is needed to differentiate them.
 
 ## Goal
 
@@ -85,11 +87,17 @@ For a full example of scenario evaluation and path-forward, see:
 
 Use these as templates for structure and level of detail; adapt scenario list and depth to the design at hand.
 
+## Closing the Phase
+
+After tire-kicking completes, recommend returning to **reasoning**. Reasoning consumes the tire-kicking report to synthesize the stress-test evidence and make the final solution choice.
+
+This nudge is effectively fixed (always reasoning) because the conditionality is in whether tire-kicking runs at all, not in what it recommends after running. It is still expressed as a Next Step block in the artifact for consistency with the closing-nudge convention.
+
 ## Artifact
 
 Produces `tire-kicking-report.md` in `.claude/work/<work-item>/`. See `ARTIFACT.md` for the full template. Generated when all candidates have been stress-tested and the report is complete.
 
-## Closure
+## Closure Criteria
 
 Tire-kicking is done when:
 
