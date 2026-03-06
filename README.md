@@ -27,9 +27,9 @@ Every skill directory contains a `SKILL.md` conforming to [`SKILL.spec.md`](./SK
 
 **Artifacts produced:**
 
-| Artifact | Skill | Purpose |
-|----------|-------|---------|
-| `problem-statement.md` | `/understanding` | Problem definition: what's being solved, why it matters, constraints, success criteria, and assumptions. Creates the `docs/workstreams/<slug>/` directory. |
+| Artifact | Skill | Frequency | Purpose |
+|----------|-------|-----------|---------|
+| `problem-statement.md` | `/understanding` | always | Problem definition: what's being solved, why it matters, constraints, success criteria, and assumptions. Creates the `docs/workstreams/<slug>/` directory. |
 
 ---
 
@@ -43,11 +43,11 @@ Every skill directory contains a `SKILL.md` conforming to [`SKILL.spec.md`](./SK
 
 **Artifacts produced:**
 
-| Artifact | Skill | Purpose |
-|----------|-------|---------|
-| `solution-statement.md` | `/solutioning` | Candidate solution approaches with descriptions, tradeoffs, constraints, and LOE estimates. Captures candidates without making the final decision. |
-| `truth-and-vector.md` | `/reasoning` | Synthesized truths, conditionals, and a directional vector. Includes recommendation for next step (Plan, tire-kicking, or understanding). |
-| `tire-kicking-report.md` | `/tire-kicking` | Comparative stress-test results across candidates — scenarios tested, holds/bends/leaks for each, and a comparative verdict. Feeds back into reasoning. |
+| Artifact | Skill | Frequency | Purpose |
+|----------|-------|-----------|---------|
+| `solution-statement.md` | `/solutioning` | always | Candidate solution approaches with descriptions, tradeoffs, constraints, and LOE estimates. Captures candidates without making the final decision. |
+| `truth-and-vector.md` | `/reasoning` | always | Synthesized truths, conditionals, and a directional vector. Includes recommendation for next step (Plan, tire-kicking, or understanding). |
+| `tire-kicking-report.md` | `/tire-kicking` | as needed | Comparative stress-test results across candidates — scenarios tested, holds/bends/leaks for each, and a comparative verdict. Feeds back into reasoning. |
 
 ---
 
@@ -61,12 +61,12 @@ Every skill directory contains a `SKILL.md` conforming to [`SKILL.spec.md`](./SK
 
 **Artifacts produced:**
 
-| Artifact | Skill | Purpose |
-|----------|-------|---------|
-| `<work-item>.plan.md` | `/planning` | Hierarchical implementation plan (Phase > Step > Task) with overview, notes, and progress checkboxes. |
-| *(updated)* `<work-item>.plan.md` | `/atomize` | Decomposes oversized phases (LOE > 2) into subphases in-place. |
-| *(inline)* pre-flight report | `/pre-flight` | Validation report covering critical/major/minor issues, opportunities, and confidence level. Produced in-context for consumption by reasoning — not saved to a file. |
-| *(inline)* LOE estimate | `/estimate` | LOE score (1–5) with complexity/impact rationale. Produced on-demand in-context. Used by atomize to enforce decomposition limits. |
+| Artifact | Skill | Frequency | Purpose |
+|----------|-------|-----------|---------|
+| `<work-item>.plan.md` | `/planning` | always | Hierarchical implementation plan (Phase > Step > Task) with overview, notes, and progress checkboxes. |
+| *(updated)* `<work-item>.plan.md` | `/atomize` | as needed | Decomposes oversized phases (LOE > 2) into subphases in-place. |
+| *(inline)* pre-flight report | `/pre-flight` | always | Validation report covering critical/major/minor issues, opportunities, and confidence level. Produced in-context for consumption by reasoning — not saved to a file. |
+| *(inline)* LOE estimate | `/estimate` | as needed | LOE score (1–5) with complexity/impact rationale. Produced on-demand in-context. Used by atomize to enforce decomposition limits. |
 
 ---
 
@@ -94,11 +94,11 @@ No file artifacts. Implement skills produce **code and commits** directly — th
 
 **Artifacts produced:**
 
-| Artifact | Skill | Purpose |
-|----------|-------|---------|
-| `review-issues.md` | `/review` | Severity-graded code review report with critical/major/minor issues, gaps, and a go/no-go recommendation. |
-| `triage-report.md` | `/triage` | Grouped and prioritized revisions with stable IDs (C1, M1, m1) for traceability. Deduplicates related review issues into unified revisions. |
-| *(GitHub PR)* | `/pull-request` | The pull request itself — structured description with issue links, artifact references, summary, and test plan. |
+| Artifact | Skill | Frequency | Purpose |
+|----------|-------|-----------|---------|
+| `review-issues.md` | `/review` | always | Severity-graded code review report with critical/major/minor issues, gaps, and a go/no-go recommendation. |
+| `triage-report.md` | `/triage` | as needed | Grouped and prioritized revisions with stable IDs (C1, M1, m1) for traceability. Deduplicates related review issues into unified revisions. |
+| *(GitHub PR)* | `/pull-request` | always | The pull request itself — structured description with issue links, artifact references, summary, and test plan. |
 
 ## Floating Skills
 
