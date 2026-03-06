@@ -23,7 +23,7 @@ Every skill directory contains a `SKILL.md` conforming to [`SKILL.spec.md`](./SK
 > Build context, understand the problem, identify constraints.
 
 - **`/understanding`** — always — `problem-statement.md` — Build shared understanding of a problem through discovery. Start here for new work. Produces the problem definition: what's being solved, why it matters, constraints, success criteria, and assumptions. Creates the `docs/workstreams/<slug>/` directory.
-- **`/recon`** *(floating)* — no artifact — Read-only investigation of code and documentation. Usable at any stage.
+- **`/recon`** *(floating)* — as needed — no artifact — Read-only investigation of code and documentation. Usable at any stage.
 
 ---
 
@@ -52,8 +52,8 @@ Every skill directory contains a `SKILL.md` conforming to [`SKILL.spec.md`](./SK
 
 > Build the work.
 
-- **`/produce`** — no artifact — Execute the implementation plan autonomously with intelligent atomic commits. Updates the plan file's progress checkboxes at phase boundaries.
-- **`/pair-on`** — no artifact — Pair program through the plan with user-controlled review boundaries and commits.
+- **`/produce`** — always — no artifact — Execute the implementation plan autonomously with intelligent atomic commits. Updates the plan file's progress checkboxes at phase boundaries.
+- **`/pair-on`** — as needed — no artifact — Pair program through the plan with user-controlled review boundaries and commits.
 
 ---
 
@@ -64,8 +64,8 @@ Every skill directory contains a `SKILL.md` conforming to [`SKILL.spec.md`](./SK
 - **`/pull-request`** — always — *(GitHub PR)* — Open a pull request for local changes with a structured description, issue links, artifact references, summary, and test plan.
 - **`/review`** *(floating)* — always — `review-issues.md` — Technical peer review of code changes. Produces a severity-graded report with critical/major/minor issues, gaps, and a go/no-go recommendation.
 - **`/triage`** — as needed — `triage-report.md` — Ingest feedback, group related items into unified revisions with stable IDs (C1, M1, m1), and prioritize by severity.
-- **`/revise`** — no artifact — Address a discrete revision with a lightweight alignment check and holistic implementation.
-- **`/reply`** — no artifact — Close the feedback loop on a PR by replying to each reviewer comment with the addressing commit.
+- **`/revise`** — as needed — no artifact — Address a discrete revision with a lightweight alignment check and holistic implementation.
+- **`/reply`** — as needed — no artifact — Close the feedback loop on a PR by replying to each reviewer comment with the addressing commit.
 
 ## Floating Skills
 
