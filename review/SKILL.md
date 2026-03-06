@@ -197,7 +197,7 @@ Applies to any HTML, JSX, TSX file, and JS/TS files that render UI:
 
 ## Artifact
 
-Produces `review-issues.md` in `.claude/work/<work-item>/`. See `ARTIFACT.md` for the full template. Generated when the review pass is complete.
+Produces `review-issues.md` in `docs/workstreams/<work-item>/`. See `ARTIFACT.md` for the full template. Generated when the review pass is complete.
 
 ## Closure Criteria
 

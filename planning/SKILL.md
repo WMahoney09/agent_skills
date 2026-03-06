@@ -59,7 +59,7 @@ Once information gathering is complete, the agent should:
 
 ### Stage 3: Present the Plan
 
-Save the plan file to `.claude/work/<work-item>/` at the nearest project root, using the naming convention `<work-item>.plan.md`.
+Save the plan file to `docs/workstreams/<work-item>/` at the nearest project root, using the naming convention `<work-item>.plan.md`.
 
 The plan file uses a **Phase → Step → Task** breakdown:
 
@@ -97,7 +97,7 @@ The plan document must include:
 - **Identify critical paths** - Make clear what must be done in sequence and what ordering dependencies exist.
 - **Surface assumptions** - Call out any assumptions the agent is making so they can be validated.
 - **Scope clarity** - Be explicit about what's included in this plan and what's not (e.g., "We'll update the API, but not the frontend" or "This assumes Redis is already set up").
-- **Artifacts are project-local** - All generated artifacts (plans, notes, configurations) must be saved to `.claude/work/<work-item>/` at the nearest project root, never to home directory conventions like `~/.claude/*`, `~/.cursor/*`, or `~/.vscode/*`.
+- **Artifacts are project-local** - All generated artifacts (plans, notes, configurations) must be saved to `docs/workstreams/<work-item>/` at the nearest project root, never to tool-specific directories like `.claude/*` or home directory conventions like `~/.claude/*`, `~/.cursor/*`, or `~/.vscode/*`.
 
 ## The Interactive Q&A: What to Ask
 
@@ -130,7 +130,7 @@ Example categories of questions an agent might explore:
 
 ## Artifact
 
-Produces `<work-item>.plan.md` in `.claude/work/<work-item>/`. See `ARTIFACT.md` for the full template. Generated when the plan document is finalized and ready for pre-flight.
+Produces `<work-item>.plan.md` in `docs/workstreams/<work-item>/`. See `ARTIFACT.md` for the full template. Generated when the plan document is finalized and ready for pre-flight.
 
 After pre-flight validation, run `/atomize` to ensure all plan phases score ≤ LOE 2 before execution begins. In the leeroyyyyy context, Stage 1 (interactive Q&A) is automated — the agent uses recon rather than asking the user.
 

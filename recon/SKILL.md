@@ -103,6 +103,7 @@ Good areas for recon:
 
 **Documentation:**
 - What local docs exist? (README, guides, architecture docs)
+- Does a `docs/reference/` directory exist? If so, check it for architecture decisions, ontology, topology, or other reference material
 - What external docs are relevant? (framework docs, library docs, API docs)
 - Are there examples or tutorials?
 

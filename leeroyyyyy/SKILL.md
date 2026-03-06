@@ -16,7 +16,7 @@ This skill picks up where Research left off. The problem is known. The agent now
 
 ## Precondition
 
-Research must be complete and `problem-statement.md` must exist in `.claude/work/<slug>/` before invoking `/leeroyyyyy`. Research requires user dialogue and cannot be automated — it is the one stage leeroyyyyy does not own. If the problem is not yet well-defined, invoke `/understanding` first and return here when ready.
+Research must be complete and `problem-statement.md` must exist in `docs/workstreams/<slug>/` before invoking `/leeroyyyyy`. Research requires user dialogue and cannot be automated — it is the one stage leeroyyyyy does not own. If the problem is not yet well-defined, invoke `/understanding` first and return here when ready.
 
 ## Pipeline
 
@@ -89,7 +89,7 @@ Progress is reported in chat at each phase transition so the user can observe pi
 
 ### Artifact Handoff Map
 
-**Precondition:** `problem-statement.md` must exist in `.claude/work/<slug>/` before leeroyyyyy is invoked. Research requires user dialogue and cannot be automated — it is the one stage leeroyyyyy does not own.
+**Precondition:** `problem-statement.md` must exist in `docs/workstreams/<slug>/` before leeroyyyyy is invoked. Research requires user dialogue and cannot be automated — it is the one stage leeroyyyyy does not own.
 
 | Phase | Input artifacts | Output artifact | Subagent rule | Condition |
 |---|---|---|---|---|
@@ -191,7 +191,7 @@ Report in chat: "Tire-Kicking complete. Running second reasoning pass..." then "
 **Dispatch:** subagent with `solution-statement.md`, `truth-and-vector.md`
 **Invoke by reference:** `planning` skill
 
-Transform the chosen solution into a detailed, phase-by-step implementation plan. The agent uses Recon to gather context rather than asking the user. Save the plan file to `.claude/work/<work-item>/<work-item>.plan.md`.
+Transform the chosen solution into a detailed, phase-by-step implementation plan. The agent uses Recon to gather context rather than asking the user. Save the plan file to `docs/workstreams/<work-item>/<work-item>.plan.md`.
 
 Do not ask the user to review the plan before advancing — the pre-flight loop is the review mechanism.
 
@@ -317,7 +317,7 @@ If a Critical or Major revision requires a design decision that the agent genuin
 
 ## Artifact
 
-Produces `summary-statement.md` in `.claude/work/<work-item>/`. See `ARTIFACT.md` for the full template. Generated when the pipeline completes (clean or aborted).
+Produces `summary-statement.md` in `docs/workstreams/<work-item>/`. See `ARTIFACT.md` for the full template. Generated when the pipeline completes (clean or aborted).
 
 ## Completion
 
