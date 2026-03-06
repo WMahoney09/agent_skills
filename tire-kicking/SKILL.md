@@ -82,8 +82,8 @@ Present in a table (scenario | result | notes) or per-scenario blocks. Keep note
 
 For a full example of scenario evaluation and path-forward, see:
 
-- **Scenario evaluation:** `.claude/work/some-feature/tire-kicking-scenarios.md` (or `.cursor/work/`, `.windsurf/work/`, etc.) — 14 scenarios, three approaches, holds/bends/leaks table and summary.
-- **Path-forward:** `.claude/work/some-feature/path-forward.md` (or your tool's equivalent) — How the decision was made (leak count, deep-dives, bends), the chosen approach, and how the single leak was closed.
+- **Scenario evaluation:** `docs/workstreams/some-feature/tire-kicking-scenarios.md` — 14 scenarios, three approaches, holds/bends/leaks table and summary.
+- **Path-forward:** `docs/workstreams/some-feature/path-forward.md` — How the decision was made (leak count, deep-dives, bends), the chosen approach, and how the single leak was closed.
 
 Use these as templates for structure and level of detail; adapt scenario list and depth to the design at hand.
 
@@ -95,7 +95,7 @@ This nudge is effectively fixed (always reasoning) because the conditionality is
 
 ## Artifact
 
-Produces `tire-kicking-report.md` in `.claude/work/<work-item>/`. See `ARTIFACT.md` for the full template. Generated when all candidates have been stress-tested and the report is complete.
+Produces `tire-kicking-report.md` in `docs/workstreams/<work-item>/`. See `ARTIFACT.md` for the full template. Generated when all candidates have been stress-tested and the report is complete.
 
 ## Closure Criteria
 

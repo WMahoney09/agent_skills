@@ -60,7 +60,7 @@ Collect the information needed to build the PR description:
 
 1. **Issue links** — Check if the branch name references an issue (e.g., `issue/11-pull-request-skill` → `#11`). Check recent commits for `Closes #N` or `Resolves #N` trailers. If the tracking system is external (Linear, Jira, etc.), construct a link to the ticket.
 
-2. **Artifact links** — Look for `problem-statement.md` and `solution-statement.md` in the workstream directory (`.claude/work/<slug>/`). If they exist, construct relative links to them.
+2. **Artifact links** — Look for `problem-statement.md` and `solution-statement.md` in the workstream directory (`docs/workstreams/<slug>/`). If they exist, construct relative links to them.
 
 3. **Change summary** — Use `git log` and `git diff` against the base branch to understand the full scope of changes:
    ```

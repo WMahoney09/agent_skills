@@ -1,6 +1,6 @@
 ## Meta
 
-- **Storage:** `.claude/work/<work-item>/` at the nearest project root
+- **Storage:** `docs/workstreams/<work-item>/` at the nearest project root
 - **Filename:** `summary-statement.md`
 - **Trigger:** When the full pipeline completes (after all Critical/Major revisions are addressed, or after aborting with unresolvable issues)
 

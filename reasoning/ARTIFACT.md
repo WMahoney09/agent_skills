@@ -1,6 +1,6 @@
 ## Meta
 
-- **Storage:** `.claude/work/<work-item>/` at the nearest project root
+- **Storage:** `docs/workstreams/<work-item>/` at the nearest project root
 - **Filename:** `truth-and-vector.md`
 - **Trigger:** When the reasoning pass is complete and a direction has been established
 

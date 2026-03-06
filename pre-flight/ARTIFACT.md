@@ -1,6 +1,6 @@
 ## Meta
 
-- **Storage:** `.claude/work/<work-item>/` at the nearest project root
+- **Storage:** `docs/workstreams/<work-item>/` at the nearest project root
 - **Filename:** Inline — output is produced in-context, not saved to a file
 - **Trigger:** At the end of each pre-flight cycle
 

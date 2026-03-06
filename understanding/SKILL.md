@@ -31,6 +31,10 @@ As the agent running this skill:
 
 If solutions come up naturally in conversation, acknowledge them but do not develop them. Redirect focus to deeper understanding of the problem itself. The goal is to reach complete alignment on *what* needs to be solved before moving to the Align stage.
 
+## Project Context
+
+If the project has a `docs/reference/` directory, consult it for existing context — architecture decisions, ontology, topology, or other reference material that informs the problem space.
+
 ## Key Questions to Explore
 
 **The Problem:**
@@ -60,7 +64,7 @@ If solutions come up naturally in conversation, acknowledge them but do not deve
 
 ## Artifact
 
-Produces `problem-statement.md` in `.claude/work/<slug>/`. See `ARTIFACT.md` for the full template. Generated when understanding closes and mutual alignment is confirmed.
+Produces `problem-statement.md` in `docs/workstreams/<slug>/`. See `ARTIFACT.md` for the full template. Generated when understanding closes and mutual alignment is confirmed.
 
 ## Closure Criteria
 

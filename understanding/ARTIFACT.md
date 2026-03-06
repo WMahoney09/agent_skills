@@ -1,6 +1,6 @@
 ## Meta
 
-- **Storage:** `.claude/work/<work-item>/` at the nearest project root
+- **Storage:** `docs/workstreams/<work-item>/` at the nearest project root
 - **Filename:** `problem-statement.md`
 - **Trigger:** When the understanding phase closes and mutual alignment is confirmed
 
@@ -25,12 +25,12 @@
 <!-- Assumptions discovered during understanding that should be validated -->
 
 ## Workstream Slug
-<!-- Slugified from the problem statement — used as the `.claude/work/<slug>/` directory name -->
+<!-- Slugified from the problem statement — used as the `docs/workstreams/<slug>/` directory name -->
 ```
 
 ## Side Effects
 
-- Create `.claude/work/<slug>/` directory at the nearest project root if it doesn't exist
+- Create `docs/workstreams/<slug>/` directory at the nearest project root if it doesn't exist
 - The slug is derived from the problem statement (lowercase, hyphenated, concise)
 
 ## Notes

@@ -89,7 +89,7 @@ Help the person evaluate by asking:
 
 ## Artifact
 
-Produces `solution-statement.md` in `.claude/work/<work-item>/`. See `ARTIFACT.md` for the full template. Generated when a solution is confirmed and the phase closes.
+Produces `solution-statement.md` in `docs/workstreams/<work-item>/`. See `ARTIFACT.md` for the full template. Generated when a solution is confirmed and the phase closes.
 
 ## Closure Criteria
 

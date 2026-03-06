@@ -9,7 +9,7 @@ Every `ARTIFACT.md` must begin with this block:
 ```
 ## Meta
 
-- **Storage:** `.claude/work/<work-item>/` at the nearest project root
+- **Storage:** `docs/workstreams/<work-item>/` at the nearest project root
 - **Filename:** <defined per skill>
 - **Trigger:** <when to generate this artifact>
 ```
@@ -46,9 +46,11 @@ See `atomize/ARTIFACT.md` as the canonical example of this pattern.
 
 ## Storage Convention
 
-All artifacts live in `.claude/work/<work-item>/` at the nearest project root. The `<work-item>` slug is established by the `understanding` skill when it creates the workstream directory.
+All artifacts live in `docs/workstreams/<work-item>/` at the nearest project root. The `<work-item>` slug is established by the `understanding` skill when it creates the workstream directory.
 
-Artifacts must be project-local — never saved to home directory conventions like `~/.claude/*`, `~/.cursor/*`, or similar paths.
+Artifacts live in `docs/` because they are project documentation, not tool configuration. Placing them outside `.claude/` avoids permission prompts and makes them discoverable alongside other project reference material (`docs/reference/`).
+
+Artifacts must be project-local — never saved to tool-specific directories like `.claude/*`, `.cursor/*`, or home directory conventions like `~/.claude/*`.
 
 ## Next Step Block Convention
 

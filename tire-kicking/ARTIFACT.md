@@ -1,6 +1,6 @@
 ## Meta
 
-- **Storage:** `.claude/work/<work-item>/` at the nearest project root
+- **Storage:** `docs/workstreams/<work-item>/` at the nearest project root
 - **Filename:** `tire-kicking-report.md`
 - **Trigger:** When all candidates have been stress-tested and the report is complete
 
