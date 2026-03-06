@@ -42,9 +42,9 @@ Every skill directory contains a `SKILL.md` conforming to [`SKILL.spec.md`](./SK
 > Lock the implementation approach with a validated, right-sized plan.
 
 - **`/planning`** — always — `<work-item>.plan.md` — Design and document the implementation approach as a hierarchical plan (Phase > Step > Task) with overview, notes, and progress checkboxes.
-- **`/pre-flight`** — always — *(inline)* — Review the plan for gaps, contradictions, and opportunities before execution. Produces a validation report with critical/major/minor issues, opportunities, and confidence level. Consumed by reasoning in-context — not saved to a file.
+- **`/pre-flight`** — always — no artifact — Review the plan for gaps, contradictions, and opportunities before execution. Produces a validation report with critical/major/minor issues, opportunities, and confidence level. Consumed by reasoning in-context.
 - **`/atomize`** — as needed — *(updates `<work-item>.plan.md`)* — Right-size a plan by decomposing any phase with LOE > 2 into subphases. Modifies the plan file in-place.
-- **`/estimate`** *(floating)* — as needed — *(inline)* — LOE score (1–5) with complexity/impact rationale. Produced on-demand in-context. Used by atomize to enforce decomposition limits.
+- **`/estimate`** *(floating)* — as needed — no artifact — LOE score (1–5) with complexity/impact rationale. Produced on-demand in-context. Used by atomize to enforce decomposition limits.
 
 ---
 
