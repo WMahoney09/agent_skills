@@ -20,6 +20,15 @@
 
 Always follow the README Sync Rule below when making any of these changes.
 
+## Docs Convention
+
+The `docs/` directory at the project root is the home for all project documentation and pipeline artifacts:
+
+- **`docs/workstreams/<slug>/`** — Pipeline artifacts (problem statements, solution statements, plans, review reports, etc.). The `<slug>` is established by the `/understanding` skill when it creates the workstream directory.
+- **`docs/reference/`** — Project reference material (architecture decisions, ontology, topology, etc.). Consulted by discovery skills like `/recon` and `/understanding` when it exists.
+
+Artifacts are project-local — saved to `docs/workstreams/<slug>/`, never to tool-specific directories like `.claude/*`, `.cursor/*`, or home directory conventions like `~/.claude/*`.
+
 ## README Sync Rule
 
 When any skill is added, updated, removed, or renamed in this repository, the `README.md` must be updated to reflect the change. Specifically:
