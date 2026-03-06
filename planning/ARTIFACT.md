@@ -1,6 +1,6 @@
 ## Meta
 
-- **Storage:** `.claude/work/<work-item>/` at the nearest project root
+- **Storage:** `docs/workstreams/<work-item>/` at the nearest project root
 - **Filename:** `<work-item>.plan.md`
 - **Trigger:** When the plan document is finalized and ready for pre-flight
 
