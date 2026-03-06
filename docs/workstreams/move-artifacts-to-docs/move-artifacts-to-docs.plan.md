@@ -15,7 +15,7 @@ Migrate all artifact storage from `.claude/work/<slug>/` to `docs/workstreams/<s
 - [x] Phase 2: Update all per-skill ARTIFACT.md files
 - [x] Phase 3: Update all SKILL.md files
 - [x] Phase 4: Update project instructions and memory
-- [ ] Phase 5: Migrate existing workstreams and clean up
+- [x] Phase 5: Migrate existing workstreams and clean up
 
 ---
 
