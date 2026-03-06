@@ -22,14 +22,8 @@ Every skill directory contains a `SKILL.md` conforming to [`SKILL.spec.md`](./SK
 
 > Build context, understand the problem, identify constraints.
 
-- **`/understanding`** — Build shared understanding of a problem through discovery. Start here for new work.
-- **`/recon`** *(floating)* — Read-only investigation of code and documentation. Usable at any stage.
-
-**Artifacts produced:**
-
-| Artifact | Skill | Frequency | Purpose |
-|----------|-------|-----------|---------|
-| `problem-statement.md` | `/understanding` | always | Problem definition: what's being solved, why it matters, constraints, success criteria, and assumptions. Creates the `docs/workstreams/<slug>/` directory. |
+- **`/understanding`** — always — `problem-statement.md` — Build shared understanding of a problem through discovery. Start here for new work. Produces the problem definition: what's being solved, why it matters, constraints, success criteria, and assumptions. Creates the `docs/workstreams/<slug>/` directory.
+- **`/recon`** *(floating)* — no artifact — Read-only investigation of code and documentation. Usable at any stage.
 
 ---
 
@@ -37,17 +31,9 @@ Every skill directory contains a `SKILL.md` conforming to [`SKILL.spec.md`](./SK
 
 > Converge on a solution direction through exploration and stress-testing.
 
-- **`/solutioning`** — Co-architect solutions by exploring multiple approaches and their tradeoffs. For prescriptive problems with only one viable direction, solutioning short-circuits to a single candidate and nudges directly to Plan.
-- **`/reasoning`** *(floating)* — Reason through a problem to extract truths and directional clarity. Within the Align stage, reasoning is the default step after solutioning: it synthesizes solution candidates and determines whether tire-kicking is needed. Usable at any stage.
-- **`/tire-kicking`** — Stress-test solution candidates against scenarios (edge cases, lifecycle, multi-actor, data change). Conditionally invoked when reasoning flags genuine ambiguity between candidates that cannot be resolved through reasoning alone.
-
-**Artifacts produced:**
-
-| Artifact | Skill | Frequency | Purpose |
-|----------|-------|-----------|---------|
-| `solution-statement.md` | `/solutioning` | always | Candidate solution approaches with descriptions, tradeoffs, constraints, and LOE estimates. Captures candidates without making the final decision. |
-| `truth-and-vector.md` | `/reasoning` | always | Synthesized truths, conditionals, and a directional vector. Includes recommendation for next step (Plan, tire-kicking, or understanding). |
-| `tire-kicking-report.md` | `/tire-kicking` | as needed | Comparative stress-test results across candidates — scenarios tested, holds/bends/leaks for each, and a comparative verdict. Feeds back into reasoning. |
+- **`/solutioning`** — always — `solution-statement.md` — Co-architect solutions by exploring multiple approaches and their tradeoffs. Produces candidate solution approaches with descriptions, tradeoffs, constraints, and LOE estimates. For prescriptive problems with only one viable direction, short-circuits to a single candidate and nudges directly to Plan.
+- **`/reasoning`** *(floating)* — always — `truth-and-vector.md` — Reason through a problem to extract truths, conditionals, and a directional vector. Within the Align stage, reasoning is the default step after solutioning: it synthesizes solution candidates and determines whether tire-kicking is needed. Includes recommendation for next step (Plan, tire-kicking, or understanding).
+- **`/tire-kicking`** — as needed — `tire-kicking-report.md` — Stress-test solution candidates against scenarios (edge cases, lifecycle, multi-actor, data change). Produces comparative results — scenarios tested, holds/bends/leaks for each candidate, and a comparative verdict. Conditionally invoked when reasoning flags genuine ambiguity that cannot be resolved through reasoning alone. Feeds back into reasoning.
 
 ---
 
@@ -55,18 +41,10 @@ Every skill directory contains a `SKILL.md` conforming to [`SKILL.spec.md`](./SK
 
 > Lock the implementation approach with a validated, right-sized plan.
 
-- **`/planning`** — Design and document the implementation approach as a detailed step-by-step plan.
-- **`/pre-flight`** — Review the plan for gaps, contradictions, and opportunities before execution.
-- **`/atomize`** — Right-size a plan by decomposing any phase with LOE > 2 into subphases.
-
-**Artifacts produced:**
-
-| Artifact | Skill | Frequency | Purpose |
-|----------|-------|-----------|---------|
-| `<work-item>.plan.md` | `/planning` | always | Hierarchical implementation plan (Phase > Step > Task) with overview, notes, and progress checkboxes. |
-| *(updated)* `<work-item>.plan.md` | `/atomize` | as needed | Decomposes oversized phases (LOE > 2) into subphases in-place. |
-| *(inline)* pre-flight report | `/pre-flight` | always | Validation report covering critical/major/minor issues, opportunities, and confidence level. Produced in-context for consumption by reasoning — not saved to a file. |
-| *(inline)* LOE estimate | `/estimate` | as needed | LOE score (1–5) with complexity/impact rationale. Produced on-demand in-context. Used by atomize to enforce decomposition limits. |
+- **`/planning`** — always — `<work-item>.plan.md` — Design and document the implementation approach as a hierarchical plan (Phase > Step > Task) with overview, notes, and progress checkboxes.
+- **`/pre-flight`** — always — *(inline)* — Review the plan for gaps, contradictions, and opportunities before execution. Produces a validation report with critical/major/minor issues, opportunities, and confidence level. Consumed by reasoning in-context — not saved to a file.
+- **`/atomize`** — as needed — *(updates `<work-item>.plan.md`)* — Right-size a plan by decomposing any phase with LOE > 2 into subphases. Modifies the plan file in-place.
+- **`/estimate`** *(floating)* — as needed — *(inline)* — LOE score (1–5) with complexity/impact rationale. Produced on-demand in-context. Used by atomize to enforce decomposition limits.
 
 ---
 
@@ -74,12 +52,8 @@ Every skill directory contains a `SKILL.md` conforming to [`SKILL.spec.md`](./SK
 
 > Build the work.
 
-- **`/produce`** — Execute the implementation plan autonomously with intelligent atomic commits.
-- **`/pair-on`** — Pair program through the plan with user-controlled review boundaries and commits.
-
-**Artifacts produced:**
-
-No file artifacts. Implement skills produce **code and commits** directly — the plan file's progress checkboxes are updated at phase boundaries by `/produce`.
+- **`/produce`** — no artifact — Execute the implementation plan autonomously with intelligent atomic commits. Updates the plan file's progress checkboxes at phase boundaries.
+- **`/pair-on`** — no artifact — Pair program through the plan with user-controlled review boundaries and commits.
 
 ---
 
@@ -87,18 +61,11 @@ No file artifacts. Implement skills produce **code and commits** directly — th
 
 > Ship the work, gather feedback, and revise until accepted.
 
-- **`/pull-request`** — Open a pull request for local changes with a structured description, issue links, and artifact references.
-- **`/triage`** — Ingest feedback, group related items into unified revisions, and prioritize by severity.
-- **`/revise`** — Address a discrete revision with a lightweight alignment check and holistic implementation.
-- **`/reply`** — Close the feedback loop on a PR by replying to each reviewer comment with the addressing commit.
-
-**Artifacts produced:**
-
-| Artifact | Skill | Frequency | Purpose |
-|----------|-------|-----------|---------|
-| `review-issues.md` | `/review` | always | Severity-graded code review report with critical/major/minor issues, gaps, and a go/no-go recommendation. |
-| `triage-report.md` | `/triage` | as needed | Grouped and prioritized revisions with stable IDs (C1, M1, m1) for traceability. Deduplicates related review issues into unified revisions. |
-| *(GitHub PR)* | `/pull-request` | always | The pull request itself — structured description with issue links, artifact references, summary, and test plan. |
+- **`/pull-request`** — always — *(GitHub PR)* — Open a pull request for local changes with a structured description, issue links, artifact references, summary, and test plan.
+- **`/review`** *(floating)* — always — `review-issues.md` — Technical peer review of code changes. Produces a severity-graded report with critical/major/minor issues, gaps, and a go/no-go recommendation.
+- **`/triage`** — as needed — `triage-report.md` — Ingest feedback, group related items into unified revisions with stable IDs (C1, M1, m1), and prioritize by severity.
+- **`/revise`** — no artifact — Address a discrete revision with a lightweight alignment check and holistic implementation.
+- **`/reply`** — no artifact — Close the feedback loop on a PR by replying to each reviewer comment with the addressing commit.
 
 ## Floating Skills
 
