@@ -4,6 +4,13 @@ A library of composable skills for structured agentic software delivery.
 
 _These are mostly modular and can be used outside of RAPID if needed._
 
+---
+This is a linear flow, the more time you spend upfront, the smoother the later stages will go.
+This can be used as a "one-shot"-esque workflow, but the _scope and scale of your shot_ **MATTERS**.
+
+Consider a river, rapids are lots of little drops in elevation, each of those drops can be a Feature or Milestone. That's RAPID in action, lots of medium-large sized deliverables in quick succession. If you make one single drop of your whole app (the one-shot), that is literally and metaphorically Waterfall -- _I do not recommend that_
+
+---
 | R | A | P | I | D |
 |---|---|---|---|---|
 | **Research** | **Align** | **Plan** | **Implement** | **Deliver** |
