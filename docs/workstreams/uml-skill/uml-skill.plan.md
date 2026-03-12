@@ -13,7 +13,7 @@ Create a floating `/uml` skill that produces ASCII UML diagrams — sequence dia
 ## Progress
 
 - [x] Phase 1: Create UML skill directory and files
-- [ ] Phase 2: Update README
+- [x] Phase 2: Update README
 
 ---
 
