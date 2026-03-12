@@ -2,7 +2,7 @@
 name: clarify
 description: |
   Ask clarifying questions to sharpen and deepen shared understanding built through recon and understanding skills.
-  TRIGGER when: the user seeks confirmation of their own understanding ("Am I understanding that right?", "Is that right?", "Am I wrong?", "Correct me if I'm wrong"), or when something in the discussion feels incomplete, contradictory, or ambiguous.
+  TRIGGER when: the user asks for clarification on something ("What do you mean?", "Can you explain?", "I don't follow", "What does that mean?", "clarify for me"), uses the word "interrogative", seeks confirmation of their own understanding ("Am I understanding that right?", "Is that right?", "Am I wrong?", "Correct me if I'm wrong"), or when something in the discussion feels incomplete, contradictory, or ambiguous.
 ---
 
 # Clarify: Questioning for Clarity
