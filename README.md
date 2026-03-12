@@ -20,7 +20,7 @@ Consider a river, rapids are lots of little drops in elevation, each of those dr
 | | | | | `/revise` |
 | | | | | `/reply` |
 
-> **Floating skills** (usable at any stage): `/recon` · `/clarify` · `/reasoning` · `/estimate` · `/commit` · `/review`
+> **Floating skills** (usable at any stage): `/recon` · `/clarify` · `/reasoning` · `/estimate` · `/commit` · `/review` · `/uml`
 
 ## Conventions
 
@@ -90,6 +90,7 @@ These skills are valuable across multiple stages:
 - **`/estimate`** — Produce LOE scores (1–5). Used during Plan, but available anytime.
 - **`/commit`** — Stage and commit with typed convention. Used throughout Implement, available anytime.
 - **`/review`** — Technical peer review of code changes with severity-graded report and go/no-go recommendation. Core to Deliver, useful anytime.
+- **`/uml`** — Produce ASCII UML diagrams (sequence and component) to map code topology inline. Helps build mental models of code flow and service relationships. No artifact file — output is rendered directly in conversation.
 
 ## Orchestration Philosophy
 
