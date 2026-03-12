@@ -1,6 +1,8 @@
 ---
 name: understanding
-description: Build shared understanding of a problem through discovery. Use when starting new work to clarify what's being solved, why it matters, and what constraints exist.
+description: |
+  Build shared understanding of a problem through discovery. Use when starting new work to clarify what's being solved, why it matters, and what constraints exist.
+  TRIGGER when: the user mentions a new workstream, references /understanding conversationally ("our shared understanding", "build understanding"), or signals starting the RAPID flow ("let's start RAPID", "kick off RAPID", "from the top"). This is the entry point for RAPID — always start here before solutioning or planning.
 ---
 
 # Understanding: Research Phase Skill
