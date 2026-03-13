@@ -1,6 +1,8 @@
 ---
 name: pull-request
-description: Open a pull request for local changes. Handles commit verification, push, and structured PR description. First skill in the Deliver stage.
+description: |
+  Open a pull request for local changes. Handles commit verification, push, and structured PR description. First skill in the Deliver stage.
+  TRIGGER when: the user asks to open a pull request ("open a PR", "create a pull request", "PR this", "let's PR"), or when the user accepts an agent's offer to open a PR ("yes" in response to "want me to open a PR?" or similar).
 agent-invocation: user-invoked-and-referenced
 agent-note: "User-invoked directly or invoked by reference from orchestration skills like /leeroyyyyy. Not auto-invoked by /produce or other Implement skills."
 ---
