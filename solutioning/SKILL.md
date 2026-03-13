@@ -106,12 +106,14 @@ Produces `solution-statement.md` in `docs/workstreams/<work-item>/`. See `ARTIFA
 - [ ] You've identified that the problem is prescriptive (see Goal section)
 - [ ] A single candidate has been produced with clear rationale
 - [ ] You've explained why alternatives were not explored (not an oversight — the constraints make them irrelevant)
+- [ ] The solution statement artifact has been written (single-candidate format) — the short circuit skips multi-candidate evaluation, not the artifact
 
 ## Closing the Phase
 
 The closing prompt is conditional based on the outcome:
 
 **If single candidate (short-circuit):**
+Write the solution statement first (single-candidate format), then close with:
 "The problem is prescriptive enough that [Approach X] is the only viable direction — [rationale for why alternatives add no value]. Ready to move directly to the Plan stage?"
 
 Nudge: advance to `Plan`. There is nothing to reason between or stress-test.
