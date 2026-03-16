@@ -85,8 +85,10 @@ Skills like `produce` delegate all commit decisions to this convention. Any comm
 
 **Execution rules for committing:**
 
-1. **Always use separate Bash calls for `git add` and `git commit`** — never chain them with `&&` in a single call. Compound commands like `git add file && git commit -m "msg"` bypass permission patterns (e.g., `Bash(git add:*)` won't match a `&&` chain) and trigger interactive prompts.
-2. **For multi-line commit messages**, write the message to `/tmp/commit_msg.txt` using the Write tool, then commit with `git commit -F /tmp/commit_msg.txt`. This avoids shell command substitution patterns (e.g., `git commit -m "$(cat <<'EOF'...)"`) that trigger permission prompts and interrupt autonomous flow.
+1. **One command per Bash call** — never chain with `&&`, `||`, `;`, or pipes. See CLAUDE.md's "Bash Anti-Patterns" for the full list.
+2. **Use `git -C /path`** instead of `cd /path && git` when operating on a repo outside the working directory.
+3. **For multi-line commit messages**, write the message to `/tmp/commit_msg.txt` using the Write tool, then commit with `git commit -F /tmp/commit_msg.txt`. Never use shell substitution like `git commit -m "$(cat <<'EOF'...)"`.
+4. **Separate `git add` and `git commit`** into individual Bash calls.
 
 ## Key Rules
 

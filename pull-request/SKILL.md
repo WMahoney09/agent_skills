@@ -82,11 +82,11 @@ Use the `mcp__github__create_pull_request` tool with the owner, repo, title, bod
 
 **Falling back to CLI:**
 
-```
-gh pr create --title "<title>" --base <base> --body "$(cat /tmp/pr_body.txt)"
-```
+Write the body to `/tmp/pr_body.txt` first using the Write tool, then use `--body-file` to avoid shell substitution:
 
-Write the body to `/tmp/pr_body.txt` first using the Write tool to avoid shell escaping issues.
+```
+gh pr create --title "<title>" --base <base> --body-file /tmp/pr_body.txt
+```
 
 **Title:** Keep it under 70 characters. Summarize the change, not the process.
 
