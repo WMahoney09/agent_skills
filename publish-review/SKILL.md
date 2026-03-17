@@ -30,6 +30,8 @@ Read back through the conversation to find the most recent `/review` output. For
 - **Why it matters** (Critical/Major only)
 - **Suggestion** (recommended fix or direction)
 
+Also check whether the `/review` output is a **re-review** — i.e., it references prior findings as "resolved" or "addressed." For each resolved prior finding, extract the description and prior severity so they can be matched to existing threads in Step 3.
+
 If no `/review` output is found in the conversation, stop and report:
 
 ```
@@ -74,6 +76,20 @@ Build a location index: `file:line → comment[]`. For each finding:
 - If the finding's `file:line` matches an existing comment on the same file at the same source line (or within ±3 source lines) **and** the comment content overlaps in topic (similar keywords or issue description), flag it as "already covered". Proximity alone is not sufficient — both location and content must suggest the same issue.
 - Record the existing comment's author and a snippet for the confirmation step
 
+**Thread resolution (re-review only):** If Step 1 identified resolved prior findings, fetch review threads via GraphQL:
+
+```
+gh api graphql -f query='query { repository(owner: "{owner}", name: "{repo}") {
+  pullRequest(number: N) {
+    reviewThreads(first: 50) {
+      nodes { id isResolved comments(first: 1) { nodes { body } } }
+    }
+  }
+} }'
+```
+
+Match each resolved finding to an unresolved thread by comparing the finding description against the thread's first comment body. The match should be based on content similarity (severity tag, key phrases, file reference) — not position alone. Flag matched threads for resolution in Step 5.
+
 ### Step 4: Format Comments
 
 **Inline comment format:**
@@ -99,6 +115,7 @@ Present the full plan before posting. Show:
 
 - Each finding with its bucket assignment (inline / file-level / body-only)
 - Any findings flagged as already covered, with existing comment details
+- Threads to be resolved (re-review only), with the matched finding description
 - Counts by bucket
 
 For findings flagged as already covered:
@@ -110,11 +127,21 @@ For findings flagged as already covered:
   → Skip (default) / Include anyway?
 ```
 
+For threads to be resolved (re-review only):
+
+```
+✓ RESOLVED (will resolve thread):
+  [Major] No guard against PR number mismatch — addressed in latest push
+  Thread: PRRT_kwDO... (comment by @reviewer)
+```
+
 Default to skipping flagged findings, but the user can override.
 
 Wait for user confirmation before posting.
 
-### Step 6: Post Review via GitHub API
+### Step 6: Post Review and Resolve Threads
+
+**Post new findings** (if any):
 
 Build the review payload as a JSON object:
 
@@ -128,11 +155,22 @@ Write the payload to `/tmp/pr_review_payload.json` using the Write tool, then po
 gh api repos/{owner}/{repo}/pulls/{N}/reviews --input /tmp/pr_review_payload.json
 ```
 
+**Resolve addressed threads** (re-review only):
+
+For each thread flagged for resolution in Step 3, resolve it via GraphQL:
+
+```
+gh api graphql -f query='mutation { resolveReviewThread(input: {threadId: "THREAD_ID"}) { thread { id isResolved } } }'
+```
+
+Only resolve threads whose corresponding findings the `/review` output explicitly confirmed as addressed. A reply on the thread is not sufficient — the re-review must have verified the fix.
+
 ### Step 7: Report Completion
 
 Report:
 - Counts by bucket (inline / file-level / body-only / skipped)
-- Review URL from the API response
+- Threads resolved (re-review only)
+- Review URL from the API response (if new findings were posted)
 
 ## Edge Cases
 
@@ -144,6 +182,9 @@ Post a body-only review. Warn in the confirmation step that no inline comments w
 
 **All findings already covered:**
 Report "nothing new to post" and do not create an empty review.
+
+**Re-review with all findings resolved, nothing new:**
+Resolve the addressed threads and report. Do not post an empty review. This is the happy path for a clean re-review.
 
 **API 422 errors:**
 If the API rejects a comment (e.g., invalid line position), retry with the offending comment moved from inline to file-level, or from file-level to body-only.
@@ -163,7 +204,8 @@ The publish-review is complete when:
 - [ ] The PR diff has been fetched and findings mapped to buckets
 - [ ] Existing PR comments have been checked for overlap
 - [ ] The full mapping has been presented and confirmed by the user
-- [ ] The review has been posted as a single atomic GitHub review with event type `COMMENT`
+- [ ] The review has been posted as a single atomic GitHub review with event type `COMMENT` (if new findings exist)
+- [ ] Addressed threads have been resolved via GraphQL (re-review only)
 - [ ] Completion has been reported with counts and review URL
 
 ## Notes
