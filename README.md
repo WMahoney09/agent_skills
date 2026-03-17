@@ -19,6 +19,7 @@ Consider a river, rapids are lots of little drops in elevation, each of those dr
 | | `/tire-kicking` | `/atomize` | | `/triage` |
 | | | | | `/revise` |
 | | | | | `/reply` |
+| | | | | `/publish-review` |
 
 > **Floating skills** (usable at any stage): `/recon` · `/clarify` · `/reasoning` · `/estimate` · `/commit` · `/review` · `/uml`
 
@@ -74,6 +75,7 @@ Every skill directory contains a `SKILL.md` conforming to [`SKILL.spec.md`](./SK
 - **`/triage`** — as needed — `triage-report.md` — Ingest feedback, group related items into unified revisions with stable IDs (C1, M1, m1), and prioritize by severity.
 - **`/revise`** — as needed — no artifact — Address a discrete revision with a lightweight alignment check and holistic implementation.
 - **`/reply`** — as needed — no artifact — Close the feedback loop on a PR by replying to each reviewer comment with the addressing commit.
+- **`/publish-review`** — as needed — *(GitHub review)* — Publish review findings as inline PR comments anchored to diff lines.
 
 **Two paths to revision:**
 
