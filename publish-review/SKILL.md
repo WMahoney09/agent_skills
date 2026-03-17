@@ -38,12 +38,20 @@ No review findings in this conversation. Run /review or /review #N first, then /
 
 ### Step 2: Fetch PR Diff and Map Findings
 
-Fetch the PR diff and metadata:
+Fetch the PR diff and metadata. Derive `{owner}/{repo}` from the git remote origin (e.g., `gh repo view --json nameWithOwner`), or from the `owner/repo` argument if the user provided one.
 
 ```
 gh pr diff #N
 gh pr view #N --json number,title,author,url
 ```
+
+**Reconciliation check:** If the `/review` output targeted a specific PR (e.g., "Pull Request: #5"), compare it against the target PR number. If they differ, surface a warning before proceeding:
+
+```
+⚠ Review findings are from PR #5, but you're publishing to PR #7. Proceed anyway?
+```
+
+This preserves flexibility for intentional cross-posting while preventing accidental mismatch.
 
 Classify each finding into one of three buckets:
 
@@ -63,7 +71,7 @@ gh api repos/{owner}/{repo}/pulls/{N}/comments
 
 Build a location index: `file:line → comment[]`. For each finding:
 
-- If the finding's `file:line` matches an existing comment's location (exact line or within ±3 lines), flag it as "already covered"
+- If the finding's `file:line` matches an existing comment on the same file at the same source line (or within ±3 source lines) **and** the comment content overlaps in topic (similar keywords or issue description), flag it as "already covered". Proximity alone is not sufficient — both location and content must suggest the same issue.
 - Record the existing comment's author and a snippet for the confirmation step
 
 ### Step 4: Format Comments
@@ -111,7 +119,7 @@ Wait for user confirmation before posting.
 Build the review payload as a JSON object:
 
 - `event`: `"COMMENT"` — never `REQUEST_CHANGES` or `APPROVE`
-- `body`: the top-level review body (summary table + recommendation + body-only findings)
+- `body`: the top-level review body (recommendation + rationale + body-only findings)
 - `comments`: array of inline and file-level comment objects
 
 Write the payload to `/tmp/pr_review_payload.json` using the Write tool, then post:

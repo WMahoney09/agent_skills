@@ -15,12 +15,6 @@
 **Recommendation:** Go / No-Go / Go with conditions
 **Rationale:** 1-2 sentence assessment.
 
-| Severity | Inline | File-level | Body | Total |
-|---|---|---|---|---|
-| Critical | N | N | N | N |
-| Major | N | N | N | N |
-| Minor | N | N | N | N |
-
 ---
 
 ### Findings Not in Diff
@@ -52,4 +46,3 @@ Suggestion or recommended fix.
 - The review event is always `COMMENT` — never `REQUEST_CHANGES` or `APPROVE`
 - All comments are posted as a single atomic review, not as individual comments
 - The body template scales with the findings — omit "Findings Not in Diff" if all findings are inline or file-level
-- The severity table in the body gives reviewers an at-a-glance summary before reading individual comments
