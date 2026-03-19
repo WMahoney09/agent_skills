@@ -1,6 +1,8 @@
 ---
 name: recon
-description: Read-only investigation of code and documentation to understand existing systems, architecture, and patterns. Can be used before Understanding, as part of it, or standalone.
+description: |
+  Read-only investigation of code and documentation to understand existing systems, architecture, and patterns. Can be used before Understanding, as part of it, or standalone.
+  TRIGGER when: the user asks to investigate or explore existing code ("investigate how X works", "look into this", "explore the codebase", "how is this implemented", "trace this flow"), or when understanding requires deeper codebase exploration before proceeding.
 allowed-tools: Read, Glob, Grep, WebFetch
 ---
 

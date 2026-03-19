@@ -1,8 +1,8 @@
 ---
 name: pre-flight
-description: Review the implementation plan for gaps, contradictions, and opportunities before execution. Final check before the Implement stage begins.
-agent-invocation: user-invoked-only
-agent-note: "Agents may execute this skill ONLY when explicitly invoked by the user (e.g., /pre-flight). Agents must NEVER invoke this skill autonomously or on their own initiative."
+description: |
+  Review the implementation plan for gaps, contradictions, and opportunities before execution. Final check before the Implement stage begins.
+  TRIGGER when: a plan exists and the user asks to validate it before starting ("check the plan", "review the plan", "pre-flight this", "anything we're missing", "are we ready to start").
 ---
 
 # Pre-Flight: Plan Validation and Optimization

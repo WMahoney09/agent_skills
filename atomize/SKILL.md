@@ -1,6 +1,8 @@
 ---
 name: atomize
-description: Right-size a plan by estimating each phase with /estimate and decomposing any phase with LOE > 2 into subphases, repeating until every phase scores ≤ 2.
+description: |
+  Right-size a plan by estimating each phase with /estimate and decomposing any phase with LOE > 2 into subphases, repeating until every phase scores ≤ 2.
+  TRIGGER when: the user wants to break down a plan into smaller pieces ("atomize this", "break this down", "decompose the plan", "these phases are too big", "right-size this", "make these smaller"), or when a plan exists and phases need to be sized for execution.
 ---
 
 # Atomize: Phase Decomposition

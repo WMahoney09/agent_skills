@@ -1,6 +1,8 @@
 ---
 name: commit
-description: Stage and commit changes with a consistent, typed commit convention. Can be invoked directly by the user or used by other skills (e.g., produce) to manage git history.
+description: |
+  Stage and commit changes with a consistent, typed commit convention. Can be invoked directly by the user or used by other skills (e.g., produce) to manage git history.
+  TRIGGER when: the user asks to commit changes ("commit this", "let's commit", "save our progress", "commit what we have"), or after completing implementation work and the user signals readiness to commit.
 agent-invocation: user-invoked-and-referenced
 ---
 

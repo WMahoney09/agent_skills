@@ -1,6 +1,8 @@
 ---
 name: estimate
-description: Produce a Level of Effort (LOE) score for a proposed change by evaluating complexity and impact independently, then synthesizing to a 1–5 score.
+description: |
+  Produce a Level of Effort (LOE) score for a proposed change by evaluating complexity and impact independently, then synthesizing to a 1–5 score.
+  TRIGGER when: the user asks for a level of effort estimate ("how big is this", "estimate the effort", "what's the LOE", "how much work is this", "give me an estimate").
 ---
 
 # Estimate: Level of Effort Scoring

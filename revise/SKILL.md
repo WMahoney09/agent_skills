@@ -1,8 +1,8 @@
 ---
 name: revise
-description: Address a discrete revision — a bug fix, refactor, or piece of feedback — with a lightweight alignment check, holistic implementation, and a user-gated commit. Works from triage output, review findings, or a direct user statement.
-agent-invocation: user-invoked-only
-agent-note: "Agents may execute this skill ONLY when explicitly invoked by the user (e.g., /revise C1). Agents must NEVER invoke this skill autonomously or on their own initiative."
+description: |
+  Address a discrete revision — a bug fix, refactor, or piece of feedback — with a lightweight alignment check, holistic implementation, and a user-gated commit. Works from triage output, review findings, or a direct user statement.
+  TRIGGER when: triage output exists in the conversation and the user asks to start fixing items ("fix these", "address the feedback", "let's work through the revisions", "start with the critical ones"), or the user asks to fix a specific piece of feedback ("fix the null check issue", "address that review comment"). Do NOT auto-invoke without triage or explicit user direction.
 ---
 
 # Revise: Focused Revision with User-Gated Commits

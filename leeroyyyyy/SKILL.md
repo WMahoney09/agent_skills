@@ -1,9 +1,9 @@
 ---
 name: leeroyyyyy
-description: "⚠️ EXPERIMENTAL — Full send autonomous pipeline. Precondition: Research complete + problem-statement.md exists. Runs the entire delivery workflow without user input: solutioning → reasoning (+ recon) → [tire-kicking if ambiguous] → planning → pre-flight loop (min 2, max 4 cycles) → atomize → produce (subagent per phase) → review → triage → revise. Align-stage routing is nudge-driven — each skill emits a Next Step recommendation that determines the next dispatch. The agent makes every decision autonomously."
-agent-invocation: user-invoked-only
+description: |
+  ⚠️ EXPERIMENTAL — Full send autonomous pipeline. Precondition: Research complete + problem-statement.md exists. Runs the entire delivery workflow without user input: solutioning → reasoning (+ recon) → [tire-kicking if ambiguous] → planning → pre-flight loop (min 2, max 4 cycles) → atomize → produce (subagent per phase) → review → triage → revise. Align-stage routing is nudge-driven — each skill emits a Next Step recommendation that determines the next dispatch. The agent makes every decision autonomously.
+  TRIGGER when: the user says "leeroy", "leroy", "leeeroyyy", or any close spelling approximation of "leeroyyyyy" (Wispr Flow may transcribe the name with varying numbers of e's and y's — treat any recognizable variant as a match), or the user says "send it", "full send", "let it rip", or "let it cook". Must NEVER be invoked by reference from another skill or agent.
 agent-reference: forbidden
-agent-note: "This skill can ONLY be invoked directly by the user (e.g., /leeroyyyyy). It must NEVER be invoked by reference from another skill or agent. Once invoked, the agent runs the full pipeline autonomously — do not pause for user input unless an ambiguity truly cannot be resolved without it."
 ---
 
 # Leeroyyyyy: Autonomous Full-Pipeline Orchestrator

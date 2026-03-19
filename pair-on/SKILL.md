@@ -1,8 +1,8 @@
 ---
 name: pair-on
-description: Pair program through the implementation plan with the agent, controlling review boundaries and commits at phase, step, or task level.
-agent-invocation: user-invoked-only
-agent-note: "Agents may execute this skill ONLY when explicitly invoked by the user (e.g., /pair-on). Agents must NEVER invoke this skill autonomously or on their own initiative."
+description: |
+  Pair program through the implementation plan with the agent, controlling review boundaries and commits at phase, step, or task level.
+  TRIGGER when: the user wants to pair program through a plan ("pair on this", "let's pair", "pair with me", "walk through this together", "let's implement this together"), or when the user wants step-by-step collaborative execution of a plan with review gates.
 ---
 
 # Pair-On: Pair Programming Implementation with User-Controlled Boundaries

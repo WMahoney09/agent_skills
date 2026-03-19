@@ -1,8 +1,8 @@
 ---
 name: reply
-description: Close the feedback loop on a pull request by replying to each reviewer comment with the commit hash that addresses it. Reads Addresses: trailers from revise commits to build the mapping automatically.
-agent-invocation: user-invoked-only
-agent-note: "Agents may execute this skill ONLY when explicitly invoked by the user (e.g., /reply #N). Agents must NEVER invoke this skill autonomously or on their own initiative."
+description: |
+  Close the feedback loop on a pull request by replying to each reviewer comment with the commit hash that addresses it. Reads Addresses: trailers from revise commits to build the mapping automatically.
+  TRIGGER when: revise commits exist and the user asks to respond to the reviewer ("reply to the reviewer", "respond on the PR", "close the loop", "let the reviewer know", "post replies"), or after completing all revisions when the user signals they're done ("that's all the fixes", "let's wrap up the PR").
 ---
 
 # Reply: Close the Feedback Loop on PR Comments

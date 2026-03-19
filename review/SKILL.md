@@ -1,8 +1,8 @@
 ---
 name: review
-description: Technical peer review of code changes — local diff or a specific pull request. Covers security, architecture, correctness, tests, and accessibility. Produces a severity-graded report with a go/no-go recommendation.
-agent-invocation: user-invoked-only
-agent-note: "Agents may execute this skill ONLY when explicitly invoked by the user (e.g., /review or /review #N). Agents must NEVER invoke this skill autonomously or on their own initiative."
+description: |
+  Technical peer review of code changes — local diff or a specific pull request. Covers security, architecture, correctness, tests, and accessibility. Produces a severity-graded report with a go/no-go recommendation.
+  TRIGGER when: the user asks for a code review ("review this", "review the PR", "review my changes", "can you look over this", "code review"), or references a PR that needs review ("what do you think of PR #N", "check PR #N").
 ---
 
 # Review: Technical Code Review

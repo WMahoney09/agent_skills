@@ -1,8 +1,8 @@
 ---
 name: triage
-description: Ingest feedback from a pull request, a review report, or a conversational list. Group related items into unified revisions, prioritize by severity, and produce a structured report ready for action with /revise.
-agent-invocation: user-invoked-only
-agent-note: "Agents may execute this skill ONLY when explicitly invoked by the user (e.g., /triage). Agents must NEVER invoke this skill autonomously or on their own initiative."
+description: |
+  Ingest feedback from a pull request, a review report, or a conversational list. Group related items into unified revisions, prioritize by severity, and produce a structured report ready for action with /revise.
+  TRIGGER when: the user asks to triage, review, or address feedback from a PR, review, or conversation ("triage this", "triage the feedback", "look at the review comments", "what did the reviewer say", "address the feedback", "let's go through the findings"), or when PR review feedback is present and the user asks to work through it.
 ---
 
 # Triage: Feedback Ingestion and Revision Planning

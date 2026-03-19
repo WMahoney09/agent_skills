@@ -1,6 +1,8 @@
 ---
 name: tire-kicking
-description: Stress-test a proposed design or approach against scenarios (edge cases, lifecycle, multi-actor, data change). Use when you have a candidate solution and want to find where it holds, bends, or leaks before locking the plan or implementing.
+description: |
+  Stress-test a proposed design or approach against scenarios (edge cases, lifecycle, multi-actor, data change). Use when you have a candidate solution and want to find where it holds, bends, or leaks before locking the plan or implementing.
+  TRIGGER when: the user asks to stress-test a design or approach ("stress test this", "what could go wrong", "poke holes in this", "tire-kick this", "what are the edge cases").
 ---
 
 # Tire-Kicking: Scenario Evaluation of a Proposed Design

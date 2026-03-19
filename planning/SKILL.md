@@ -1,6 +1,8 @@
 ---
 name: planning
-description: Design and document the implementation approach. Use after aligning on a solution direction to create a detailed step-by-step plan before implementation begins.
+description: |
+  Design and document the implementation approach. Use after aligning on a solution direction to create a detailed step-by-step plan before implementation begins.
+  TRIGGER when: the user asks to create an implementation plan ("plan this out", "make a plan", "let's plan", "how should we implement this"), or after a solution direction is chosen and the user signals readiness to plan.
 ---
 
 # Planning: Plan Phase Skill

@@ -1,8 +1,8 @@
 ---
 name: publish-review
-description: Publish review findings as a structured GitHub PR review with inline comments anchored to diff lines. Use after /review to deliver findings directly on the pull request.
-agent-invocation: user-invoked-only
-agent-note: "Agents may execute this skill ONLY when explicitly invoked by the user (e.g., /publish-review #N). Agents must NEVER invoke this skill autonomously or on their own initiative."
+description: |
+  Publish review findings as a structured GitHub PR review with inline comments anchored to diff lines. Use after /review to deliver findings directly on the pull request.
+  TRIGGER when: review output exists in the conversation and the user asks to publish or post findings to the PR ("publish the review", "post the findings", "put the review on the PR", "share the review").
 ---
 
 # Publish Review: Deliver Findings as Inline PR Comments

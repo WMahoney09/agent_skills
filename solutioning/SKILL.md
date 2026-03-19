@@ -1,6 +1,8 @@
 ---
 name: solutioning
-description: Co-architect solutions by exploring multiple approaches and their tradeoffs. Use after building shared understanding of a problem to reason through viable solutions.
+description: |
+  Co-architect solutions by exploring multiple approaches and their tradeoffs. Use after building shared understanding of a problem to reason through viable solutions.
+  TRIGGER when: the user asks to explore solution approaches ("how should we solve this", "what are our options", "explore approaches", "let's think about solutions"), or after understanding is established and the user signals readiness to move to solutions.
 ---
 
 # Solutioning: Align Phase Skill

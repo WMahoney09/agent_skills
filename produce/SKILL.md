@@ -1,8 +1,8 @@
 ---
 name: produce
-description: Execute the implementation plan autonomously with intelligent atomic commits. Agent manages work order and git history.
-agent-invocation: user-invoked-only
-agent-note: "Agents may execute this skill ONLY when explicitly invoked by the user (e.g., /produce). Agents must NEVER invoke this skill autonomously or on their own initiative."
+description: |
+  Execute the implementation plan autonomously with intelligent atomic commits. Agent manages work order and git history.
+  TRIGGER when: a plan exists and the user wants autonomous execution ("produce this", "build it", "execute the plan", "go ahead and implement", "run produce", "start building", "implement the plan"), or when the user signals they want the agent to take over implementation without step-by-step pairing.
 ---
 
 # Produce: Autonomous Implementation with Intelligent Commits
