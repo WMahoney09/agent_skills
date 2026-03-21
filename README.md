@@ -21,7 +21,7 @@ Consider a river, rapids are lots of little drops in elevation, each of those dr
 | | | | | `/reply` |
 | | | | | `/publish-review` |
 
-> **Floating skills** (usable at any stage): `/recon` · `/clarify` · `/reasoning` · `/estimate` · `/commit` · `/review` · `/uml`
+> **Floating skills** (usable at any stage): `/recon` · `/clarify` · `/reasoning` · `/estimate` · `/commit` · `/review` · `/uml` · `/retro`
 
 ## Conventions
 
@@ -93,6 +93,7 @@ These skills are valuable across multiple stages:
 - **`/commit`** — Stage and commit with typed convention. Used throughout Implement, available anytime.
 - **`/review`** — Technical peer review of code changes with severity-graded report and go/no-go recommendation. Core to Deliver, useful anytime.
 - **`/uml`** — Produce ASCII UML diagrams (sequence and component) to map code topology inline. Helps build mental models of code flow and service relationships. No artifact file — output is rendered directly in conversation.
+- **`/retro`** — Run a session retrospective to capture what worked, what didn't, and per-skill observations. Produces `retro-report.md` in the workstream directory. Most valuable after Deliver, but usable after any completed work.
 
 ## Orchestration Philosophy
 
