@@ -127,7 +127,19 @@ If the agent notices unrelated issues while implementing, it should note them â€
 **No speculative changes.**
 Do not refactor surrounding code, improve naming, or make other improvements unless they are explicitly part of the revision. The goal is precision, not polish.
 
-## Completion
+## Closing the Phase
+
+After committing, report the commit hash and message, then emit a conditional nudge based on whether the revision addressed PR comments:
+
+**If the revision has an `Addresses:` trailer** (came from PR comments):
+
+> "Revision committed (`{short_hash}`). Run `/reply` to post the threaded reply on the PR, or `/revise` to continue to the next revision."
+
+**If the revision has no `Addresses:` trailer** (came from review output or a direct statement):
+
+> "Revision committed (`{short_hash}`). Run `/revise` to continue to the next revision."
+
+## Closure Criteria
 
 A revision is complete when:
 
@@ -135,8 +147,7 @@ A revision is complete when:
 - [ ] All affected instances of the issue were addressed holistically
 - [ ] The user has explicitly confirmed the issue is resolved
 - [ ] A commit has been made with the correct type prefix, revision ID, and comment IDs (where applicable)
-
-After committing, report the commit hash and message, then stop. The user will invoke `/revise` again for the next revision.
+- [ ] The closing nudge has been emitted
 
 ## Notes
 
