@@ -65,6 +65,8 @@ Context is a finite resource — treat it as such.
 
 Every phase handoff is a context boundary: pass artifact files, not conversation history. **Commits are the handoff mechanism** — every artifact is committed before the next stage begins; subagents read committed files, never conversation history.
 
+**All commits during a leeroyyyyy run must be created by invoking the `/commit` skill.** No agent — orchestrator or subagent — should run `git commit` directly. This ensures every commit in the log carries the correct type prefix and message format.
+
 The full run produces a readable git log. The Align-stage artifacts vary depending on routing — tire-kicking-report.md only appears if reasoning flagged ambiguity, and a second truth-and-vector.md commit appears after tire-kicking:
 ```
 [docs]  solution-statement.md       <- solutioning

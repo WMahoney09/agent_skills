@@ -107,9 +107,11 @@ At each natural break point (task completion, step completion, or logical groupi
 - The work can be logically grouped with upcoming changes
 - There are uncommitted dependencies needed for this to work
 
-### Commit Message Format
+### Creating Commits
 
-All commits made during `produce` must follow the **commit** skill convention — type prefix, brief title, detailed body. Refer to the `commit` skill for the full format, type classification rules, and examples.
+After staging files for a commit, **invoke the `/commit` skill** to create the commit. Do not run `git commit` directly.
+
+The agent decides **when** to commit and **what to stage**. The `/commit` skill handles type classification, message formatting, and the actual commit.
 
 ## Phase-Boundary Progress Tracking
 
@@ -117,7 +119,7 @@ After completing each plan phase, update the plan file's Progress section:
 
 1. Mark the phase row as complete: `- [x] Phase N: <name>`
 2. If the phase deviated from the plan, add a brief inline deviation note
-3. Commit the plan file update as a `[plan]` commit before moving to the next phase
+3. Invoke `/commit` for the plan file update before moving to the next phase
 
 This produces a commit sequence of `[code]` commits for the implementation followed by a `[plan]` commit marking the phase complete, repeated for each plan phase.
 

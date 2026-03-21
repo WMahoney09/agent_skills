@@ -30,7 +30,7 @@ Check for uncommitted changes:
 git status
 ```
 
-If there are uncommitted changes, commit them first using the `/commit` convention before proceeding.
+If there are uncommitted changes, invoke the `/commit` skill to commit them before proceeding.
 
 ### Step 2: Determine the Base Branch
 

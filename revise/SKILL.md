@@ -72,9 +72,12 @@ Do not commit until you receive explicit confirmation that the issue is resolved
 
 ### Stage 4: Commit
 
-Once confirmed, commit the changes following the `/commit` skill convention with one addition: the commit message must include the revision ID and any PR comment IDs addressed by this revision.
+Once confirmed, stage the changed files, then **invoke the `/commit` skill** to create the commit. The commit message must include revision trailers after the body:
 
-**Commit message format for revise:**
+- **`Revision:`** — the triage revision ID (e.g., `C1`, `M1`, `m1`). Omit if the revision came from a direct user statement with no triage ID.
+- **`Addresses:`** — comma-separated list of PR comment IDs that this revision resolves. Omit if the revision did not come from PR comments.
+
+**Example commit message (with trailers):**
 
 ```
 [code] Brief description of what was fixed
@@ -85,9 +88,6 @@ Once confirmed, commit the changes following the `/commit` skill convention with
 Revision: C1
 Addresses: #123, #124
 ```
-
-- **`Revision:`** — the triage revision ID (e.g., `C1`, `M1`, `m1`). Omit if the revision came from a direct user statement with no triage ID.
-- **`Addresses:`** — comma-separated list of PR comment IDs that this revision resolves. Omit if the revision did not come from PR comments.
 
 These trailers are used by `/reply` to map commits back to PR comments.
 

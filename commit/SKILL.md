@@ -81,9 +81,19 @@ When a user invokes `/commit`, the agent should:
 4. **Write the commit** — follow the format above: typed prefix, brief title, detailed body
 5. **Confirm completion** — report the commit(s) made with their messages
 
-## When Referenced by Other Skills
+## When Invoked by Another Skill
 
-Skills like `produce` delegate all commit decisions to this convention. Any commit created during autonomous execution must follow the type prefix and message format defined here.
+Skills like `produce` and `revise` invoke `/commit` via the Skill tool after staging their changes. When invoked this way:
+
+1. **Staging is already done** — the calling skill has staged the relevant files with `git add`
+2. **Inspect staged changes** — run `git diff --cached --name-only` to determine what's staged
+3. **Determine the type prefix** — classify using the staged files (same rules as above)
+4. **Write and create the commit** — follow the message format with typed prefix, brief title, and detailed body
+5. **Report the commit** — output the short hash and commit message
+
+The calling skill owns **what to stage and when to commit**. This skill owns **type classification and message formatting**.
+
+If the calling skill specifies additional metadata (e.g., revision trailers from `/revise`), append them after the body.
 
 **Execution rules for committing:**
 
