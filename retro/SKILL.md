@@ -2,18 +2,20 @@
 name: retro
 description: |
   Run a retrospective on completed work. Agent reviews the session, shares candid observations on what worked and what didn't, then synthesizes with the human into actionable improvements for skills and workflow.
-  TRIGGER when: the user says "retro", "let's retro", "run a retro", "how did that go", "what worked", "what could be better", or after completing a feature/workstream.
+  TRIGGER when: the user says "retro", "let's retro", "run a retro", "how did that go", "what worked", "what could be better", or the user asks to reflect on completed work.
 ---
 
 # Retro: Session Retrospective
 
 ## Goal
 
+A **session** is the current conversation's work on a workstream. If the retro spans work from multiple conversations, the git log and workstream artifacts are the source of truth — not conversation memory.
+
 Capture honest, actionable feedback on a completed session from both agent and human perspectives. Identify what to keep doing, what to stop doing, and what to start trying — with specific per-skill observations where relevant. The output feeds directly into skill and workflow improvements.
 
 ## Your Role
 
-As the human in this retro:
+The agent shares its observations first, then invites yours. As the human in this retro:
 - Share your own observations after hearing the agent's
 - Validate, push back on, or add nuance to the agent's findings
 - Prioritize which improvements matter most to you
@@ -35,7 +37,7 @@ Before sharing observations, orient yourself:
 
 Then share your observations organized by the retro categories below. Be specific — name the skill, the moment, the friction point. Vague praise and vague criticism are equally useless.
 
-After presenting your observations, invite the human to share theirs. Listen, synthesize both perspectives, and produce the artifact together.
+After presenting your observations, invite the human to share theirs. Listen, synthesize both perspectives, distill prioritized action items from the combined observations, and produce the artifact together.
 
 ### Autonomous Invocation
 
