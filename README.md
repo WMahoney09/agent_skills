@@ -1,196 +1,135 @@
-# RAPID Workflow
+# Agentic Skills & Agent Definitions
 
-A library of composable skills for structured agentic software delivery.
+A toolkit of skills and agent definitions for agentic software delivery.
 
-_These are mostly modular and can be used outside of RAPID if needed._
-
----
-This is a linear flow, the more time you spend upfront, the smoother the later stages will go.
-This can be used as a "one-shot"-esque workflow, but the _scope and scale of your shot_ **MATTERS**.
-
-Consider a river, rapids are lots of little drops in elevation, each of those drops can be a Feature or Milestone. That's RAPID in action, lots of medium-large sized deliverables in quick succession. If you make one single drop of your whole app (the one-shot), that is literally and metaphorically Waterfall -- _I do not recommend that_
+> RAPID V2 — evolved from the [V1 pipeline](docs/reference/rapid-v1-readme.md). Skills are tools the agent reaches for, not stages it marches through.
 
 ---
-| R | A | P | I | D |
-|---|---|---|---|---|
-| **Research** | **Align** | **Plan** | **Implement** | **Deliver** |
-| `/understanding` | `/solutioning` | `/planning` | `/produce` | `/pull-request` |
-| `/recon` | `/reasoning` | `/pre-flight` | `/pair-on` | `/review` |
-| | `/tire-kicking` | `/atomize` | | `/triage` |
-| | | | | `/revise` |
-| | | | | `/reply` |
-| | | | | `/publish-review` |
 
-> **Floating skills** (usable at any stage): `/recon` · `/clarify` · `/reasoning` · `/estimate` · `/commit` · `/review` · `/uml` · `/retro`
+## Three-Layer Architecture
+
+| Layer | Role | Example |
+|-------|------|---------|
+| **Mission** (strategy) | Overall goal — from a human or a mission file | "Ship features from the issue backlog" |
+| **Agent definitions** (sub-strategy) | Role-based templates with composed skill sets | `senior-dev`, `reviewer`, `planner` |
+| **Skills** (tactics) | Individual tools encoding domain expertise | `/planning`, `/produce`, `/review` |
+
+The mission provides the goal. Agent definitions provide the role and quality gate awareness. Skills provide the domain expertise. The model decides how to use them.
+
+---
+
+## Agent Definitions
+
+Role-based agent templates that compose skills into areas of responsibility. Defined in `agents/` and symlinked from `~/.claude/agents/`.
+
+| Agent | Role | Skills |
+|-------|------|--------|
+| **`senior-dev`** | Implementation and delivery. Plans, implements, reviews, ships. | planning, pre-flight, produce, commit, review, revise, pull-request, estimate |
+| **`reviewer`** | Code review specialist. Reviews changes, publishes findings, responds to feedback. | review, publish-review, reply, triage, revise |
+| **`planner`** | Technical architect. Breaks down goals into validated plans. Does not implement. | understanding, reasoning, planning, pre-flight, estimate |
+
+Agent definitions are role templates, not personalities. When composing teams, personality and perspective can be layered on top at team creation time.
+
+---
+
+## Quality Gates
+
+Logical constraints that agents respect. Not a prescribed sequence — agents decide when and how to use their tools, but these constraints hold:
+
+1. **Plan before implement** — `/produce` requires a committed plan file
+2. **Pre-flight before implement** — `/pre-flight` must report no Critical issues before `/produce` runs
+3. **Review after implement** — `/review` must run after `/produce`, ideally via a fresh agent context
+4. **Address before deliver** — Critical/Major findings from `/review` must be addressed via `/revise` before `/pull-request`
+
+---
+
+## Skills
+
+### Discover
+
+Tools for exploring problems and building clarity. Primarily for human-paired work.
+
+- **`/understanding`** — Build shared understanding of a problem through discovery. Produces `problem-statement.md`.
+- **`/clarify`** — Ask clarifying questions to sharpen understanding.
+- **`/reasoning`** — Extract truths, conditionals, and a directional vector from complex problems.
+
+### Plan
+
+Tools for defining and validating the work.
+
+- **`/planning`** — Create a detailed implementation plan (Phase > Step > Task) with phase right-sizing. Produces `<work-item>.plan.md`.
+- **`/pre-flight`** — Validate a plan for gaps, contradictions, and opportunities. The highest-value quality gate.
+- **`/estimate`** — Produce an LOE score (1–5) by evaluating complexity and impact.
+
+### Implement
+
+Tools for building the work.
+
+- **`/produce`** — Execute an implementation plan autonomously with semantically coherent atomic commits.
+- **`/commit`** — Stage and commit with typed convention (`[plan]`, `[docs]`, `[code]`).
+
+### Deliver
+
+Tools for shipping and iterating on the work.
+
+- **`/pull-request`** — Open a PR with structured description, issue links, and test plan.
+- **`/review`** — Technical peer review covering security, architecture, correctness, tests, accessibility. Produces `review-issues.md`.
+- **`/triage`** — Ingest feedback and group into unified, prioritized revisions. Produces `triage-report.md`.
+- **`/revise`** — Address a discrete revision with alignment check and implementation.
+- **`/reply`** — Close the feedback loop by replying to PR comments with addressing commits.
+- **`/publish-review`** — Publish review findings as inline PR comments anchored to diff lines.
+
+**Two paths to revision:**
+- **Self-review:** `/review` → `/revise` — review output feeds directly into revise.
+- **External feedback:** PR comments → `/triage` → `/revise` — triage normalizes unstructured feedback.
+
+### Reflect
+
+Tools for understanding and improving.
+
+- **`/retro`** — Run a session retrospective. Produces `retro-report.md`.
+- **`/uml`** — Produce ASCII UML diagrams (sequence and component) to map code topology.
+
+---
 
 ## Conventions
 
-Every skill directory contains a `SKILL.md` conforming to [`SKILL.spec.md`](./SKILL.spec.md). Skills that produce phase artifacts also contain an `ARTIFACT.md` conforming to [`ARTIFACT.spec.md`](./ARTIFACT.spec.md). These two root-level spec files are the authoritative references for skill file structure and artifact definition structure, respectively.
+### Skill file structure
 
-## R — Research
+Every skill directory contains a `SKILL.md` conforming to [`SKILL.spec.md`](./SKILL.spec.md). Skills that produce artifacts also contain an `ARTIFACT.md` conforming to [`ARTIFACT.spec.md`](./ARTIFACT.spec.md).
 
-> Build context, understand the problem, identify constraints.
+### Commit convention
 
-- **`/understanding`** — always — `problem-statement.md` — Build shared understanding of a problem through discovery. Start here for new work. Produces the problem definition: what's being solved, why it matters, constraints, success criteria, and assumptions. Creates the `docs/workstreams/<slug>/` directory.
-- **`/recon`** *(floating)* — as needed — no artifact — Read-only investigation of code and documentation. Usable at any stage.
+`/commit` defines typed prefixes (`[plan]`, `[docs]`, `[code]`) determined mechanically by files changed. Referenced by `/produce` and other skills for consistent git history.
 
----
+### LOE framework
 
-## A — Align
-
-> Converge on a solution direction through exploration and stress-testing.
-
-- **`/solutioning`** — always — `solution-statement.md` — Co-architect solutions by exploring multiple approaches and their tradeoffs. Produces candidate solution approaches with descriptions, tradeoffs, constraints, and LOE estimates. For prescriptive problems with only one viable direction, short-circuits to a single candidate and nudges directly to Plan.
-- **`/reasoning`** *(floating)* — always — `truth-and-vector.md` — Reason through a problem to extract truths, conditionals, and a directional vector. Within the Align stage, reasoning is the default step after solutioning: it synthesizes solution candidates and determines whether tire-kicking is needed. Includes recommendation for next step (Plan, tire-kicking, or understanding).
-- **`/tire-kicking`** — as needed — `tire-kicking-report.md` — Stress-test solution candidates against scenarios (edge cases, lifecycle, multi-actor, data change). Produces comparative results — scenarios tested, holds/bends/leaks for each candidate, and a comparative verdict. Conditionally invoked when reasoning flags genuine ambiguity that cannot be resolved through reasoning alone. Feeds back into reasoning.
+`/estimate` defines the LOE scoring framework (Complexity × Impact → 1–5). Referenced by `/planning` for phase right-sizing.
 
 ---
-
-## P — Plan
-
-> Lock the implementation approach with a validated, right-sized plan.
-
-- **`/planning`** — always — `<work-item>.plan.md` — Design and document the implementation approach as a hierarchical plan (Phase > Step > Task) with overview, notes, and progress checkboxes.
-- **`/pre-flight`** — always — no artifact — Review the plan for gaps, contradictions, and opportunities before execution. Produces a validation report with critical/major/minor issues, opportunities, and confidence level. Consumed by reasoning in-context.
-- **`/atomize`** — as needed — *(updates `<work-item>.plan.md`)* — Right-size a plan by decomposing any phase with LOE > 2 into subphases. Modifies the plan file in-place.
-- **`/estimate`** *(floating)* — as needed — no artifact — LOE score (1–5) with complexity/impact rationale. Produced on-demand in-context. Used by atomize to enforce decomposition limits.
-
----
-
-## I — Implement
-
-> Build the work.
-
-- **`/produce`** — always — no artifact — Execute the implementation plan autonomously with intelligent atomic commits. Updates the plan file's progress checkboxes at phase boundaries.
-- **`/pair-on`** — as needed — no artifact — Pair program through the plan with user-controlled review boundaries and commits.
-
----
-
-## D — Deliver
-
-> Ship the work, gather feedback, and revise until accepted.
-
-- **`/pull-request`** — always — *(GitHub PR)* — Open a pull request for local changes with a structured description, issue links, artifact references, summary, and test plan.
-- **`/review`** *(floating)* — always — `review-issues.md` — Technical peer review of code changes. Produces a severity-graded report with critical/major/minor issues, gaps, and a go/no-go recommendation.
-- **`/triage`** — as needed — `triage-report.md` — Ingest feedback, group related items into unified revisions with stable IDs (C1, M1, m1), and prioritize by severity.
-- **`/revise`** — as needed — no artifact — Address a discrete revision with a lightweight alignment check and holistic implementation.
-- **`/reply`** — as needed — no artifact — Close the feedback loop on a PR by replying to each reviewer comment with the addressing commit.
-- **`/publish-review`** — as needed — *(GitHub review)* — Publish review findings as inline PR comments anchored to diff lines.
-
-**Two paths to revision:**
-
-- **Self-review:** `/review` → `/revise` — Review output is already structured with severity tiers and actionable findings, so it feeds directly into `/revise`.
-- **External feedback:** PR comments or external review → `/triage` → `/revise` — External feedback arrives unstructured and scattered. `/triage` normalizes it into the revision format that `/revise` expects.
-
-## Floating Skills
-
-These skills are valuable across multiple stages:
-
-- **`/recon`** — Read-only investigation of code and documentation. Often used during Research, but useful at any stage.
-- **`/clarify`** — Ask clarifying questions to sharpen understanding. Most common during Research and Align.
-- **`/reasoning`** — Reason through complexity to extract truths and directional clarity. Core to Research and Align, useful everywhere.
-- **`/estimate`** — Produce LOE scores (1–5). Used during Plan, but available anytime.
-- **`/commit`** — Stage and commit with typed convention. Used throughout Implement, available anytime.
-- **`/review`** — Technical peer review of code changes with severity-graded report and go/no-go recommendation. Core to Deliver, useful anytime.
-- **`/uml`** — Produce ASCII UML diagrams (sequence and component) to map code topology inline. Helps build mental models of code flow and service relationships. No artifact file — output is rendered directly in conversation.
-- **`/retro`** — Run a session retrospective to capture what worked, what didn't, and per-skill observations. Produces `retro-report.md` in the workstream directory. Most valuable after Deliver, but usable after any completed work.
-
-## Orchestration Philosophy
-
-Subagents are a **context management tool, not a speed optimization.** Every subagent dispatch is a context boundary — the invoking agent passes a committed artifact file, not conversation history.
-
-**Sequential execution is the standard.** Phases and subagents run one at a time. Concurrent subagent dispatch introduces coordination risk (git index conflicts, file write races, ambiguous commit ownership) with no quality benefit.
-
-**Commits are the handoff mechanism.** Each phase produces a committed artifact before the next phase begins. Subagents read committed files, never conversation context. This produces a readable git log that mirrors the pipeline: one commit per stage.
-
-**Independence ≠ concurrency.** Noting that two steps are independent means they can be executed in any order — not that they should run simultaneously.
-
-Concurrent tool calls within a single agent response (e.g., reading multiple files at once) are fine and unaffected by this principle.
-
----
-
-## Meta
-
-**Skill:** `/commit` → `commit/SKILL.md`
-- Defines the typed commit convention used across all skills
-- Type prefixes (`[plan]`, `[docs]`, `[code]`) are determined mechanically by the files changed
-- Referenced by `produce` and other skills to ensure consistent git history
-- **Note:** This is a shared convention skill — invokable directly but also referenced internally by other skills
-
-**Skill:** `/estimate` → `estimate/SKILL.md`
-- Defines the LOE scoring framework used to evaluate proposed changes
-- Two-dimensional evaluation (Complexity × Impact) synthesized to a 1–5 score
-- Referenced by `solutioning` and usable standalone to calibrate scope
-- **Note:** This is a shared scoring skill — invokable directly but also referenced internally by other skills
-
-## Danger Zone
-
-> ⚠️ **Experimental skills live here. These push the boundaries of autonomous agent behavior. Use them when you're ready to hand the wheel over entirely and see what happens.**
-
-**Skill:** `/leeroyyyyy` → `leeroyyyyy/SKILL.md`
-
-The full send. **Precondition:** Research must be complete and `problem-statement.md` must exist in the workstream directory before invocation. Leeroyyyyy runs the entire delivery pipeline autonomously, dispatching every phase to a subagent with artifact file handoffs (not conversation context).
-
-What Leeroyyyyy does autonomously:
-- Explores candidate solutions and routes based on skill nudges — conditionally stress-testing when reasoning flags genuine ambiguity
-- Picks the best solution using reasoning synthesis, evidence, and codebase conventions
-- Builds a detailed implementation plan and validates it in a pre-flight + reasoning loop (min 2, max 4 cycles)
-- Atomizes the plan so every phase scores ≤ LOE 2
-- Executes the plan with semantically coherent atomic commits, dispatching each phase to a subagent
-- Runs a local technical review of its own output
-- Triages the review findings and addresses all Critical and Major revisions
-- Produces a `summary-statement.md` at completion
-
-The only time Leeroyyyyy stops is when it hits an ambiguity that Recon cannot resolve and that would lead to meaningfully different implementations — or when unresolvable Critical/Major issues remain after the review cycle. Everything else, it decides.
-
-**Additional artifact:** `summary-statement.md` — Final pipeline completion report documenting what was built, phases executed, out-of-scope items, and any unresolved issues.
-
-- **Cannot be invoked by reference** — direct user invocation only
-- **Establishes the orchestrator permission pattern** — how user-invoked skills can grant sub-skills permission to run by reference
 
 ## How Skills Work
 
-**Skills are stored in directories with a `SKILL.md` file inside**, not just as `.md` files. The structure matters for both Claude Code and Cursor.
+Skills are stored in directories with a `SKILL.md` file inside. Each skill includes YAML frontmatter specifying `name` and `description`, which determines the `/slash-command` and invocation behavior.
 
-## Where Skills Live
+## Where Things Live
 
-You have three locations depending on scope:
-
-| Location  | Path | Applies to |
-|-----------|------|-----------|
-| Personal  | `~/.claude/skills/<skill-name>/SKILL.md` | All your projects |
-| Project   | `.claude/skills/<skill-name>/SKILL.md` | This project only |
-| Enterprise/Plugin | Managed elsewhere | Organization-wide |
+| Type | Path | Scope |
+|------|------|-------|
+| Skills (personal) | `~/.claude/skills/<name>/SKILL.md` | All your projects |
+| Skills (project) | `.claude/skills/<name>/SKILL.md` | One project |
+| Agents (personal) | `~/.claude/agents/<name>.md` | All your projects |
+| Agents (project) | `.claude/agents/<name>.md` | One project |
 
 ## Portability
 
 These skills are **tool-agnostic and portable**:
-- ✅ Work with Claude Code (native skill support)
-- ✅ Work with Cursor (agents can follow the workflow)
-- ✅ Work with any AI coding agent (Windsurf, Aider, etc.)
-- ✅ Can be enhanced for specific tools later (e.g., Claude Code versions using context forking)
-
-## Invocation
-
-Skills are invoked with `/skill-name`:
-- Type `/understanding` to invoke the Understanding skill directly
-- Some skills can be invoked by agents automatically when relevant
-  - e.g. the `/produce` skill
-- Some skills are marked `disable-model-invocation: true` for manual-only invocation
-
-## File Structure
-
-The skills in this directory are source files. To use them in Claude Code or Cursor, install them to:
-
-```
-~/.claude/skills/<skill-name>/SKILL.md
-```
-
-Each skill includes YAML frontmatter specifying `name` and `description`, which determines the `/slash-command` and invocation behavior.
+- Works with Claude Code (native skill + agent support)
+- Works with Cursor (agents can follow the workflow)
+- Works with any AI coding agent (Windsurf, Aider, etc.)
 
 ## Sources
 
 - [Agent Skills](https://agentskills.io/home)
-- [Extend Claude with skills - Claude Code Docs](https://code.claude.com/docs/en/skills)
-- [Claude Code Skills Setup in Cursor](https://www.cursor-ide.com/blog/claude-code-skills)
-- [Using Skills in Claude](https://support.claude.com/en/articles/12512180-using-skills-in-claude)
+- [Extend Claude with skills](https://code.claude.com/docs/en/skills)
+- [Sub-agents](https://code.claude.com/docs/en/sub-agents)

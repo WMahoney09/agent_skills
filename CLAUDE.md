@@ -13,34 +13,52 @@
 
 | Task | What to do |
 |---|---|
-| Create a skill | `mkdir skills/skill-name` → write `skills/skill-name/SKILL.md` |
-| Edit a skill | Edit `skills/skill-name/SKILL.md` directly in this repo |
-| Delete a skill | Remove the `skills/skill-name/` directory from this repo |
+| Create a skill | `mkdir skill-name` → write `skill-name/SKILL.md` |
+| Edit a skill | Edit `skill-name/SKILL.md` directly in this repo |
+| Delete a skill | Remove the `skill-name/` directory from this repo |
 | Rename a skill | Rename the directory; update `name:` in frontmatter; update README |
+
+Always follow the README Sync Rule below when making any of these changes.
+
+## Agent Definitions Setup
+
+`~/.claude/agents/` is a **symlink** pointing to `agents/` in this project directory. This means:
+
+- Agent definitions live alongside skills in this repo
+- Changes are immediately available to Claude Code via the symlink
+- Agent definitions are role-based templates that compose skills into areas of responsibility
+
+### Operations reference
+
+| Task | What to do |
+|---|---|
+| Create an agent | Write `agents/<name>.md` with YAML frontmatter |
+| Edit an agent | Edit `agents/<name>.md` directly in this repo |
+| Delete an agent | Remove `agents/<name>.md` from this repo |
+| Rename an agent | Rename the file; update `name:` in frontmatter; update README |
 
 Always follow the README Sync Rule below when making any of these changes.
 
 ## Docs Convention
 
-The `docs/` directory at the project root is the home for all project documentation and pipeline artifacts:
+The `docs/` directory at the project root is the home for all project documentation and artifacts:
 
-- **`docs/workstreams/<slug>/`** — Pipeline artifacts (problem statements, solution statements, plans, review reports, etc.). The `<slug>` is established by the `/understanding` skill when it creates the workstream directory.
-- **`docs/reference/`** — Project reference material (architecture decisions, ontology, topology, etc.). Consulted by discovery skills like `/recon` and `/understanding` when it exists.
+- **`docs/workstreams/<slug>/`** — Artifacts (problem statements, plans, review reports, etc.). The `<slug>` is established by the `/understanding` skill or by `/planning` when it creates the workstream directory.
+- **`docs/reference/`** — Project reference material (architecture decisions, ontology, topology, etc.).
 
 Artifacts are project-local — saved to `docs/workstreams/<slug>/`, never to tool-specific directories like `.claude/*`, `.cursor/*`, or home directory conventions like `~/.claude/*`.
 
 ## README Sync Rule
 
-When any skill is added, updated, removed, or renamed in this repository, the `README.md` must be updated to reflect the change. Specifically:
-
-1. **RAPID flow line and Floating Skills callout** — add or remove the `/skill-name` from the appropriate location
-2. **Meta section** — if the skill defines a shared convention or meta-guidance, add an entry describing what it defines and how other skills reference it
-3. **RAPID stage section** — add or update the skill card in the appropriate `## Letter — Name` section (or Floating Skills if the skill is stage-agnostic)
-4. Skills that serve both as shared conventions *and* direct user tools (like `/commit` and `/estimate`) appear in **both** Meta and Floating Skills — this duplication is intentional
+When any skill or agent definition is added, updated, removed, or renamed in this repository, the `README.md` must be updated to reflect the change.
 
 ### Checklist for skill changes
 
 - [ ] Skill directory with `SKILL.md` exists (or has been removed)
-- [ ] README RAPID section updated (skill card added/moved to correct stage)
+- [ ] README skill listing updated
 - [ ] README Meta section updated (if applicable)
-- [ ] README RAPID stage section updated (if the skill belongs to a specific stage)
+
+### Checklist for agent definition changes
+
+- [ ] Agent file `agents/<name>.md` exists (or has been removed)
+- [ ] README agent definitions section updated
