@@ -1,7 +1,7 @@
 # RAPID Evolution: Pipeline to Toolkit
 
 ## Status
-Proposed — 2026-03-16
+Implemented — 2026-03-27 (was Proposed — 2026-03-16)
 
 ## Context
 
@@ -32,5 +32,13 @@ These are constraints on the tools, not stages in a pipeline. The model decides 
 - Skills remain valuable as encoded expertise — the quality of each "play" is what matters
 - The artifact system (externalized documents as handoff mechanisms) and commit convention remain infrastructure
 - Multi-agent patterns become the natural next step: teams debating solutions, parallel specialized reviewers, adversarial stress-testing
-- README and skill descriptions will need updating to reflect toolkit framing over pipeline framing
-- Leeroy will need a rewrite
+
+## What Changed (V2 Implementation)
+
+- **Removed 6 skills:** recon (native explore agents), solutioning (rarely used), tire-kicking (rarely used), pair-on (never used), leeroyyyyy (orchestrator anti-pattern), atomize (merged into planning)
+- **Simplified 10 skills:** removed pipeline language, role framing, orchestrator references
+- **Absorbed atomize into planning:** phase right-sizing is now a step in the planning skill
+- **Dissolved leeroyyyyy:** replaced by 3 role-based agent definitions (senior-dev, reviewer, planner) that compose skills and carry quality gate knowledge
+- **Added agent definitions layer:** three-layer architecture (mission → agents → skills) replaces the linear pipeline
+- **Quality gates preserved as agent knowledge:** plan before implement, pre-flight before implement, review after implement, address before deliver
+- **16 skills remain, organized by category** (Discover, Plan, Implement, Deliver, Reflect) instead of 5 mandatory stages
