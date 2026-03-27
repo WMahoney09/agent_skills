@@ -44,7 +44,7 @@ This is a **peer review between equals**. Treat the PR author as a fellow contri
 
 If the user specifies depth in the invocation (e.g., "thorough review of PR #3"), adjust accordingly.
 
-## Agent's Role
+## Workflow
 
 ### Step 1: Fetch the Changes
 

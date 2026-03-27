@@ -41,7 +41,7 @@ After presenting your observations, invite the human to share theirs. Listen, sy
 
 ### Autonomous Invocation
 
-When invoked by an orchestrator (e.g., as a post-leeroyyyyy step) or when the human is not present for dialogue, write the retro artifact directly from the agent's perspective alone. The agent's honest observations are valuable on their own — do not skip the retro just because there's no human to dialogue with.
+When invoked by an orchestrator or when the human is not present for dialogue, write the retro artifact directly from the agent's perspective alone. The agent's honest observations are valuable on their own — do not skip the retro just because there's no human to dialogue with.
 
 ## The Safe Space Principle
 

@@ -1,7 +1,7 @@
 ---
 name: clarify
 description: |
-  Ask clarifying questions to sharpen and deepen shared understanding built through recon and understanding skills.
+  Ask clarifying questions to sharpen and deepen shared understanding.
   TRIGGER when: the user asks for clarification on something ("What do you mean?", "Can you explain?", "I don't follow", "What does that mean?", "clarify for me"), uses the word "interrogative", seeks confirmation of their own understanding ("Am I understanding that right?", "Is that right?", "Am I wrong?", "Correct me if I'm wrong"), or when something in the discussion feels incomplete, contradictory, or ambiguous.
 ---
 
@@ -18,15 +18,6 @@ Use strategic questioning to:
 - **Reveal constraints** - Uncover limitations, dependencies, and tradeoffs not yet articulated
 - **Connect dots** - Help the person see relationships they may have missed
 - **Sharpen definitions** - Ensure aligned vocabulary and precise meaning
-
-## Your Role
-
-As the agent running this skill:
-- Ask questions that make the person think, not just answer
-- Listen for what's *not* being said as much as what is
-- Notice contradictions, gaps, and inconsistencies
-- Help distinguish between core principles and surface implementations
-- Guide exploration without leading to predetermined conclusions
 
 ## Question Types
 
@@ -68,7 +59,7 @@ These check understanding and invite deeper thought:
 - Someone describes a constraint but hasn't explained the *why*
 - A problem statement is clear, but the scope or success criteria are fuzzy
 - Multiple interpretations of the same statement are possible
-- You've gathered information (recon) and need to synthesize and test understanding
+- You've gathered information and need to synthesize and test understanding
 
 **Don't use clarify to:**
 - Be adversarial or argumentative
@@ -98,15 +89,13 @@ Not every gap needs immediate filling. Some things clarify through action. Judge
 
 ### Distinguish Between Questions for Understanding vs. Questions for Decision
 
-**Understanding questions** sharpen what's true (for Research and Align stages):
+**Understanding questions** sharpen what's true:
 - "How does the system currently work?"
 - "What constraints are we really bound by?"
 
-**Decision questions** help choose between options (for Align (solutioning) and beyond):
+**Decision questions** help choose between options:
 - "Which approach fits better?"
 - "What should we prioritize?"
-
-Stay focused on understanding during research phases.
 
 ## Closure Criteria
 
@@ -117,14 +106,6 @@ End clarify when:
 - [ ] Both parties feel genuinely understood
 - [ ] The foundation is solid enough to move forward
 - [ ] Further questions would feel repetitive or unproductive
-
-## Closing the Phase
-
-When interrogation has sharpened understanding, summarize and test closure:
-
-**"Here's what I'm now understanding: [summarize the clarified points]. Is that sharper and more accurate? What else should we examine?"**
-
-If there are still loose threads, continue. If aligned, you're ready to hand off to the next phase.
 
 ## Notes
 

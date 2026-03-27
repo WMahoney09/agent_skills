@@ -1,13 +1,13 @@
 ---
 name: pre-flight
 description: |
-  Review the implementation plan for gaps, contradictions, and opportunities before execution. Final check before the Implement stage begins.
+  Validate an implementation plan for gaps, contradictions, and opportunities before execution.
   TRIGGER when: a plan exists and the user asks to validate it before starting ("check the plan", "review the plan", "pre-flight this", "anything we're missing", "are we ready to start").
 ---
 
 # Pre-Flight: Plan Validation and Optimization
 
-This skill performs a thorough review of the implementation plan to catch issues before they derail work during the Implement stage.
+Review an implementation plan to catch issues before they derail work during execution.
 
 ## Goal
 
@@ -17,23 +17,13 @@ Validate the plan by identifying and surfacing:
 - **Open Questions** - Ambiguities that need clarification before proceeding
 - **Opportunities** - Ways to simplify steps, reduce complexity, or clarify sequencing
 
-## Your Role
-
-- Provide the finalized plan from the Plan stage
-- Review the findings
-- Decide on changes before moving to Implement
-- Flag any items you want adjusted before proceeding
-
-## Agent's Role
-
-The agent conducting the pre-flight review should work systematically through the plan, checking for:
+## Review Dimensions
 
 ### 1. Completeness & Gaps
 
 - Does every step have a clear outcome or deliverable?
 - Are all dependencies listed, or are there implicit ones?
 - Are there placeholders like "TBD" or "TK" that need resolution?
-- Does the plan address all requirements from the Research stage?
 - Is the success criteria for each step actually verifiable?
 - Are error cases or edge cases addressed?
 - Are there steps that depend on external factors (API responses, team decisions, etc.) that aren't called out?
@@ -42,7 +32,7 @@ The agent conducting the pre-flight review should work systematically through th
 
 - Do any steps conflict with each other?
 - Are there circular dependencies (A depends on B, B depends on A)?
-- Do any steps contradict the constraints identified during Research?
+- Do any steps contradict the stated constraints?
 - Are there mutually exclusive decisions that both got included?
 - Do the gotchas mentioned actually align with how the solution is proposed?
 
@@ -71,7 +61,7 @@ The agent conducting the pre-flight review should work systematically through th
 
 ## Review Output
 
-Present your findings as:
+Present findings as:
 
 **Issues Found:**
 - List each issue with:
@@ -86,21 +76,10 @@ Present your findings as:
 **Questions for the Person:**
 - Any clarifications needed on how the person wants issues resolved
 
-**Confidence Level:**
-- Provide an assessment: "Plan is ready to implement" vs. "Issues should be resolved before the Implement stage" vs. "Critical issues found, recommend returning to the Plan stage"
+**Confidence Assessment:**
+- "Plan is ready to implement" vs. "Issues should be resolved first" vs. "Critical issues found, recommend revising the plan"
 
-## Handling Issues
-
-### If critical issues are found:
-Recommend returning to the Plan stage to resolve them before proceeding. This prevents implementing based on a flawed plan.
-
-### If minor issues are found:
-Flag them so the person can decide: proceed with the caveat in mind, or adjust the plan first.
-
-### If no major issues are found:
-Confirm that the plan is solid and ready for the Implement stage.
-
-## What Constitutes Different Severity Levels
+## Severity Definitions
 
 **Critical:**
 - Circular dependencies
@@ -119,24 +98,19 @@ Confirm that the plan is solid and ready for the Implement stage.
 - Steps that could be clearer
 - Non-blocking clarifications needed
 
+## Handling Issues
+
+- **Critical issues found:** Recommend revising the plan before proceeding. Implementing on a flawed plan compounds problems.
+- **Minor issues found:** Flag them so the person can decide: proceed with the caveat in mind, or adjust the plan first.
+- **No major issues found:** Confirm the plan is solid and ready for execution.
+
 ## Artifact
 
-Produces inline findings (not saved to a file). See `ARTIFACT.md` for the canonical output format. Generated at the end of each pre-flight cycle.
-
-## Closure Criteria
-
-Pre-flight is complete when:
-
-- [ ] All issues (critical and major) have been identified and listed
-- [ ] Opportunities for optimization have been noted
-- [ ] Recommendations for fixes have been provided
-- [ ] Questions for clarification are explicit
-- [ ] A confidence level has been assigned
-- [ ] The person has decided how to proceed
+Produces inline findings (not saved to a file). See `ARTIFACT.md` for the canonical output format.
 
 ## Notes
 
-- Pre-flight is a sanity check, not a redesign. If major rework is needed, that's a signal to go back to the Plan stage.
-- The goal is to catch preventable problems before they cause delays during Implement.
-- Small details can often be resolved during the Implement stage; pre-flight focuses on structural issues.
+- Pre-flight is a sanity check, not a redesign. If major rework is needed, that's a signal to go back and revise the plan.
+- The goal is to catch preventable problems before they cause delays during execution.
+- Small details can often be resolved during implementation; pre-flight focuses on structural issues.
 - A simplified, well-sequenced plan is better than a correct-but-over-engineered one.

@@ -1,14 +1,13 @@
 ---
 name: commit
 description: |
-  Stage and commit changes with a consistent, typed commit convention. Can be invoked directly by the user or used by other skills (e.g., produce) to manage git history.
+  Stage and commit changes with a consistent, typed commit convention.
   TRIGGER when: the user asks to commit changes ("commit this", "let's commit", "save our progress", "commit what we have"), or after completing implementation work and the user signals readiness to commit.
-agent-invocation: user-invoked-and-referenced
 ---
 
 # Commit: Typed Commits with Clear Intent
 
-This skill governs how changes are staged and committed. It can be invoked directly to commit current working changes, or referenced by other skills (such as `produce`) to ensure a consistent commit convention throughout execution.
+This skill governs how changes are staged and committed.
 
 ## Commit Type Prefixes
 
@@ -42,16 +41,6 @@ Every commit message must begin with one of four type prefixes, determined by cl
 ## Examples
 
 ```
-[plan] Add authentication implementation plan
-
-- Covers login flow, session handling, and middleware strategy
-- Identifies dependencies between auth and user profile tasks
-
-[plan/docs] Add authentication plan and update architecture overview
-
-- Add implementation plan covering login flow and middleware strategy
-- Update architecture doc to reflect new auth layer
-
 [docs] Document order API endpoints and validation rules
 
 - Add endpoint reference for POST /api/orders
@@ -63,12 +52,6 @@ Every commit message must begin with one of four type prefixes, determined by cl
 - Generate and sign JWT tokens on successful login
 - Add middleware that validates tokens on protected routes
 - Return 401 with structured error on invalid or expired tokens
-
-[code] Add order creation form and API handler
-
-- Build OrderForm component with field validation
-- Implement POST /api/orders with schema validation
-- Wire form submission to API and handle error states
 ```
 
 ## When Invoked Directly
@@ -81,23 +64,9 @@ When a user invokes `/commit`, the agent should:
 4. **Write the commit** — follow the format above: typed prefix, brief title, detailed body
 5. **Confirm completion** — report the commit(s) made with their messages
 
-## When Invoked by Another Skill
+## Execution Rules
 
-Skills like `produce` and `revise` invoke `/commit` via the Skill tool after staging their changes. When invoked this way:
-
-1. **Staging is already done** — the calling skill has staged the relevant files with `git add`
-2. **Inspect staged changes** — run `git diff --cached --name-only` to determine what's staged
-3. **Determine the type prefix** — classify using the staged files (same rules as above)
-4. **Write and create the commit** — follow the message format with typed prefix, brief title, and detailed body
-5. **Report the commit** — output the short hash and commit message
-
-The calling skill owns **what to stage and when to commit**. This skill owns **type classification and message formatting**.
-
-If the calling skill specifies additional metadata (e.g., revision trailers from `/revise`), append them after the body.
-
-**Execution rules for committing:**
-
-1. **One command per Bash call** — never chain with `&&`, `||`, `;`, or pipes. See CLAUDE.md's "Bash Anti-Patterns" for the full list.
+1. **One command per Bash call** — never chain with `&&`, `||`, `;`, or pipes.
 2. **Use `git -C /path`** instead of `cd /path && git` when operating on a repo outside the working directory.
 3. **For multi-line commit messages**, write the message to `/tmp/commit_msg.txt` using the Write tool, then commit with `git commit -F /tmp/commit_msg.txt`. Never use shell substitution like `git commit -m "$(cat <<'EOF'...)"`.
 4. **Separate `git add` and `git commit`** into individual Bash calls.

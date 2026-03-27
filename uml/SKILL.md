@@ -110,7 +110,7 @@ When ambiguous, **default to sequence** — it's the more commonly needed mode. 
 
 ## Before/After
 
-When a proposed change is in context (e.g., during solutioning or planning), the skill can show **current state and proposed state** as two separate diagrams, clearly labeled. This helps the user see exactly what changes and where the seams are.
+When a proposed change is in context (e.g., during solution exploration or planning), the skill can show **current state and proposed state** as two separate diagrams, clearly labeled. This helps the user see exactly what changes and where the seams are.
 
 ## Input
 
@@ -129,7 +129,7 @@ Produces inline ASCII UML output (not saved to a file by default). See `ARTIFACT
 ## Notes
 
 - ASCII diagrams are designed for monospace environments — they will not align correctly in proportional fonts
-- The agent must have sufficient codebase context to produce accurate diagrams — if context is lacking, use Recon first
+- The agent must have sufficient codebase context to produce accurate diagrams — if context is lacking, investigate the codebase first
 - Diagrams should reflect the actual code, not idealized architecture — accuracy over aesthetics
 - Keep diagrams focused; a diagram that tries to show everything shows nothing
 - When the user says "zoom in on [node]", that's a continuation of the same skill invocation — produce a new focused diagram
