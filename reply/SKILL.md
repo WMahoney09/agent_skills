@@ -206,6 +206,13 @@ If a comment ID from the `Addresses:` trailer doesn't appear in the pre-fetched 
 ⚠️  Comment #999 not found on PR #N. The comment may have been deleted or the ID in the Addresses: trailer may be incorrect.
 ```
 
+## Execution Rules
+
+1. **One command per Bash call** — never chain with `&&`, `||`, `;`, or pipes.
+2. **Never use shell substitution** — `$(cat ...)`, `$(...)`, or backticks in Bash arguments are prohibited. They cause permission prompts that block autonomous execution.
+3. **For `gh api` POST calls**, write the JSON payload to `/tmp/<filename>.json` using the Write tool, then post with `gh api <endpoint> --input /tmp/<filename>.json`. Never use `--field body="$(cat ...)"`.
+4. **Use `git -C /path`** instead of `cd /path && git` when operating on a repo outside the working directory.
+
 ## Closure Criteria
 
 Reply is complete when:
