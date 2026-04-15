@@ -113,13 +113,19 @@ Applies to any HTML, JSX, TSX file, and JS/TS files that render UI:
 
 ---
 
+> **Formatting note:** Within each section below, number top-level issues with explicit sequential numbers (`1.`, `2.`, `3.`, …) rather than relying on markdown auto-numbering — the output may be rendered in a TUI that doesn't auto-number. Sub-bullets (Where / Why it matters / Suggestion) stay as indented bullets.
+
 **Critical Issues**
 > Must be resolved before merge. These are blockers.
 
-- [Issue description]
-  - **Where:** [file:line or area of the diff]
-  - **Why it matters:** [specific risk or consequence]
-  - **Suggestion:** [recommended fix or direction]
+1. [Issue description]
+   - **Where:** [file:line or area of the diff]
+   - **Why it matters:** [specific risk or consequence]
+   - **Suggestion:** [recommended fix or direction]
+2. [Next issue description]
+   - **Where:** …
+   - **Why it matters:** …
+   - **Suggestion:** …
 
 *(If none: "None found.")*
 
@@ -128,10 +134,14 @@ Applies to any HTML, JSX, TSX file, and JS/TS files that render UI:
 **Major Issues**
 > Significant problems that should be resolved. May be blocking depending on risk tolerance.
 
-- [Issue description]
-  - **Where:** [file:line or area of the diff]
-  - **Why it matters:** [specific risk or consequence]
-  - **Suggestion:** [recommended fix or direction]
+1. [Issue description]
+   - **Where:** [file:line or area of the diff]
+   - **Why it matters:** [specific risk or consequence]
+   - **Suggestion:** [recommended fix or direction]
+2. [Next issue description]
+   - **Where:** …
+   - **Why it matters:** …
+   - **Suggestion:** …
 
 *(If none: "None found.")*
 
@@ -140,9 +150,12 @@ Applies to any HTML, JSX, TSX file, and JS/TS files that render UI:
 **Minor Issues**
 > Non-blocking. Worth addressing but won't hold up a merge.
 
-- [Issue description]
-  - **Where:** [file:line or area of the diff]
-  - **Suggestion:** [recommended improvement]
+1. [Issue description]
+   - **Where:** [file:line or area of the diff]
+   - **Suggestion:** [recommended improvement]
+2. [Next issue description]
+   - **Where:** …
+   - **Suggestion:** …
 
 *(If none: "None found.")*
 
@@ -151,9 +164,12 @@ Applies to any HTML, JSX, TSX file, and JS/TS files that render UI:
 **Gaps & Inconsistencies**
 > Missing tests, undocumented behavior, pattern divergence, or things that don't quite add up.
 
-- [Gap description]
-  - **Where:** [location]
-  - **Detail:** [what's missing or inconsistent]
+1. [Gap description]
+   - **Where:** [location]
+   - **Detail:** [what's missing or inconsistent]
+2. [Next gap description]
+   - **Where:** …
+   - **Detail:** …
 
 *(If none: "None found.")*
 
@@ -162,7 +178,8 @@ Applies to any HTML, JSX, TSX file, and JS/TS files that render UI:
 **Opportunities**
 > Improvements that go beyond the current change but are worth noting.
 
-- [Opportunity description]
+1. [Opportunity description]
+2. [Next opportunity description]
 
 *(If none: "None identified.")*
 

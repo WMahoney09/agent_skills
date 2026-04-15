@@ -15,38 +15,55 @@
 
 ---
 
+> **Formatting note:** Number top-level issues within each section using explicit sequential numbers (`1.`, `2.`, `3.`, …) — do not rely on markdown auto-numbering, since the output may be read in a TUI that doesn't auto-number.
+
 ## Critical Issues
 > Must be resolved before merge.
 
-- <issue description>
-  - **Where:** <file:line or area>
-  - **Why it matters:** <specific risk or consequence>
-  - **Suggestion:** <recommended fix>
+1. <issue description>
+   - **Where:** <file:line or area>
+   - **Why it matters:** <specific risk or consequence>
+   - **Suggestion:** <recommended fix>
+2. <next issue description>
+   - **Where:** …
+   - **Why it matters:** …
+   - **Suggestion:** …
 
 ## Major Issues
 > Significant problems that should be resolved.
 
-- <issue description>
-  - **Where:** <file:line or area>
-  - **Why it matters:** <specific risk or consequence>
-  - **Suggestion:** <recommended fix>
+1. <issue description>
+   - **Where:** <file:line or area>
+   - **Why it matters:** <specific risk or consequence>
+   - **Suggestion:** <recommended fix>
+2. <next issue description>
+   - **Where:** …
+   - **Why it matters:** …
+   - **Suggestion:** …
 
 ## Minor Issues
 > Non-blocking. Worth addressing but won't hold up a merge.
 
-- <issue description>
-  - **Where:** <file:line or area>
-  - **Suggestion:** <recommended improvement>
+1. <issue description>
+   - **Where:** <file:line or area>
+   - **Suggestion:** <recommended improvement>
+2. <next issue description>
+   - **Where:** …
+   - **Suggestion:** …
 
 ## Gaps & Inconsistencies
 
-- <gap description>
-  - **Where:** <location>
-  - **Detail:** <what's missing or inconsistent>
+1. <gap description>
+   - **Where:** <location>
+   - **Detail:** <what's missing or inconsistent>
+2. <next gap description>
+   - **Where:** …
+   - **Detail:** …
 
 ## Opportunities
 
-- <opportunity description>
+1. <opportunity description>
+2. <next opportunity description>
 
 ---
 
