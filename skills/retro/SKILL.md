@@ -28,10 +28,10 @@ You are running a retrospective — not a status report. Your job is to surface 
 ### Review the Session
 
 Before sharing observations, orient yourself:
-- Check the git log for the workstream — what was committed, in what order, what types?
-- Read workstream artifacts in `docs/workstreams/<slug>/` to understand which skills ran and what they produced
+- Check the git log for the work — project repo for project work, agent-harness repo for harness work
+- Read any artifacts produced during the session (e.g., `docs/workstreams/<slug>/` for project work; modified skill or hook files for harness work)
 - Reflect on the conversation: where did things flow, where did they stall?
-- Note any deviations from the expected RAPID sequence
+- Note any deviations from expected sequence or convention
 
 ### Lead with Candor
 
@@ -77,19 +77,25 @@ For each skill:
 - **Observation:** What happened when using this skill — what went well, what was confusing, what could be better
 - **Suggestion:** A concrete improvement, if you have one
 
-## Artifact
+## Applying Findings
 
-Produces `retro-report.md` in `docs/workstreams/<work-item>/`. See `ARTIFACT.md` for the full template. Generated when the retro synthesis is complete.
+Findings from a retro route based on what they imply:
+
+- **Project-specific findings** — applied in-situ to the consuming project's own steering files (their CLAUDE.md, project docs, etc.). No artifact.
+- **Small harness findings** — applied directly to the relevant file in the harness repo (a skill description tweak, a global CLAUDE.md edit, etc.). No artifact.
+- **Cross-cutting harness decisions** — written to `agent-harness/retros/YYYY-MM-DD-<slug>.md` as an ADR. Reserved for decisions that touch multiple files or make a non-obvious tradeoff worth preserving. See `ARTIFACT.md` for the template.
+
+The skill itself is one skill; the routing happens per-finding, not by mode. Most retros do not produce an ADR — they produce edits in-situ. The ADR is the exception: used when future readers (months later, or a different agent) would benefit from the preserved reasoning behind a harness-shape decision.
 
 ## Closure Criteria
 
 The retro is complete when:
 
-- [ ] Agent has reviewed the session context (git log, workstream artifacts, conversation)
+- [ ] Agent has reviewed the session context (git log, artifacts, conversation)
 - [ ] Agent has shared observations organized by retro categories
 - [ ] Human has had opportunity to contribute (unless autonomous invocation)
 - [ ] Observations are specific and actionable — not generic platitudes
-- [ ] `retro-report.md` has been written to the workstream directory
+- [ ] Findings have been routed: project edits applied in-situ, small harness edits applied to the relevant file, and any cross-cutting harness decision captured as an ADR in `agent-harness/retros/`
 
 ## Notes
 
