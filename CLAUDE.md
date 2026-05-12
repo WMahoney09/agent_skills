@@ -1,64 +1,64 @@
-# Agentic Skills — Project Instructions
+# Agent Harness — Project Instructions
 
-## Skills Library Setup
+This repository is the single source of truth for Will's Claude Code harness. It contains everything Claude Code reads at the user level:
 
-`~/.claude/skills/` is a **symlink** pointing to this project directory (`/Users/will/agentic/skills/`). This means:
+| Component | What it is | Where it installs to |
+|---|---|---|
+| `skills/` | Slash-command skills | `~/.claude/skills/` (symlinked dir) |
+| `agents/` | Role-based agent definitions | `~/.claude/agents/` (symlinked dir) |
+| `hooks/` | Hook scripts referenced by `user/settings.json` | `~/.claude/hooks/` (symlinked dir) |
+| `user/CLAUDE.md` | Always-loaded global instructions | `~/.claude/CLAUDE.md` |
+| `user/settings.json` | Permissions, hooks config, statusline, etc. | `~/.claude/settings.json` |
+| `user/statusline.sh` | Status line script | `~/.config/claude-code/statusline.sh` |
+| `retros/` | ADR-style decision records for harness changes | not installed; read in place |
+| `docs/` | Repo docs | not installed |
 
-- **Always work in this project directory** when creating, editing, deleting, or renaming skills
-- Do NOT read from or write to `~/.claude/skills/` directly — use this directory instead
-- Changes here are automatically reflected in Claude's skill loader via the symlink
-- New skill directories created here are immediately available as `/skill-name` commands without any additional installation step
+`setup.sh` performs the install (symlinks + MCP server registrations). Edit files in this repo; Claude Code sees changes immediately through the symlinks.
+
+## Working in this repo
+
+Always edit files in this project directory, not in `~/.claude/` directly. Changes propagate via the symlinks.
 
 ### Operations reference
 
 | Task | What to do |
 |---|---|
-| Create a skill | `mkdir skill-name` → write `skill-name/SKILL.md` |
-| Edit a skill | Edit `skill-name/SKILL.md` directly in this repo |
-| Delete a skill | Remove the `skill-name/` directory from this repo |
+| Create a skill | `mkdir skills/<name>` → write `skills/<name>/SKILL.md` |
+| Edit a skill | Edit `skills/<name>/SKILL.md` |
+| Delete a skill | Remove `skills/<name>/` |
 | Rename a skill | Rename the directory; update `name:` in frontmatter; update README |
-
-Always follow the README Sync Rule below when making any of these changes.
-
-## Agent Definitions Setup
-
-`~/.claude/agents/` is a **symlink** pointing to `agents/` in this project directory. This means:
-
-- Agent definitions live alongside skills in this repo
-- Changes are immediately available to Claude Code via the symlink
-- Agent definitions are role-based templates that compose skills into areas of responsibility
-
-### Operations reference
-
-| Task | What to do |
-|---|---|
 | Create an agent | Write `agents/<name>.md` with YAML frontmatter |
-| Edit an agent | Edit `agents/<name>.md` directly in this repo |
-| Delete an agent | Remove `agents/<name>.md` from this repo |
-| Rename an agent | Rename the file; update `name:` in frontmatter; update README |
+| Edit an agent | Edit `agents/<name>.md` |
+| Add a hook | Write the script in `hooks/` (chmod +x), register it in `user/settings.json` |
+| Edit global CLAUDE.md | Edit `user/CLAUDE.md` (this is what loads in every conversation) |
+| Edit global settings | Edit `user/settings.json` |
 
-Always follow the README Sync Rule below when making any of these changes.
+Always follow the README sync rule below.
 
-## Docs Convention
+## Retros
 
-The `docs/` directory at the project root is the home for all project documentation and artifacts:
+Findings from `/retro` route based on scope:
 
-- **`docs/workstreams/<slug>/`** — Artifacts (problem statements, plans, review reports, etc.). The `<slug>` is established by the `/understanding` skill or by `/planning` when it creates the workstream directory.
-- **`docs/reference/`** — Project reference material (architecture decisions, ontology, topology, etc.).
+- **Project-specific findings** — applied in-situ to the consuming project's own steering files (their `CLAUDE.md`, their docs). No artifact written.
+- **Small harness findings** — applied directly to the relevant file in this repo (a skill description tweak, a global CLAUDE.md edit). No artifact.
+- **Cross-cutting harness decisions** — written to `retros/YYYY-MM-DD-<slug>.md` as an ADR. Reserved for changes that touch multiple files or make a non-obvious decision worth preserving (e.g., the comment-mode-only rule that became a `CLAUDE.md` section *and* a hook).
 
-Artifacts are project-local — saved to `docs/workstreams/<slug>/`, never to tool-specific directories like `.claude/*`, `.cursor/*`, or home directory conventions like `~/.claude/*`.
+The retros directory is a decision log explaining *why the harness looks the way it does today*. Future readers (human or agent) should be able to reconstruct the reasoning behind harness shape from these entries.
 
-## README Sync Rule
+## README sync rule
 
-When any skill or agent definition is added, updated, removed, or renamed in this repository, the `README.md` must be updated to reflect the change.
+When any skill, agent, or hook is added, updated, removed, or renamed in this repository, update `README.md` to reflect the change.
 
-### Checklist for skill changes
+### Checklist
 
-- [ ] Skill directory with `SKILL.md` exists (or has been removed)
-- [ ] README skill listing updated
-- [ ] README Meta section updated (if applicable)
+- [ ] Component file/directory exists (or has been removed)
+- [ ] README listing updated
 
-### Checklist for agent definition changes
+## Docs convention (for consuming projects)
 
-- [ ] Agent file `agents/<name>.md` exists (or has been removed)
-- [ ] README agent definitions section updated
+The `docs/` directory in *consuming projects* (not this repo) holds project-local documentation:
+
+- `docs/workstreams/<slug>/` — artifacts from skill output (problem statements, plans, review reports)
+- `docs/reference/` — project reference material
+
+Artifacts are project-local — saved to the consuming project's `docs/workstreams/<slug>/`, never to tool-specific directories like `.claude/*`, `.cursor/*`, or home directory conventions like `~/.claude/*`.

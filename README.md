@@ -1,8 +1,28 @@
-# Agentic Skills & Agent Definitions
+# Agent Harness
 
-A toolkit of skills and agent definitions for agentic software delivery.
+Will's Claude Code harness — a single repository for everything Claude Code reads at the user level. Skills, agents, hooks, global instructions, settings, and statusline all live here. `setup.sh` symlinks each piece into the install location Claude Code expects.
 
-> RAPID V2 — evolved from the [V1 pipeline](docs/reference/rapid-v1-readme.md). Skills are tools the agent reaches for, not stages it marches through.
+---
+
+## Layout
+
+```
+agent-harness/
+  README.md
+  CLAUDE.md          ← contributor guide (loaded when cwd is this repo)
+  setup.sh           ← install script
+
+  skills/            → ~/.claude/skills
+  agents/            → ~/.claude/agents
+  hooks/             → ~/.claude/hooks
+  user/
+    CLAUDE.md          → ~/.claude/CLAUDE.md (global instructions)
+    settings.json      → ~/.claude/settings.json
+    statusline.sh      → ~/.config/claude-code/statusline.sh
+
+  retros/            ← harness decision records (not installed)
+  docs/              ← repo docs (not installed)
+```
 
 ---
 
@@ -87,8 +107,36 @@ Tools for shipping and iterating on the work.
 
 Tools for understanding and improving.
 
-- **`/retro`** — Run a session retrospective. Produces `retro-report.md`.
+- **`/retro`** — Run a session retrospective. Findings either apply in-situ or produce an ADR in `retros/` for cross-cutting harness changes.
 - **`/uml`** — Produce ASCII UML diagrams (sequence and component) to map code topology.
+
+---
+
+## Hooks
+
+Deterministic pre/post-tool-use hooks live in `hooks/` and are wired in `user/settings.json`.
+
+| Hook | When it fires | What it does |
+|---|---|---|
+| `block-pr-review-state.sh` | `PreToolUse` on `Bash` | Blocks `gh pr review --approve`/`--request-changes` and equivalent `gh api .../reviews -f event=APPROVE/REQUEST_CHANGES`. Comment-mode is the only allowed state for reviews posted under Will's account. |
+
+---
+
+## Retros (Decision Log)
+
+`retros/` holds ADR-style records for harness-shaping decisions. Entries explain *why* the harness looks the way it does — useful when reading a hook, a rule in `user/CLAUDE.md`, or a skill change months after the fact.
+
+Not every retro produces an entry here. Project-specific findings get applied in-situ to the consuming project. Small harness tweaks (e.g., a skill description edit) go straight into the file. Only cross-cutting decisions that need preserved reasoning live in `retros/`.
+
+---
+
+## Installation
+
+```sh
+./setup.sh
+```
+
+Idempotent. Creates symlinks from the expected Claude Code locations (`~/.claude/*`, `~/.config/claude-code/statusline.sh`) into this repo. Backs up existing files. Registers MCP servers (context7, render, vercel, figma) with the `claude` CLI.
 
 ---
 
@@ -96,7 +144,7 @@ Tools for understanding and improving.
 
 ### Skill file structure
 
-Every skill directory contains a `SKILL.md` conforming to [`SKILL.spec.md`](./SKILL.spec.md). Skills that produce artifacts also contain an `ARTIFACT.md` conforming to [`ARTIFACT.spec.md`](./ARTIFACT.spec.md).
+Every skill directory contains a `SKILL.md` conforming to [`skills/SKILL.spec.md`](./skills/SKILL.spec.md). Skills that produce artifacts also contain an `ARTIFACT.md` conforming to [`skills/ARTIFACT.spec.md`](./skills/ARTIFACT.spec.md).
 
 ### Commit convention
 
@@ -108,11 +156,11 @@ Every skill directory contains a `SKILL.md` conforming to [`SKILL.spec.md`](./SK
 
 ---
 
-## How Skills Work
+## How skills work
 
 Skills are stored in directories with a `SKILL.md` file inside. Each skill includes YAML frontmatter specifying `name` and `description`, which determines the `/slash-command` and invocation behavior.
 
-## Where Things Live
+## Where things live
 
 | Type | Path | Scope |
 |------|------|-------|
@@ -120,13 +168,6 @@ Skills are stored in directories with a `SKILL.md` file inside. Each skill inclu
 | Skills (project) | `.claude/skills/<name>/SKILL.md` | One project |
 | Agents (personal) | `~/.claude/agents/<name>.md` | All your projects |
 | Agents (project) | `.claude/agents/<name>.md` | One project |
-
-## Portability
-
-These skills are **tool-agnostic and portable**:
-- Works with Claude Code (native skill + agent support)
-- Works with Cursor (agents can follow the workflow)
-- Works with any AI coding agent (Windsurf, Aider, etc.)
 
 ## Sources
 

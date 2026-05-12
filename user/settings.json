@@ -1,0 +1,82 @@
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "permissions": {
+    "allow": [
+      "Skill(*)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs",
+      "Bash(gh *)",
+      "Bash(git *)",
+      "Bash(npx tsc *)",
+      "Bash(npx eslint *)",
+      "Bash(npx vitest *)",
+      "Bash(npm test *)",
+      "Bash(npm run *)",
+      "Bash(npm view *)",
+      "Bash(npm install *)",
+      "Bash(node ace *)",
+      "Read(~/.claude/skills/**)",
+      "Read(~/.claude/projects/*/memory/**)",
+      "Write(~/.claude/projects/*/memory/**)",
+      "Edit(~/.claude/projects/*/memory/**)",
+      "Bash(mkdir -p ~/.claude/projects/*/memory)",
+      "Read(~/agentic/tooling/**)",
+      "Edit(~/agentic/tooling/**)",
+      "Write(~/agentic/tooling/**)",
+      "Read(//tmp/**)",
+      "Write(//tmp/**)",
+      "Edit(//tmp/**)",
+      "Read(//private/tmp/**)",
+      "Write(//private/tmp/**)",
+      "Edit(//private/tmp/**)",
+      "Read(//dev/null)",
+      "WebSearch",
+      "mcp__render__get_deploy",
+      "mcp__render__list_deploys",
+      "mcp__render__list_logs",
+      "mcp__figma__use_figma",
+      "mcp__claude_ai_Circleback__SearchMeetings",
+      "mcp__claude_ai_Circleback__GetTranscriptsForMeetings",
+      "Bash(git:*)",
+      "Bash(base64:*)"
+    ],
+    "defaultMode": "auto"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/will/.claude/hooks/block-pr-review-state.sh"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.config/claude-code/statusline.sh"
+  },
+  "enabledPlugins": {
+    "ideate@gnar": true,
+    "ignite@gnar": true,
+    "gnar-react@gnar": true,
+    "spacebase@gnar": true
+  },
+  "extraKnownMarketplaces": {
+    "gnar": {
+      "source": {
+        "source": "github",
+        "repo": "TheGnarCo/agent-skills"
+      }
+    }
+  },
+  "effortLevel": "high",
+  "theme": "light-daltonized",
+  "editorMode": "vim",
+  "skipAutoPermissionPrompt": true
+}
